@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Login from './Paginas/Login/Index.js'
+import Login from './Paginas/login/Login'
 
  function Rotas() {
   return (
