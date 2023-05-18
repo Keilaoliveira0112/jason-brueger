@@ -1,14 +1,29 @@
 import styled from "styled-components";
 
 export const Section = styled.section`
-min-height: 100vh;
-display:grid;
-place-items: center;
-grid-template-rows: 41rem 11rem 50rem;
+  grid-template-rows: 40vh 18vh 30vh;
+  min-height: 100vh;
+  display:grid;
+  place-items: center;
+  @media only screen and (min-width: 600px) {
+    grid-template-rows: 48vh 18vh 30vh;
+  }
 `
 export const H1 = styled.h1`
-font-size: 9rem;
-color: #711D17;
-font-family: 'Rubik Wet Paint', cursive;
+  font-size: 6rem;
+  color: #711D17;
+  font-family: 'Rubik Wet Paint', cursive;
+  @media only screen and (min-width: 600px) {
+    font-size: 9rem;
+  }
+  @media only screen and (min-width: 1024px) {
+    font-size: 9rem;
+  }
+`
+export const LogoImg = styled.img`
+    width: 40vw;
+    @media only screen and (min-width: 1024px) {
+      width: 15vw;
+    }
 `
  

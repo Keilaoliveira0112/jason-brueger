@@ -3,13 +3,9 @@ import Login from './Paginas/login/Login'
 
  function Rotas() {
   return (
-        <BrowserRouter>
-           
+        <BrowserRouter>        
             <Routes>
-
-                <Route path="/" element={<Login />} />
-               
-
+                <Route path="/" element={<Login />} />            
             </Routes>
         </BrowserRouter>
     )
