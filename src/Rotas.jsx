@@ -7,7 +7,7 @@ import Login from './Paginas/Login/Index.js'
            
             <Routes>
 
-                <Route path="/" element={<Login />} />
+                <Route path="/" element={<Login/>} />
                
 
             </Routes>
