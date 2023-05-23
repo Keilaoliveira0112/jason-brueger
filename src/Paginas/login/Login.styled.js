@@ -41,4 +41,3 @@ color: #ffe000;
   font-size: 2.5rem;
 }
 `
- 
