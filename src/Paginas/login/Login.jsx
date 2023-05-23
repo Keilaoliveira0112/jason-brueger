@@ -1,19 +1,23 @@
 import Logo from '../../assets/Logo.svg'
-import { Section, H1, LogoImg, CreateForm } from "./Login.styled";
+import { Section, H1, LogoImg, CreateForm, ParagraphError } from "./Login.styled";
 import Button from '../../Components/button/Button';
 import Input from '../../Components/input/Input';
 import { useNavigate } from "react-router-dom";
 import { useState } from 'react';
-import { userLogin } from "../../API/Usuario";
+import { userLogin } from "../../API/login";
+/* import { Erro } from '../../Erros/Error'; */
 
 const Login = () => {
   const navigation = useNavigate()
      const [email, setEmail] = useState('')
      const [password, setSenha] = useState('')
+     const [error, setError] = useState(null); 
  
     const whenSaving = async (event) => {
      event.preventDefault();
- 
+          
+
+
      try{
        const signin = await userLogin(email, password)
        console.log(signin)
@@ -21,8 +25,9 @@ const Login = () => {
        navigation('/breakfast')
      }
      catch(error){
-        console.log('error:', error) 
-     }
+        setError(error.message)  
+        console.log(error)
+    }
  
    }
  
@@ -45,9 +50,10 @@ const Login = () => {
              placeholder='Senha'
              whenSaving={value => setSenha(value)}
            />
-        <Button text={'Entrar'} />
+            {error && <ParagraphError>{error}</ParagraphError>}
+           <Button text={'Entrar'} />
        </CreateForm>
      </Section> 
    )
- }
+}
 export default Login;

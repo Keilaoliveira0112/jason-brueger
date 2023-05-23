@@ -29,6 +29,15 @@ export const LogoImg = styled.img`
 export const CreateForm = styled.form`
 display: grid;
 justify-items: end;
-gap: 4rem;
+gap: 2.5rem;
 `
- 
+export const ParagraphError = styled.p`
+justify-self: center;
+color: #ffe000;
+@media only screen and (min-width: 600px) {
+  font-size: 2rem;
+}
+@media only screen and (min-width: 1024px) {
+  font-size: 2.5rem;
+}
+`
