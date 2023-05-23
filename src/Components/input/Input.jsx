@@ -1,13 +1,10 @@
 import { Text } from "./Input.styles";
 
 const Input = (props) => {
-  const whenTyped = (event) => {
-    props.whenSaving(event.target.value)
-  }
   return (
     <>
       <Text 
-        onChange={whenTyped}
+        onChange={props.onChange}
         type={props.type || 'text'}
         value={props.value}
         name={props.name}

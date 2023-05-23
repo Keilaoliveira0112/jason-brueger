@@ -9,9 +9,9 @@ export const userLogin = async (email, password) => {
           body: JSON.stringify({ email, password })
       });
   
-      if(response.status === 400) {
-          console.log(response.status);
-         throw new Error('Senha incorreta ou usuário não cadastrado!');
+      if(response.status >= 400 && response.status <= 500) {
+          console.log(response);
+         throw new Error('Verifique seus dados!');
       } 
       return response.json();
   }
