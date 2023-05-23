@@ -1,8 +1,8 @@
 import { SignIn } from "./Button.styles";
 
-const Button = ({text, onClick}) => {
+const Button = (props) => {
     return (
-      <SignIn className="botao" type="submit" onClick={onClick}>{text}</SignIn>
+      <SignIn type={props.type} >{props.text}</SignIn>
     )
   }
   
