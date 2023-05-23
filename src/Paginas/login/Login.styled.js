@@ -26,4 +26,9 @@ export const LogoImg = styled.img`
       width: 15vw;
     }
 `
+export const CreateForm = styled.form`
+display: grid;
+justify-items: end;
+gap: 4rem;
+`
  
