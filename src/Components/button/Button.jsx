@@ -2,7 +2,7 @@ import { SignIn } from "./Button.styles";
 
 const Button = (props) => {
     return (
-      <SignIn type={props.type} >{props.text}</SignIn>
+      <SignIn className={props.className} type={props.type} >{props.text}</SignIn>
     )
   }
   
