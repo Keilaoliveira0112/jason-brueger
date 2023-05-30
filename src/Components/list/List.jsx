@@ -1,6 +1,10 @@
 import { Li, ButtonAdd, DishName, Price } from './List.styles'
 
 const List = (props) => {
+  /* return (
+    <p>{props.name}</p>
+  ) */
+    
     return (
       <Li>
         <DishName>{props.name}</DishName>

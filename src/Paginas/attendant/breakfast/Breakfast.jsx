@@ -3,9 +3,17 @@ import LogoOut from '../../../assets/Logout.svg'
 import LogoAdd from '../../../assets/LogoAdd.svg'
 import Button from '../../../Components/button/Button';
 import { Header, Main, LogoImg, LogoImgOut, DivMenu, Item, LogoImgAdd } from '../breakfast/Breakfast.styled';
-import { React } from 'react'
+import { React } from 'react';
+import { useNavigate } from "react-router-dom";
 
 const Breakfast = () => {
+    const navigation = useNavigate();
+
+    const handleClick = (e) => {
+        e.preventDefault();
+        navigation('/resto-do-dia');
+    }
+
     return (
         <>
             <Header>
@@ -21,7 +29,7 @@ const Breakfast = () => {
                 <DivMenu>
                     <div>
                         <Button variant='secundary'>Café da manhã</Button>
-                        <Button variant='terciary'>Resto do dia</Button>
+                        <Button variant='terciary' onClick={handleClick}>Resto do dia</Button>
 
                         <div>
                             <select type="" id="">
