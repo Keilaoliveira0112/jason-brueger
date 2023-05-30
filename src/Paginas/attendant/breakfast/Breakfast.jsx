@@ -2,10 +2,17 @@ import Logo from '../../../../src/assets/Logo.svg'
 import LogoOut from '../../../assets/Logout.svg'
 import List from '../../../Components/list/List';
 import Button from '../../../Components/button/Button';
-import { Header, Main, LogoImg, LogoImgOut, ContainerButtons, Select, UlMenu, OrderResume, SectionMenu, TitleMenu, Pay, Payment } from '../breakfast/Breakfast.styled';
+import { Header, Main, LogoImg, LogoImgOut, DivMenu, Item, LogoImgAdd } from '../breakfast/Breakfast.styled';
 import { React } from 'react'
 
 const Breakfast = () => {
+    const navigation = useNavigate();
+
+    const handleClick = (e) => {
+        e.preventDefault();
+        navigation('/resto-do-dia');
+    }
+
     return (
         <>
             <Header>
@@ -21,10 +28,9 @@ const Breakfast = () => {
                 <SectionMenu>
                     <div>
                         <ContainerButtons>
-                        <Button variant='secundary'>Café da manhã</Button>
-                        <Button variant='terciary'>Resto do dia</Button>
+                            <Button variant='secundary'>Café da manhã</Button>
+                            <Button variant='terciary' onClick={handleClick}>Resto do dia</Button>
                         </ContainerButtons>
-
                         <Select>
                             <option disabled selected>Cova</option>
                             <option value="Cova1">Cova 1</option>

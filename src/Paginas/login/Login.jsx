@@ -18,6 +18,7 @@ const Login = () => {
 
         try {
             const signin = await userLogin(email, password)
+            localStorage.setItem('token', signin.accessToken)
             console.log(signin)
             if (signin.user.role === 'atendente') {
                 navigation('/breakfast')
