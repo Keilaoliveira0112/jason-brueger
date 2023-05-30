@@ -6,8 +6,8 @@ import Breakfast from './Paginas/attendant/breakfast/Breakfast';
   return (
         <BrowserRouter>        
             <Routes>
-                <Route path="/" element={<Login />} />
-                <Route path="/breakfast" element={<Breakfast />} />          
+                <Route exact path="/" element={<Login />} />
+                <Route exact path="/Breakfast" element={<Breakfast />} />          
             </Routes>
         </BrowserRouter>
     )
