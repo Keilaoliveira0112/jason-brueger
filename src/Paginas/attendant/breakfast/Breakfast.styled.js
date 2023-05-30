@@ -13,8 +13,17 @@ export const Header = styled.header`
 
 export const Main = styled.main `
     display: flex;
+    padding: 4rem 2rem 1rem 5rem;
     justify-content: space-between;
 
+`
+export const SectionMenu = styled.section`
+display: grid;
+gap: 2rem;
+margin-top: 85px;
+@media only screen and (min-width: 1024px) {
+  width: 32vw;
+}
 `
 export const LogoImg = styled.img`
     height: 133.3px;
@@ -49,10 +58,60 @@ export const DivMenu = styled.div`
     padding: 10rem;
  
 `
+
+export const ContainerButtons = styled.div `
+    display: flex;
+    gap: 3rem;
+`
+
+export const TitleMenu = styled.h3`
+text-align: center;
+height: 28px;
+width: 66px;
+
+background: #ffff;
+font-size: 2rem;
+font-family: 'Rubik Wet Paint', cursive;
+background-color: trasparent;
+color: #0D0A0B;
+font-weight: 100;
+border-radius: 0.5rem;
+@media only screen and (min-width: 1024px) {
+  width: 19vw;
+  height: 3.5vh;
+}
+`
+
+export const Select = styled.select`
+width: 13vw;
+height: 3vh;
+margin: 55px 0 55px 0;
+color: #711D17;
+font-size: 1.5rem;
+font-weight: bold;
+border-radius: 0.4rem;
+border: none;
+@media only screen and (min-width: 600px) {
+  width: 9vw;
+  height: 2.4vh;
+}
+@media only screen and (min-width: 1024px) {
+  width: 9vw;
+  height: 2.4vh;
+}
+`
+
+export const UlMenu = styled.ul`
+display: grid;
+gap: 1rem;
+`
+
+
 export const Item = styled.li`
     padding: 8px 10px 8px 24x;
     height: 4.3rem;
     width: 37.9rem;
+    margin-tp: 15px;
     left: 4.8rem;
     top: 43.7rem;
     border-radius: 0px;
@@ -71,5 +130,28 @@ export const Item = styled.li`
 export const LogoImgAdd = styled.img`
     width: 10rem;
     height: 10rem;
+`
+export const OrderResume = styled.section`
+background-color: #fff;
+width: 40vw;
+height: 53vw;
+margin-top: 85px;
+`
+
+export const Pay = styled.div `
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    background: #background: rgba(217, 217, 217, 1);
+
+
+`
+export const Payment = styled.div`
+    display: flex;
+    justify-content: space-arrond;
+    flex-direction: column;
+    margin-top: 28rem;
+    gap: 3rem;
+   
 `
 
