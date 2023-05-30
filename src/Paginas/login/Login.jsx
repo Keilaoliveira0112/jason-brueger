@@ -3,7 +3,7 @@ import { Section, H1, LogoImg, CreateForm, ParagraphError } from "./Login.styled
 import Button from '../../Components/button/Button';
 import Input from '../../Components/input/Input';
 import { useNavigate } from "react-router-dom";
-import { useState } from 'react';
+import { React, useState } from 'react';
 import { userLogin } from "../../API/login/login";
 
 const Login = () => {
@@ -53,7 +53,7 @@ const Login = () => {
                 />
                 {/* Se tiver o erro, irei exibir o erro */}
                 {error && <ParagraphError>{error}</ParagraphError>}
-                <Button type={'submit'} text={'Entrar'} />
+                <Button type='submit'> Entrar</Button> 
             </CreateForm>
         </Section>
     )

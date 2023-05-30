@@ -1,9 +1,10 @@
-import { SignIn } from "./Button.styles";
+import { ButtonContainer } from "./Button.styles";
 
 const Button = (props) => {
     return (
-      <SignIn className={props.className} type={props.type} >{props.text}</SignIn>
+        <ButtonContainer type={props.type} variant={props.variant}>{props.children}</ButtonContainer>
     )
   }
   
 export default Button
+
