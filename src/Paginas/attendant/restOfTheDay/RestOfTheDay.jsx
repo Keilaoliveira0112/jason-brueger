@@ -10,8 +10,8 @@ const RestOfTheDay = () => {
         <Main>
           <SectionMenu>
             <ContainerButtons>
-            <Button type={'button'} text={'Café da Manhã'} />
-            <Button type={'button'} text={'Resto do Dia'} />
+            <Button type='button' variant='terciary' children='Café da Manhã' />
+            <Button type='button' variant='secundary' children='Resto do Dia' />
             </ContainerButtons>
             <Select>
               <option disabled selected>Cova</option>

@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Login from './Paginas/login/Login';
 import Breakfast from './Paginas/attendant/breakfast/Breakfast';
-import RestOfTheDay from './Paginas/attendant/restOfTheDay/restOfTheDay';
+import RestOfTheDay from './Paginas/attendant/restOfTheDay/RestOfTheDay';
 
  function Rotas() {
   return (

@@ -18,26 +18,26 @@ export const ButtonContainer = styled.button `
   }
 
   ${({variant}) => variant === "primary" && css `
-     width: 22rem; 
-     height: 4.3rem;
-     margin-top: 7%;
-     background-color: #711D17;
-     padding: 10px 20px;
-     color: #F28705;
-     border: none;
-     border-radius: 5px;
-     font-size: 5px;
-     cursor: pointer;
-     @media only screen and (min-width: 600px) {
-        font-size: 1.5rem;
-     }
-     @media only screen and (min-width: 1024px) {
-     width: 20vw;
-     height: 10vh;
+    font-weight: bold;
+    font-family: 'Asap';
+    width: 22vw;
+    font-size: 1rem;
+    height: 2rem;
+    border-color: #FFFFFF;
+    background-color: rgb(113, 29, 23);
+    color: rgb(242, 135, 5);
+    border-radius: 0.3rem;
+    cursor: pointer;
+    @media only screen and (min-width: 600px) {
+      font-size: 1.5rem;
+    }
+    @media only screen and (min-width: 1024px) {
+      width: 20vw;
+      height: 10vh;
      
-     &::after {
-         content: '',
-        } 
+      &::after {
+        content: '',
+      } 
     }
     `}
 
