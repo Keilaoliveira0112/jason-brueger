@@ -14,4 +14,4 @@ export const userLogin = async (email, password) => {
          throw new Error('Verifique seus dados!');
       } 
       return response.json();
-  }
+}
