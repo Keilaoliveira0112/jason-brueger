@@ -1,26 +1,20 @@
 import styled from "styled-components";
 
-export const Header = styled.header`
-    display: flex;
-    justify-content: space-around;
-    align-items: stretch;
-    margin-top: 10%;
-    gap: 1.5vw;
-    margin: 1vh 2vw;
-    height: 7vh;
- 
-`
-
 export const Main = styled.main `
-    display: flex;
-    padding: 4rem 2rem 1rem 5rem;
-    justify-content: space-between;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   gap: 3rem;
+   @media only screen and (min-width: 600px) {
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: baseline;
+}
 
 `
 export const SectionMenu = styled.section`
 display: grid;
 gap: 2rem;
-margin-top: 85px;
 @media only screen and (min-width: 1024px) {
   width: 32vw;
 }
@@ -59,11 +53,6 @@ export const DivMenu = styled.div`
  
 `
 
-export const ContainerButtons = styled.div `
-    display: flex;
-    gap: 3rem;
-`
-
 export const TitleMenu = styled.h3`
 text-align: center;
 height: 28px;
@@ -81,26 +70,6 @@ border-radius: 0.5rem;
   height: 3.5vh;
 }
 `
-
-export const Select = styled.select`
-width: 13vw;
-height: 3vh;
-margin: 55px 0 55px 0;
-color: #711D17;
-font-size: 1.5rem;
-font-weight: bold;
-border-radius: 0.4rem;
-border: none;
-@media only screen and (min-width: 600px) {
-  width: 9vw;
-  height: 2.4vh;
-}
-@media only screen and (min-width: 1024px) {
-  width: 9vw;
-  height: 2.4vh;
-}
-`
-
 export const UlMenu = styled.ul`
 display: grid;
 gap: 1rem;

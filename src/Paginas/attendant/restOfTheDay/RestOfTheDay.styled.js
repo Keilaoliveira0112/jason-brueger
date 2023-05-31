@@ -54,7 +54,7 @@ border-radius: 0.5rem;
 @media only screen and (min-width: 600px) {
   font-size: 1.8rem;
   width: 28vw;
-  height: 2.5vh;
+  height: 3.5vh;
 }
 @media only screen and (min-width: 1024px) {
   width: 18vw;
@@ -74,7 +74,7 @@ width: 70vw;
   width: 40vw;
 }
 @media only screen and (min-width: 1024px) {
-  width: 25vw;
+  width: 5vw;
 }
 
 `
