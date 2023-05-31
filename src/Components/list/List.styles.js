@@ -47,7 +47,7 @@ color: #fff;
 cursor: pointer;
 @media only screen and (min-width: 600px) {
   width: 2.5vw;
-  height: 1.5vh;
+  height: 2.5vh;
 }
 @media only screen and (min-width: 1024px) {
   width: 2vw;

@@ -7,8 +7,8 @@ const Header = () => {
     return (
       <ContainerHeader>
         <ImgLogo src={Logo} alt='logo jason brueger' />
-        <Button type='button' variant='primary' children='Novo Pedido' />
-        <Button type='button'variant='primary' children='Pedidos Prontos' />
+        <Button type='button' children='Novo Pedido' />
+        <Button type='button'variant='quintenary' children='Pedidos Prontos' />
         <ImgLogout src={Logout} alt='botão de sair' />
       </ContainerHeader>
     )

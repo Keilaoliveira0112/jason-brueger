@@ -1,11 +1,29 @@
-import Logo from '../../../../src/assets/Logo.svg'
-import LogoOut from '../../../assets/Logout.svg'
 import List from '../../../Components/list/List';
 import Button from '../../../Components/button/Button';
-import { Header, Main, LogoImg, LogoImgOut, DivMenu, Item, LogoImgAdd } from '../breakfast/Breakfast.styled';
-import { React } from 'react'
+import Header from '../../../Components/header/Header';
+import ContainerButtons from '../../../Components/containerButtons/ContainerButtons';
+import Select from '../../../Components/select/Select';
+import { Main, SectionMenu, UlMenu,  OrderResume, Pay, Payment, TitleMenu } from '../breakfast/Breakfast.styled';
+import { React, useState, useEffect } from 'react'
+import { useNavigate } from "react-router-dom";
+import { getProducts } from '../../../API/products/products';
+
+
+
 
 const Breakfast = () => {
+    const [products, setProducts] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const token = localStorage.getItem('token');
+            const response = await getProducts(token);
+            const productsList = await response.json();
+            setProducts(productsList)
+        }
+        fetchData();
+    }, [])
+    
     const navigation = useNavigate();
 
     const handleClick = (e) => {
@@ -15,37 +33,18 @@ const Breakfast = () => {
 
     return (
         <>
-            <Header>
-
-                <LogoImg src={Logo} alt='logo jason brueger' />
-                <Button variant='primary'>Novo Pedido</Button>
-                <Button variant='primary'>Pedidos Prontos</Button>
-                <LogoImgOut src={LogoOut} alt='logo de sair' />
-
-            </Header>
-
+            <Header />
+             
             <Main>
                 <SectionMenu>
-                    <div>
-                        <ContainerButtons>
-                            <Button variant='secundary'>Café da manhã</Button>
-                            <Button variant='terciary' onClick={handleClick}>Resto do dia</Button>
-                        </ContainerButtons>
-                        <Select>
-                            <option disabled selected>Cova</option>
-                            <option value="Cova1">Cova 1</option>
-                            <option value="Cova2">Cova 2</option>
-                            <option value="Cova3">Cova 3</option>
-                            <option value="Cova4">Cova 4</option>
-                        </Select>
+                    <ContainerButtons onClick={handleClick} />
+                    <Select />   
                         <UlMenu>
-                            <List name={''} />
-                            <List name={''} />
-                            <List name={''} />
-                            <List name={''} />
+                            {products.map((product) => {
+                              return <List name={product.name} price={`R$${product.price}`} />
+                            })}
+                           
                         </UlMenu>    
-                    </div>
-
                 </SectionMenu>
                 <OrderResume>
                     <Pay>
@@ -55,7 +54,7 @@ const Breakfast = () => {
 
                         <Payment>
                             <TitleMenu>Total: </TitleMenu>
-                            <Button>Enviar</Button>
+                            <Button variant='quartenary'>Enviar</Button>
                         </Payment>
                     </Pay>
                 </OrderResume>

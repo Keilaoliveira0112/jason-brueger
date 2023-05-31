@@ -54,7 +54,7 @@ const Login = () => {
                 />
                 {/* Se tiver o erro, irei exibir o erro */}
                 {error && <ParagraphError>{error}</ParagraphError>}
-                <Button type='submit'> Entrar</Button> 
+                <Button variant='primary' type='submit'> Entrar</Button> 
             </CreateForm>
         </Section>
     )
