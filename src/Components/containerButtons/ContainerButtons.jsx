@@ -4,8 +4,8 @@ import Button from "../button/Button"
  const ContainerButtons = (props) => {
   return (
       <Container>
-          <Button variant='secundary'>Café da manhã</Button>
-          <Button variant='terciary' onClick={props.onClick}>Resto do dia</Button>
+          <Button variant={props.bntBreakfast} onClick={props.onClickBreakfast}>Café da manhã</Button>
+          <Button variant={props.btnRestOfTheDay} onClick={props.onClickDay}>Resto do dia</Button>
       </Container>
   )
 }

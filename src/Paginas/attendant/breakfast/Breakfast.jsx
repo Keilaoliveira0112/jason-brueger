@@ -4,12 +4,9 @@ import Header from '../../../Components/header/Header';
 import ContainerButtons from '../../../Components/containerButtons/ContainerButtons';
 import Select from '../../../Components/select/Select';
 import { Main, SectionMenu, UlMenu,  OrderResume, Pay, Payment, TitleMenu } from '../breakfast/Breakfast.styled';
-import { React, useState, useEffect } from 'react'
+import { React, useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import { getProducts } from '../../../API/products/products';
-
-
-
 
 const Breakfast = () => {
     const [products, setProducts] = useState([]);
@@ -32,35 +29,30 @@ const Breakfast = () => {
     }
 
     return (
-        <>
-            <Header />
-             
-            <Main>
-                <SectionMenu>
-                    <ContainerButtons onClick={handleClick} />
-                    <Select />   
-                        <UlMenu>
-                            {products.map((product) => {
-                              return <List name={product.name} price={`R$${product.price}`} />
-                            })}
-                           
-                        </UlMenu>    
-                </SectionMenu>
-                <OrderResume>
-                    <Pay>
-                        <h1>Resumo da Lápide</h1>
-                        <p>Cova:</p>
-                        <p>Hora:</p>
-
-                        <Payment>
-                            <TitleMenu>Total: </TitleMenu>
-                            <Button variant='quartenary'>Enviar</Button>
-                        </Payment>
-                    </Pay>
-                </OrderResume>
-               
-
-            </Main>
+      <>
+        <Header />      
+        <Main>
+          <SectionMenu>
+            <ContainerButtons bntBreakfast='secundary' btnRestOfTheDay='terciary' onClickDay={handleClick} />
+            <Select />   
+            <UlMenu>
+              {products.map((product) => {
+                return <List name={product.name} price={`R$${product.price}`} />
+              })}             
+            </UlMenu>    
+          </SectionMenu>
+          <OrderResume>
+            <Pay>
+              <h1>Resumo da Lápide</h1>
+              <p>Cova:</p>
+              <p>Hora:</p>
+              <Payment>
+                <TitleMenu>Total: </TitleMenu>
+                  <Button variant='quartenary'>Enviar</Button>
+              </Payment>
+            </Pay>
+          </OrderResume>      
+        </Main>
         </>
     )
 }
