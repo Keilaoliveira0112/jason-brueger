@@ -41,18 +41,55 @@ const RestOfTheDay = () => {
     //tenho que saber o index, onde esta?
     //pega o objeto com o index desejado
     const getIndex = orderItem.findIndex((order) => order.id === item.id);
-    console.log('getIndex', getIndex);
+    //console.log('getIndex', getIndex);
+
     //pegar o resumo e fazer a copia antes da alteração no state
     const newOrder = [...orderItem];
-    console.log('newOrder', newOrder);
+    //console.log('newOrder', newOrder);
+
     //splice, primeiro localiza pelo index e o 1 quer dizer você quer modificar/remover
     newOrder.splice(getIndex, 1);
-    console.log('splice', newOrder);;
+    //console.log('splice', newOrder);;
+
     //atualizar o estado do orderItem 
     setOrderItem(newOrder);
   }
     
- 
+  // fazer função do botão mais e menos;
+  const handleClickQuantity = (item, children) => {
+    //identificar o index para saber o item que quer aumentar/diminuir
+    const getIndex = orderItem.findIndex((order) => order.id === item.id);
+    //console.log('getIndex', getIndex);
+    //fazer uma cópia
+    const newOrder = [...orderItem];
+    //console.log('newOrder', newOrder);
+
+    //pegar o valor da quantidade atual;
+    //console.log('quantity', item.quantity)
+    if(children === '-'){
+      //caso ja seja 1 e queira diminuir, o item será removido
+      if(item.quantity <= 1){
+        handleClickDelete(item)
+      }else{
+        const specificItem = newOrder[getIndex];
+        //console.log('specificItem', specificItem.quantity)
+        const valueChange = specificItem.quantity - 1;
+        newOrder[getIndex].quantity = valueChange;
+        console.log(newOrder)
+        setOrderItem(newOrder);
+      }    
+        
+    }
+    if(children === '+'){
+      const specificItem = newOrder[getIndex];
+      const valueChange = specificItem.quantity + 1;
+      newOrder[getIndex].quantity = valueChange;
+      //console.log('vc', valueChange);
+      console.log('no', newOrder);
+      //console.log(newOrder[getIndex])
+      setOrderItem(newOrder);
+    }
+  }
 
   return (
       <>
@@ -75,7 +112,7 @@ const RestOfTheDay = () => {
             <TitleMenu>Acompanhamentos</TitleMenu>
             <TitleMenu>Bebidas</TitleMenu>
           </SectionMenu>
-          <OrderResume orderItem={orderItem} selectValue={selectValue} onClick={handleClickDelete}/>
+          <OrderResume orderItem={orderItem} selectValue={selectValue} onClick={handleClickDelete} onClickQuantity={handleClickQuantity}/>
         </Main>
         
       </> 
