@@ -47,15 +47,3 @@ export const UlMenu = styled.ul`
 display: grid;
 gap: 1rem;
 `
-
-export const OrderResume = styled.section`
-background-color: #D9D9D9;
-width: 70vw;
-@media only screen and (min-width: 600px) {
-  width: 40vw;
-}
-@media only screen and (min-width: 1024px) {
-  width: 5vw;
-}
-
-`

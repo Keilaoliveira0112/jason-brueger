@@ -3,12 +3,15 @@ import Header from '../../../Components/header/Header';
 import ContainerButtons from '../../../Components/containerButtons/ContainerButtons';
 import List from '../../../Components/list/List';
 import Select from '../../../Components/select/Select';
-import { Main, SectionMenu, TitleMenu, UlMenu, OrderResume } from './RestOfTheDay.styled';
+import OrderResume from '../../../Components/orderResume/OrderResume';
+import { Main, SectionMenu, TitleMenu, UlMenu } from './RestOfTheDay.styled';
 import { getProducts } from '../../../API/products/products';
 import { useNavigate } from "react-router-dom";
 
 const RestOfTheDay = () => {
   const [products, setProducts] = useState([]);
+  const [orderItem, setOrderItem] = useState([]);
+
   useEffect(() => {
     const fetchData = async () => {
       const token = localStorage.getItem('token');
@@ -35,19 +38,13 @@ const RestOfTheDay = () => {
             <TitleMenu>Hamburguers</TitleMenu>
             <UlMenu>
               {products.map((product) => {
-                /* console.log('map ', product.name); */
-                return <List name={product.name} price={`R$${product.price}`}/>
+                return <List key={product.id} name={product.name} price={`R$${product.price}`} onClick={() => setOrderItem((prevState) => [...prevState, product])}/>
               })}                   
             </UlMenu>
             <TitleMenu>Acompanhamentos</TitleMenu>
             <TitleMenu>Bebidas</TitleMenu>
           </SectionMenu>
-          <OrderResume>
-            <h1>Resumo da Lápide</h1>
-            <p>Cova:</p>
-            <p>Hora:</p>
-            <h3>Total: R$</h3>
-          </OrderResume>
+          <OrderResume orderItem={orderItem}/>
         </Main>
         
       </> 
