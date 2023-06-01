@@ -11,6 +11,8 @@ import { useNavigate } from "react-router-dom";
 const RestOfTheDay = () => {
   const [products, setProducts] = useState([]);
   const [orderItem, setOrderItem] = useState([]);
+  //const para armazenar valor do select
+  const [selectValue, setSelectValue] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,7 +36,7 @@ const RestOfTheDay = () => {
         <Main>
           <SectionMenu>
             <ContainerButtons bntBreakfast='terciary' btnRestOfTheDay='secundary' onClickBreakfast={handleClick}/>
-            <Select />
+            <Select onChange={(e) => setSelectValue(e.target.value)}/>
             <TitleMenu>Hamburguers</TitleMenu>
             <UlMenu>
               {products.map((product) => {
@@ -44,7 +46,7 @@ const RestOfTheDay = () => {
             <TitleMenu>Acompanhamentos</TitleMenu>
             <TitleMenu>Bebidas</TitleMenu>
           </SectionMenu>
-          <OrderResume orderItem={orderItem}/>
+          <OrderResume orderItem={orderItem} selectValue={selectValue}/>
         </Main>
         
       </> 

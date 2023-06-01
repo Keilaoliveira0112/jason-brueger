@@ -5,10 +5,10 @@ const OrderResume = (props) => {
   return (
     <Section>
       <Title>Resumo da Lápide</Title>
-      <p>Cova:</p>
+      <p>Cova:{props.selectValue}</p>
       <ul>
         {props.orderItem.map((item)=>
-          <li>
+          <li key={item.id}>
             <h4>{item.name}</h4>
             <p>{item.price}</p>
             <button>-</button>
