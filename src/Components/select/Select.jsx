@@ -2,8 +2,8 @@ import { SelectContainer } from "./Select.styles"
 
  function Select() {
   return (
-      <SelectContainer>
-          <option disabled selected>Cova</option>
+      <SelectContainer defaultValue={{value: 'Cova'}}>
+          <option value="Cova" >Cova</option>
           <option value="Cova1">Cova 1</option>
           <option value="Cova2">Cova 2</option>
           <option value="Cova3">Cova 3</option>
