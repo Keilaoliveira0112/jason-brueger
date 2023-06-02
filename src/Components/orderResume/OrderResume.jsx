@@ -7,6 +7,7 @@ const OrderResume = (props) => {
     <Section>
       <Title>Resumo da Lápide</Title>
       <p>Cova: {props.selectValue}</p>
+      <p>Nome do Cliente: {props.clientNameValue}</p>
       <ul>
         {props.orderItem.map((item)=> (
           <li key={item.id}>
@@ -19,10 +20,10 @@ const OrderResume = (props) => {
               <img src={btnDelete} alt='excluir item do pedido'/>
             </button>
           </li>
-        ))}
-        
+        ))}       
       </ul>
-      <h3>Total: R$</h3>
+      <h3>Total: R${props.total}</h3>
+      <button>Enviar</button>
     </Section>
   )
 }
