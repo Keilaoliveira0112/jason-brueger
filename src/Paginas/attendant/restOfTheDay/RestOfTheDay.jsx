@@ -75,7 +75,7 @@ const RestOfTheDay = () => {
         //console.log('specificItem', specificItem.quantity)
         const valueChange = specificItem.quantity - 1;
         newOrder[getIndex].quantity = valueChange;
-        console.log(newOrder)
+        //console.log(newOrder)
         setOrderItem(newOrder);
       }    
         
@@ -85,7 +85,7 @@ const RestOfTheDay = () => {
       const valueChange = specificItem.quantity + 1;
       newOrder[getIndex].quantity = valueChange;
       //console.log('vc', valueChange);
-      console.log('no', newOrder);
+      //console.log('no', newOrder);
       //console.log(newOrder[getIndex])
       setOrderItem(newOrder);
     }
@@ -112,7 +112,12 @@ const RestOfTheDay = () => {
             <TitleMenu>Acompanhamentos</TitleMenu>
             <TitleMenu>Bebidas</TitleMenu>
           </SectionMenu>
-          <OrderResume orderItem={orderItem} selectValue={selectValue} onClick={handleClickDelete} onClickQuantity={handleClickQuantity}/>
+          <OrderResume 
+            orderItem={orderItem} 
+            selectValue={selectValue} 
+            onClick={handleClickDelete} 
+            onClickQuantity={handleClickQuantity}
+          />
         </Main>
         
       </> 

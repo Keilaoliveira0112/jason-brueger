@@ -6,12 +6,12 @@ const OrderResume = (props) => {
   return (
     <Section>
       <Title>Resumo da Lápide</Title>
-      <p>Cova:{props.selectValue}</p>
+      <p>Cova: {props.selectValue}</p>
       <ul>
         {props.orderItem.map((item)=> (
           <li key={item.id}>
             <h4>{item.name}</h4>
-            <p>{`R$${item.price}`}</p>
+            <p>{`R$${item.price * item.quantity}`}</p>
             <button onClick={() => props.onClickQuantity(item, '-')}>-</button>
             <p>{item.quantity}</p>
             <button onClick={() => props.onClickQuantity(item, '+')}>+</button>
