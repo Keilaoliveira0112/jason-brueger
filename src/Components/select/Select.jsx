@@ -1,13 +1,13 @@
 import { SelectContainer } from "./Select.styles"
 
- function Select() {
+ function Select(props) {
   return (
-      <SelectContainer defaultValue={{value: 'Cova'}}>
+      <SelectContainer defaultValue={{value: 'Cova'}} onChange={props.onChange}>
           <option value="Cova" >Cova</option>
-          <option value="Cova1">Cova 1</option>
-          <option value="Cova2">Cova 2</option>
-          <option value="Cova3">Cova 3</option>
-          <option value="Cova4">Cova 4</option>
+          <option value="001">Cova 1</option>
+          <option value="002">Cova 2</option>
+          <option value="003">Cova 3</option>
+          <option value="004">Cova 4</option>
       </SelectContainer>
   )
 }

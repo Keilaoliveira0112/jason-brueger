@@ -1,22 +1,25 @@
 import { Section, Title } from './OrderResume.styles';
 import btnDelete from '../../assets/btnDelete.svg'
 
+
 const OrderResume = (props) => {
   return (
     <Section>
       <Title>Resumo da Lápide</Title>
-      <p>Cova:</p>
+      <p>Cova: {props.selectValue}</p>
       <ul>
-        {props.orderItem.map((item)=>
-            <li key={item.id}>
+        {props.orderItem.map((item)=> (
+          <li key={item.id}>
             <h4>{item.name}</h4>
-            <p>{item.price}</p>
-            <button>-</button>
-            <p>1</p>
-            <button>+</button>
-            <img src={btnDelete} alt='excluir item do pedido'/>
+            <p>{`R$${item.price * item.quantity}`}</p>
+            <button onClick={() => props.onClickQuantity(item, '-')}>-</button>
+            <p>{item.quantity}</p>
+            <button onClick={() => props.onClickQuantity(item, '+')}>+</button>
+            <button onClick={() => props.onClick(item)}>
+              <img src={btnDelete} alt='excluir item do pedido'/>
+            </button>
           </li>
-        )}
+        ))}
         
       </ul>
       <h3>Total: R$</h3>
