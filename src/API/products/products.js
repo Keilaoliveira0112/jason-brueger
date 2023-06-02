@@ -7,3 +7,4 @@ export const getProducts = async (token) => await fetch(`${API_URL}/products`, {
       Authorization: `Bearer ${token}`,
     },
 });
+

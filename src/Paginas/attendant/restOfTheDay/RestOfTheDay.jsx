@@ -9,45 +9,58 @@ import { getProducts } from '../../../API/products/products';
 import { useNavigate } from "react-router-dom";
 
 const RestOfTheDay = () => {
-  const [products, setProducts] = useState([]);
-  const [orderItem, setOrderItem] = useState([]);
+    const [products, setProducts] = useState([]);
+    const [orderItem, setOrderItem] = useState([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const token = localStorage.getItem('token');
-      const response = await getProducts(token);
-      const productsList = await response.json();
-      setProducts(productsList);
+    useEffect(() => {
+        const fetchData = async () => {
+            const token = localStorage.getItem('token');
+            const response = await getProducts(token);
+            const productsList = await response.json();
+            setProducts(productsList);
+        }
+        fetchData();
+    }, []);
+    const navigation = useNavigate();
+
+    const handleClick = (e) => {
+        e.preventDefault();
+        navigation('/breakfast');
     }
-    fetchData();
-  }, []);
-  const navigation = useNavigate();
-
-  const handleClick = (e) => {
-    e.preventDefault();
-    navigation('/breakfast');
-  }
 
     return (
-      <>
-        <Header />
-        <Main>
-          <SectionMenu>
-            <ContainerButtons bntBreakfast='terciary' btnRestOfTheDay='secundary' onClickBreakfast={handleClick}/>
-            <Select />
-            <TitleMenu>Hamburguers</TitleMenu>
-            <UlMenu>
-              {products.map((product) => {
-                return <List key={product.id} name={product.name} price={`R$${product.price}`} onClick={() => setOrderItem((prevState) => [...prevState, product])}/>
-              })}                   
-            </UlMenu>
-            <TitleMenu>Acompanhamentos</TitleMenu>
-            <TitleMenu>Bebidas</TitleMenu>
-          </SectionMenu>
-          <OrderResume orderItem={orderItem}/>
-        </Main>
-        
-      </> 
+        <>
+            <Header />
+            <Main>
+                <SectionMenu>
+                    <ContainerButtons bntBreakfast='terciary' btnRestOfTheDay='secundary' onClickBreakfast={handleClick} />
+                    <Select />
+                    <TitleMenu>Hamburguers</TitleMenu>
+                    <UlMenu>
+                        {products.map((product) => (
+                            product.type === 'Hamburguers' &&
+                            <List key={product.id} name={product.name} price={`R$${product.price}`} onClick={() => setOrderItem((prevState) => [...prevState, product])} />
+                        ))}
+                    </UlMenu>
+                    <TitleMenu>Acompanhamentos</TitleMenu>
+                    <UlMenu >
+                        {products.map((product) => (
+                            product.type === 'Acompanhamentos' &&
+                            <List key={product.id} name={product.name} price={`R$${product.price}`} onClick={() => setOrderItem((prevState) => [...prevState, product])} />
+                        ))}
+                    </UlMenu>
+                    <TitleMenu>Bebidas</TitleMenu>
+                    <UlMenu>
+                        {products.map((product) => (
+                            product.type === 'Bebidas' &&
+                            <List key={product.id} name={product.name} price={`R$${product.price}`} onClick={() => setOrderItem((prevState) => [...prevState, product])} />
+                        ))}
+                    </UlMenu>
+                </SectionMenu>
+                <OrderResume orderItem={orderItem} />
+            </Main>
+
+        </>
     )
 }
 

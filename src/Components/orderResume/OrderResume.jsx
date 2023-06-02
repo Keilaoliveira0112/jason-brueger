@@ -8,7 +8,7 @@ const OrderResume = (props) => {
       <p>Cova:</p>
       <ul>
         {props.orderItem.map((item)=>
-          <li>
+            <li key={item.id}>
             <h4>{item.name}</h4>
             <p>{item.price}</p>
             <button>-</button>
