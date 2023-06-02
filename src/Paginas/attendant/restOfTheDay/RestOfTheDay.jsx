@@ -15,29 +15,35 @@ const RestOfTheDay = () => {
   
   useEffect(() => {
     const fetchData = async () => {
-      const token = localStorage.getItem('token');
-      const response = await getProducts(token);
-      const productsList = await response.json();
-      setProducts(productsList);
-    }
+      try {
+        const token = localStorage.getItem('token');
+        const response = await getProducts(token);
+        console.log(response)
+        
+        if (!response.ok) {
+            throw new Error(`Erro ao obter os produtos da API ${response.statusText}`);
+        }
+        
+        const productsList = await response.json();
+        setProducts(productsList)
+      
+      } 
+      catch (error) {
+        alert(error.message)
+        console.log(error.message);
+      };
+    };
     fetchData();
   }, []);
+
   const navigation = useNavigate();
 
   const handleClick = (e) => {
     e.preventDefault();
     navigation('/breakfast');
-  }
+  };
 
   const handleClickDelete = (item) => {
-    //pegar o item
-    //console.log('item.id', item.id);
-    //pegar o que esta no resumo
-    //console.log('orderItem', orderItem)
-    //comparar o item selecionado e item que está no resumo
-    //const filterItem = orderItem.filter((order) => order.id === item.id)
-    //console.log('teste', filterItem);
-
     //tenho que saber o index, onde esta?
     //pega o objeto com o index desejado
     const getIndex = orderItem.findIndex((order) => order.id === item.id);
@@ -82,8 +88,8 @@ const RestOfTheDay = () => {
     }
     if(children === '+'){
       const specificItem = newOrder[getIndex];
-      const valueChange = specificItem.quantity + 1;
-      newOrder[getIndex].quantity = valueChange;
+      const quantityChange = specificItem.quantity + 1;
+      newOrder[getIndex].quantity = quantityChange;
       //console.log('vc', valueChange);
       //console.log('no', newOrder);
       //console.log(newOrder[getIndex])
@@ -101,7 +107,8 @@ const RestOfTheDay = () => {
             <TitleMenu>Hamburguers</TitleMenu>
             <UlMenu>
               {products.map((product) => {
-                return <List 
+                return product.type === 'Hamburguers' &&
+                <List 
                 key={product.id} 
                 name={product.name} 
                 price={`R$${product.price}`} 
@@ -110,7 +117,29 @@ const RestOfTheDay = () => {
               })}           
             </UlMenu>
             <TitleMenu>Acompanhamentos</TitleMenu>
+            <UlMenu>
+              {products.map((product) => {
+                return product.type === 'Acompanhamentos' &&
+                <List 
+                key={product.id} 
+                name={product.name} 
+                price={`R$${product.price}`} 
+                onClick={() => setOrderItem((prevState) => [...prevState, product])}
+                />
+              })}           
+            </UlMenu>
             <TitleMenu>Bebidas</TitleMenu>
+            <UlMenu>
+              {products.map((product) => {
+                return product.type === 'Bebidas' &&
+                <List 
+                key={product.id} 
+                name={product.name} 
+                price={`R$${product.price}`} 
+                onClick={() => setOrderItem((prevState) => [...prevState, product])}
+                />
+              })}           
+            </UlMenu>
           </SectionMenu>
           <OrderResume 
             orderItem={orderItem} 
