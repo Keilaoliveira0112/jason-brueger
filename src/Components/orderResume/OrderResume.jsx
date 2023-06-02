@@ -16,14 +16,14 @@ const OrderResume = (props) => {
             <button onClick={() => props.onClickQuantity(item, '-')}>-</button>
             <p>{item.quantity}</p>
             <button onClick={() => props.onClickQuantity(item, '+')}>+</button>
-            <button onClick={() => props.onClick(item)}>
+            <button onClick={() => props.onClickDelete(item)}>
               <img src={btnDelete} alt='excluir item do pedido'/>
             </button>
           </li>
         ))}       
       </ul>
       <h3>Total: R${props.total}</h3>
-      <button>Enviar</button>
+      <button onClick={() => props.onClickSend()}>Enviar</button>
     </Section>
   )
 }
