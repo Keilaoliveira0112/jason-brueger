@@ -23,7 +23,7 @@ const RestOfTheDay = () => {
         console.log(response)
         
         if (!response.ok) {
-            throw new Error(`Erro ao obter os produtos da API ${response.statusText}`);
+          throw new Error(`Erro ao obter os produtos da API ${response.statusText}`);
         }
         
         const productsList = await response.json();
@@ -96,7 +96,7 @@ const RestOfTheDay = () => {
     }
     const verification = orderItem.find(prod => prod.id === product.id);
     if(!verification){
-      setOrderItem((prevState) => [...prevState, product])
+      return setOrderItem((prevState) => [...prevState, product])
     }
     alert('item já está adicionado! Se quiser alterar a quantidade usar os botões do resumo do pedido')
   }
@@ -169,7 +169,7 @@ const RestOfTheDay = () => {
             orderItem={orderItem} 
             selectValue={selectValue}
             clientNameValue={clientName}
-            onClick={handleClickDelete} 
+            onClickDelete={handleClickDelete} 
             onClickQuantity={handleClickQuantity}
             total={totalOrderAmount()}
           />
