@@ -5,6 +5,7 @@ import Input from '../../Components/input/Input';
 import { useNavigate } from "react-router-dom";
 import { React, useState } from 'react';
 import { userLogin } from "../../API/login/login";
+import { setItem } from '../../storage/local';
 
 const Login = () => {
   const navigation = useNavigate()
@@ -16,9 +17,9 @@ const Login = () => {
     event.preventDefault();
     try {
       const signin = await userLogin(email, password);
-      localStorage.setItem('token', signin.accessToken);
+      setItem('token', signin.accessToken);
       //console.log(signin.user.id)
-      localStorage.setItem('userId', signin.user.id);
+      setItem('userId', signin.user.id);
       console.log(signin)
       if (signin.user.role === 'atendente') {
         navigation('/breakfast')
