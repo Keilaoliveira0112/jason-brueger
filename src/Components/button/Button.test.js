@@ -20,7 +20,7 @@ describe('<Button />', () => {
 
     it('should render the button with the text "Enviar"', () => {
         //Utilizaremos ele para primeiro renderizar o nosso botão em jsx
-        render(<Button text='Enviar' />);
+        render(<Button>Enviar</Button>);
         //get -> quando a gente sabe que o elemento ta na tela
 
         //acessibilidade, leitores de telas que detecta um botaão e esse botão tem tal texto (getByRole())

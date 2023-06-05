@@ -29,5 +29,5 @@ const OrderResume = (props) => {
     </Section>
   )
 }
-  
+
 export default OrderResume;
