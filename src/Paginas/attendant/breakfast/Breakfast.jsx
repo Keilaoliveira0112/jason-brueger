@@ -21,7 +21,6 @@ const Breakfast = () => {
       try {
         const token = localStorage.getItem('token');
         const response = await getProducts(token);
-        //console.log(response)
         
         if (!response.ok) {
           throw new Error(`Erro ao obter os produtos da API ${response.statusText}`);
@@ -76,27 +75,17 @@ const Breakfast = () => {
 
   const addItems = (product) => {
     if(orderItem.length === 0){
-      //console.log('entrei')
       return setOrderItem((prevState) => [...prevState, product])
     }
     const verification = orderItem.find(prod => prod.id === product.id);
-    //console.log(verification)
     if(!verification){
       return setOrderItem((prevState) => [...prevState, product])
     }
     alert('item já está adicionado! Se quiser alterar a quantidade usar os botões do resumo do pedido')
   }
 
-  //funão total do pedido
   const totalOrderAmount = () => {
-    //reduce -> metodos de array
-    //recebe 2 pararmetros, função callback e acumulador(amarzenador de infos)
-    //função callback recebe dois parametros -> acumulador e valor atual
-    //acumulador -> valores add nas interações
-    //valor atual será o item atual pecorrido no array
-    //sempre retornar o accumulador 
-
-    return  orderItem.reduce((accum, currentValue) => {
+    return orderItem.reduce((accum, currentValue) => {
       return accum + (currentValue.price * currentValue.quantity);
     }, 0);
   }
@@ -105,9 +94,7 @@ const Breakfast = () => {
     try {
       const token = localStorage.getItem('token');
       const userId = localStorage.getItem('userId');
-      //console.log(userId);
       
-      //tratamento de erro para quando não enviar pedido sem nenhum pedido
       if(orderItem.length <= 0){
         throw new Error(`Não é possível enviar pedido caso o resumo esteja vazio!`);
       }
@@ -115,12 +102,9 @@ const Breakfast = () => {
         throw new Error(`Não é possível enviar pedido caso não digite o nome do cliente!`);
       }
       const response = await createOrder(orderItem, clientName, userId, token); 
-      //console.log(response)
       const orderData = await response.json();
       console.log(orderData);
-      alert('Pedido enviado com sucesso')
-      //mensagem de enviado com sucesso com tempo(pode ser um modal)
-      
+      alert('Pedido enviado com sucesso');      
     } 
     catch (error) {
       alert(error.message)

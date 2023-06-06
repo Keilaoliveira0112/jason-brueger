@@ -18,7 +18,6 @@ const Login = () => {
     try {
       const signin = await userLogin(email, password);
       setItem('token', signin.accessToken);
-      //console.log(signin.user.id)
       setItem('userId', signin.user.id);
       if (signin.user.role === 'atendente') {
         navigation('/breakfast')
@@ -46,10 +45,8 @@ const Login = () => {
           value={password}
           name='password'
           placeholder='Senha'
-          /* onChange irá pegar o evento de digitar e extrair o valor do input após esse evento */
           onChange={(e) => setPassword(e.target.value)}
         />
-        {/* Se tiver o erro, irei exibir o erro */}
         {error && <ParagraphError>{error}</ParagraphError>}
         <Button variant='primary' type='submit'>Entrar</Button> 
       </CreateForm>
