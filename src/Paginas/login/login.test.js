@@ -2,7 +2,6 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import Login from '../login/Login';
 import { userLogin } from '../../API/login/login';
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
 import { setItem } from '../../storage/local';
 
 jest.mock('../../API/login/login');

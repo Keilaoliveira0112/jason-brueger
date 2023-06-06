@@ -3,13 +3,14 @@ import Logout from '../../assets/Logout.svg';
 import Button from '../../Components/button/Button';
 import { ContainerHeader, ImgLogo, ImgLogout } from './Header.styles';
 import { useNavigate } from "react-router-dom";
+import { removeItem } from '../../storage/local';
 
 const Header = () => {
   const navigation = useNavigate();
   const handleClick = (e) => {
     e.preventDefault();
     navigation('/');
-    localStorage.removeItem('token')
+    removeItem('token')
   }
     return (
       <ContainerHeader>

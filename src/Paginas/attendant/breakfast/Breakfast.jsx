@@ -6,7 +6,8 @@ import Input from '../../../Components/input/Input';
 import List from '../../../Components/list/List';
 import OrderResume from '../../../Components/orderResume/OrderResume';
 import { Main, SectionMenu, UlMenu } from '../breakfast/Breakfast.styled';
-import { getProducts, createOrder } from '../../../API/products/products';
+import { getProducts } from '../../../API/products/products';
+import { createOrder } from '../../../API/orders/orders';
 import { useNavigate } from "react-router-dom";
 
 const Breakfast = () => {
@@ -23,7 +24,7 @@ const Breakfast = () => {
         //console.log(response)
         
         if (!response.ok) {
-            throw new Error(`Erro ao obter os produtos da API ${response.statusText}`);
+          throw new Error(`Erro ao obter os produtos da API ${response.statusText}`);
         }
         
         const productsList = await response.json();

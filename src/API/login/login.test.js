@@ -4,7 +4,7 @@ import '@testing-library/jest-dom/extend-expect';
 
 const API_URL = 'http://localhost:8080';
 
-describe('API de Usuários', () => {
+describe('API de Login dos Usuários', () => {
     const authTokenMock = 'mockAuthToken';
 
 

@@ -6,7 +6,8 @@ import Select from '../../../Components/select/Select';
 import Input from '../../../Components/input/Input';
 import OrderResume from '../../../Components/orderResume/OrderResume';
 import { Main, SectionMenu, TitleMenu, UlMenu } from './RestOfTheDay.styled';
-import { getProducts, createOrder } from '../../../API/products/products';
+import { getProducts } from '../../../API/products/products';
+import { createOrder } from '../../../API/orders/orders';
 import { useNavigate } from "react-router-dom";
 
 const RestOfTheDay = () => {
