@@ -3,12 +3,14 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 describe('<ContainerButtons />', () => {
-    it('deve encontrar dois botões no componente', () => {
+    it('deve renderizar e executar as funções dos botões', () => {
         const props = {
             onClickBreakfast: jest.fn(),
             onClickDay: jest.fn()
         }
+
         render(<ContainerButtons {...props}/>);
+
         const button = screen.getAllByRole('button');
         //espero que eu tenha 2 botoes
         expect(button).toHaveLength(2);
@@ -20,6 +22,5 @@ describe('<ContainerButtons />', () => {
         const btnRestOfTheDay = screen.getByText('Resto do dia');
         userEvent.click(btnRestOfTheDay);
         expect(props.onClickDay).toHaveBeenCalledTimes(1);
-
     })
 })
