@@ -18,7 +18,7 @@ align-items: center;
 `
 export const DishName = styled.p`
 font-family: Asap, sans-serif;
-font-size: 1.4rem;
+font-size: 1.2rem;
 color: #F28705;
 @media only screen and (min-width: 600px) {
   font-size: 1.6rem;

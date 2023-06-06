@@ -6,7 +6,7 @@ import Select from '../../../Components/select/Select';
 import Input from '../../../Components/input/Input';
 import OrderResume from '../../../Components/orderResume/OrderResume';
 import { Main, SectionMenu, TitleMenu, UlMenu } from './RestOfTheDay.styled';
-import { getProducts } from '../../../API/products/products';
+import { getProducts, createOrder } from '../../../API/products/products';
 import { useNavigate } from "react-router-dom";
 
 const RestOfTheDay = () => {
@@ -20,7 +20,7 @@ const RestOfTheDay = () => {
       try {
         const token = localStorage.getItem('token');
         const response = await getProducts(token);
-        console.log(response)
+       //console.log(response)
         
         if (!response.ok) {
           throw new Error(`Erro ao obter os produtos da API ${response.statusText}`);
@@ -114,69 +114,97 @@ const RestOfTheDay = () => {
     }, 0);
    }
 
+  const handleSendOrder = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const userId = localStorage.getItem('userId');
+      //console.log(userId);
+      
+      //tratamento de erro para quando não enviar pedido sem nenhum pedido
+      if(orderItem.length <= 0){
+        throw new Error(`Não é possível enviar pedido caso o resumo esteja vazio!`);
+      }
+      if(clientName === ''){
+        throw new Error(`Não é possível enviar pedido caso não digite o nome do cliente!`);
+      }
+      const response = await createOrder(orderItem, clientName, userId, token); 
+      //console.log(response)
+      const orderData = await response.json();
+      console.log(orderData);
+      alert('Pedido enviado com sucesso')
+      //mensagem de enviado com sucesso com tempo(pode ser um modal)
+      
+    } 
+    catch (error) {
+      alert(error.message)
+      console.log(error.message);
+    };
+  };
+
   return (
-      <>
-        <Header />
-        <Main>
-          <SectionMenu>
-            <ContainerButtons bntBreakfast='terciary' btnRestOfTheDay='secundary' onClickBreakfast={handleClick}/>
-            <Input 
-            type='text'
-            value={clientName}
-            onChange={(e) => setName(e.target.value)}
-            name='name'
-            placeholder='Digite o nome do cliente'
-          />
-            <Select onChange={(e) => setSelectValue(e.target.value)}/>
-            <TitleMenu>Hamburguers</TitleMenu>
-            <UlMenu>
-              {products.map((product) => {
-                return product.type === 'Hamburguers' &&
-                <List 
-                key={product.id} 
-                name={product.name} 
-                price={`R$${product.price}`} 
-                onClick={() => addItems(product)}
-                />
-              })}           
-            </UlMenu>
-            <TitleMenu>Acompanhamentos</TitleMenu>
-            <UlMenu>
-              {products.map((product) => {
-                return product.type === 'Acompanhamentos' &&
-                <List 
-                key={product.id} 
-                name={product.name} 
-                price={`R$${product.price}`} 
-                onClick={() => setOrderItem((prevState) => [...prevState, product])}
-                />
-              })}           
-            </UlMenu>
-            <TitleMenu>Bebidas</TitleMenu>
-            <UlMenu>
-              {products.map((product) => {
-                return product.type === 'Bebidas' &&
-                <List 
-                key={product.id} 
-                name={product.name} 
-                price={`R$${product.price}`} 
-                onClick={() => setOrderItem((prevState) => [...prevState, product])}
-                />
-              })}           
-            </UlMenu>
-          </SectionMenu>
-          <OrderResume 
-            orderItem={orderItem} 
-            selectValue={selectValue}
-            clientNameValue={clientName}
-            onClickDelete={handleClickDelete} 
-            onClickQuantity={handleClickQuantity}
-            total={totalOrderAmount()}
-          />
-        </Main>
+    <>
+      <Header />
+      <Main>
+        <SectionMenu>
+          <ContainerButtons bntBreakfast='terciary' btnRestOfTheDay='secundary' onClickBreakfast={handleClick}/>
+          <Input 
+          type='text'
+          value={clientName}
+          onChange={(e) => setName(e.target.value)}
+          name='name'
+          placeholder='Digite o nome do cliente'
+        />
+          <Select onChange={(e) => setSelectValue(e.target.value)}/>
+          <TitleMenu>Hamburguers</TitleMenu>
+          <UlMenu>
+            {products.map((product) => {
+              return product.type === 'Hamburguers' &&
+              <List 
+              key={product.id} 
+              name={product.name} 
+              price={`R$${product.price}`} 
+              onClick={() => addItems(product)}
+              />
+            })}           
+          </UlMenu>
+          <TitleMenu>Acompanhamentos</TitleMenu>
+          <UlMenu>
+            {products.map((product) => {
+              return product.type === 'Acompanhamentos' &&
+              <List 
+              key={product.id} 
+              name={product.name} 
+              price={`R$${product.price}`} 
+              onClick={() => setOrderItem((prevState) => [...prevState, product])}
+              />
+            })}           
+          </UlMenu>
+          <TitleMenu>Bebidas</TitleMenu>
+          <UlMenu>
+            {products.map((product) => {
+              return product.type === 'Bebidas' &&
+              <List 
+              key={product.id} 
+              name={product.name} 
+              price={`R$${product.price}`} 
+              onClick={() => setOrderItem((prevState) => [...prevState, product])}
+              />
+            })}           
+          </UlMenu>
+        </SectionMenu>
+        <OrderResume 
+          orderItem={orderItem} 
+          selectValue={selectValue}
+          clientNameValue={clientName}
+          onClickDelete={handleClickDelete} 
+          onClickQuantity={handleClickQuantity}
+          total={totalOrderAmount()}
+          onClickSend={handleSendOrder}
+        />
+      </Main>
         
-      </> 
-    )
+    </> 
+  )
 }
 
 export default RestOfTheDay;

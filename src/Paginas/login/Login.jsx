@@ -20,14 +20,11 @@ const Login = () => {
       setItem('token', signin.accessToken);
       //console.log(signin.user.id)
       setItem('userId', signin.user.id);
-      console.log(signin)
       if (signin.user.role === 'atendente') {
         navigation('/breakfast')
       }
     }
     catch (error) {
-      console.log('error:', error)
-      console.log('error message:', error.message)
       setError(error.message)
     }
   }
@@ -54,7 +51,7 @@ const Login = () => {
         />
         {/* Se tiver o erro, irei exibir o erro */}
         {error && <ParagraphError>{error}</ParagraphError>}
-        <Button variant='primary' type='submit'> Entrar</Button> 
+        <Button variant='primary' type='submit'>Entrar</Button> 
       </CreateForm>
     </Section>
   )

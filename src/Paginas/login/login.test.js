@@ -5,28 +5,11 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { setItem } from '../../storage/local';
 
-jest.mock('react-router-dom', () => ({
-    useNavigate: jest.fn(),
-}));
+jest.mock('../../API/login/login');
 
-jest.mock('../../API/login/login', () => ({
-    userLogin: jest.fn().mockResolvedValueOnce({
-        accessToken: "huhasud",
-        user: {
-            email: "atendente@email.com",
-            id: 4,
-            role: "atendente"
-        }
-    }),
-}))
+jest.mock('react-router-dom');
 
-jest.mock('react-router-dom', () => ({
-    useState: jest.fn(),
-}));
-
-jest.mock('../../ storage / local', () => ({
-    localStorage: { setItem: jest.fn() },
-}));
+jest.mock('../../storage/local')
 
 describe('Login', () => {
     it('deve redirecinar após o login com sucesso', async () => {
@@ -34,7 +17,12 @@ describe('Login', () => {
         const navigate = jest.fn();
         useNavigate.mockReturnValue(navigate);
         userLogin.mockResolvedValueOnce({
-            user: { role: 'atendente' },
+            accessToken: "huhasud",
+            user: {
+                email: "atendente@email.com",
+                id: 4,
+                role: "atendente"
+            }
         })
 
 
@@ -48,40 +36,48 @@ describe('Login', () => {
 
         fireEvent.click(button);
         await waitFor(() => {
-            expect(userLogin).toHaveBeenCalledWith('texto@email.com', 'password');
-           
+            expect(navigate).toHaveBeenCalledWith('/breakfast');
         });
-        expect(navigate).toHaveBeenCalledWith('/breakfast');
-        expect(setItem).toHaveBeenCalledTimes(1);
+        expect(userLogin).toHaveBeenCalledWith('texto@email.com', 'password');
+        expect(setItem).toHaveBeenCalledTimes(2);
         expect(setItem).toHaveBeenCalledWith('token', 'huhasud');
+        expect(setItem).toHaveBeenCalledWith('userId', 4);
+    });
 
-        it('não deve redirecinar caso o login estiver errado', async () => {
-            const newLogin = {
-                email: 'texto',
-                senha: '123456'
-            }
-            // criamos uma string de error
-            const error = 'Ocorreu um erro';
-            userLogin.mockRejectedValueOnce(error);
+    it('não deve redirecinar caso o login estiver errado', async () => {
+        const newLogin = {
+            email: 'texto',
+            senha: '123456'
+        }
+        // criamos uma string de error
+        const error = new Error('Ocorreu um erro');
+        userLogin.mockRejectedValueOnce(error);
 
-            render(<Login />);
-            const button = screen.getByRole('button');
-            const email = screen.getByPlaceholderText('Email')
-            const senha = screen.getByPlaceholderText('Senha')
+        const navigate = jest.fn();
+        useNavigate.mockReturnValue(navigate);
 
-            fireEvent.change(email, { target: { value: newLogin.email } });
-            fireEvent.change(senha, { target: { value: newLogin.senha } });
+        render(<Login />);
+        const button = screen.getByRole('button');
+        const email = screen.getByPlaceholderText('Email')
+        const senha = screen.getByPlaceholderText('Senha')
 
-            fireEvent.click(button);
-            await waitFor(() => {
-                expect(userLogin).toHaveBeenCalledWith('texto@email.com', 'password');
-              
-                expect(navigate).toHaveBeenCalledWith('/breakfast');
-            });
+        fireEvent.change(email, { target: { value: newLogin.email } });
+        fireEvent.change(senha, { target: { value: newLogin.senha } });
 
+        fireEvent.click(button);
+        await waitFor(() => {
+            const paragrafoError = screen.getByText(error.message)
+            
+            expect(paragrafoError).toBeInTheDocument();
         });
+
+        expect(userLogin).toHaveBeenCalledWith(newLogin.email, newLogin.senha);
+        //não foi chamado
+        expect(navigate).not.toHaveBeenCalled();
 
     });
-});    
+
+});
+  
 
 
