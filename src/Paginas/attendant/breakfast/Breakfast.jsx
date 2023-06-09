@@ -9,7 +9,6 @@ import { Main, SectionMenu, UlMenu } from '../breakfast/Breakfast.styled';
 import { getProducts } from '../../../API/products/products';
 import { createOrder } from '../../../API/orders/orders';
 import { useNavigate } from "react-router-dom";
-import { getOrders } from '../../../API/orders/getOrders';
 import Modal from '../../../Components/modal/Modal';
 
 const Breakfast = () => {
@@ -19,29 +18,6 @@ const Breakfast = () => {
   const [clientName, setName] = useState('');
   const [openModal, setOpenModal] = useState(false);
   const [modalMessage, setmodalMessage] = useState('');
-  const [orders, setOrders] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const token = localStorage.getItem('token');
-        const response = await getOrders(token);
-        
-        if (!response.ok) {
-          throw new Error(`Erro ao obter os produtos da API ${response.statusText}`);
-        }
-        
-        const ordersList = await response.json();
-        setOrders(ordersList)
-      
-      } 
-      catch (error) {
-        alert(error.message)
-        console.log(error.message);
-      };
-    };
-    fetchData();
-  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -137,7 +113,6 @@ const Breakfast = () => {
       const orderData = await response.json();
       console.log(orderData);
       alert('Pedido enviado com sucesso');
-      console.log(orders);
     } 
     catch (error) {
       alert(error.message)
