@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:8080';
+const API_URL = 'https://burger-queen-api-mock-xi.vercel.app';
 
 export const userLogin = async (email, password) => {
   const response = await fetch(`${API_URL}/login`, {
