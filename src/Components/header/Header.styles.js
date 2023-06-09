@@ -15,6 +15,7 @@ export const ImgLogo = styled.img`
 `
 export const ImgLogout = styled.img`
   width: 8vw;
+  cursor: pointer;
   @media only screen and (min-width: 1024px) {
     width: 4vw;
   }

@@ -101,6 +101,9 @@ const Breakfast = () => {
       if(clientName === ''){
         throw new Error(`Não é possível enviar pedido caso não digite o nome do cliente!`);
       }
+      if(selectValue === '' || selectValue === 'Cova'){
+        throw new Error(`Não é possível enviar pedido caso não informe a mesa do cliente!`);
+      }
       const response = await createOrder(orderItem, clientName, userId, token); 
       const orderData = await response.json();
       console.log(orderData);

@@ -9,27 +9,28 @@ import { Main, SectionMenu, TitleMenu, UlMenu } from './RestOfTheDay.styled';
 import { getProducts } from '../../../API/products/products';
 import { createOrder } from '../../../API/orders/orders';
 import { useNavigate } from "react-router-dom";
+import Modal from '../../../Components/modal/Modal';
 
 const RestOfTheDay = () => {
   const [products, setProducts] = useState([]);
   const [orderItem, setOrderItem] = useState([]);
   const [selectValue, setSelectValue] = useState('');
   const [clientName, setName] = useState('');
-  
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const token = localStorage.getItem('token');
         const response = await getProducts(token);
-        
+
         if (!response.ok) {
           throw new Error(`Erro ao obter os produtos da API ${response.statusText}`);
         }
-        
+
         const productsList = await response.json();
         setProducts(productsList)
-      
-      } 
+
+      }
       catch (error) {
         alert(error.message)
         console.log(error.message);
@@ -62,7 +63,7 @@ const RestOfTheDay = () => {
     //atualizar o estado do orderItem 
     setOrderItem(newOrder);
   }
-    
+
   // fazer função do botão mais e menos;
   const handleClickQuantity = (item, children) => {
     //identificar o index para saber o item que quer aumentar/diminuir
@@ -70,19 +71,19 @@ const RestOfTheDay = () => {
     //console.log('getIndex', getIndex);
     //fazer uma cópia
     const newOrder = [...orderItem];
-    if(children === '-'){
+    if (children === '-') {
       //caso ja seja 1 e queira diminuir, o item será removido
-      if(item.quantity <= 1){
+      if (item.quantity <= 1) {
         handleClickDelete(item)
-      }else{
+      } else {
         const specificItem = newOrder[getIndex];
         const valueChange = specificItem.quantity - 1;
         newOrder[getIndex].quantity = valueChange;
         setOrderItem(newOrder);
-      }    
-        
+      }
+
     }
-    if(children === '+'){
+    if (children === '+') {
       const specificItem = newOrder[getIndex];
       const quantityChange = specificItem.quantity + 1;
       newOrder[getIndex].quantity = quantityChange;
@@ -91,42 +92,44 @@ const RestOfTheDay = () => {
   }
 
   const addItems = (product) => {
-    if(orderItem.length === 0){
+    if (orderItem.length === 0) {
       return setOrderItem((prevState) => [...prevState, product])
     }
     const verification = orderItem.find(prod => prod.id === product.id);
-    if(!verification){
+    if (!verification) {
       return setOrderItem((prevState) => [...prevState, product])
     }
     alert('item já está adicionado! Se quiser alterar a quantidade usar os botões do resumo do pedido')
   }
 
   const totalOrderAmount = () => {
-    return  orderItem.reduce((accum, valorAtual) => {
+    return orderItem.reduce((accum, valorAtual) => {
       return accum + (valorAtual.price * valorAtual.quantity);
     }, 0);
-   }
+  }
 
   const handleSendOrder = async () => {
     try {
       const token = localStorage.getItem('token');
       const userId = localStorage.getItem('userId');
-      
-      if(orderItem.length <= 0){
+
+      if (orderItem.length <= 0) {
         throw new Error(`Não é possível enviar pedido caso o resumo esteja vazio!`);
       }
-      if(clientName === ''){
+      if (clientName === '') {
         throw new Error(`Não é possível enviar pedido caso não digite o nome do cliente!`);
       }
-      const response = await createOrder(orderItem, clientName, userId, token); 
-      
+      if(selectValue === '' || selectValue === 'Cova'){
+        throw new Error(`Não é possível enviar pedido caso não informe a mesa do cliente!`);
+      }
+      const response = await createOrder(orderItem, clientName, userId, token);
+
       const orderData = await response.json();
       console.log(orderData);
       alert('Pedido enviado com sucesso')
-    } 
+    }
     catch (error) {
       alert(error.message)
-      console.log(error.message);
     };
   };
 
@@ -135,64 +138,65 @@ const RestOfTheDay = () => {
       <Header />
       <Main>
         <SectionMenu>
-          <ContainerButtons bntBreakfast='terciary' btnRestOfTheDay='secundary' onClickBreakfast={handleClick}/>
-          <Input 
-          type='text'
-          value={clientName}
-          onChange={(e) => setName(e.target.value)}
-          name='name'
-          placeholder='Digite o nome do cliente'
-        />
-          <Select onChange={(e) => setSelectValue(e.target.value)}/>
+          <ContainerButtons bntBreakfast='terciary' btnRestOfTheDay='secundary' onClickBreakfast={handleClick} />
+          <Input
+            type='text'
+            value={clientName}
+            onChange={(e) => setName(e.target.value)}
+            name='name'
+            placeholder='Digite o nome do cliente'
+          />
+          <Select onChange={(e) => setSelectValue(e.target.value)} />
           <TitleMenu>Hamburguers</TitleMenu>
           <UlMenu>
             {products.map((product) => {
               return product.type === 'Hamburguers' &&
-              <List 
-              key={product.id} 
-              name={product.name} 
-              price={`R$${product.price}`} 
-              onClick={() => addItems(product)}
-              />
-            })}           
+                <List
+                  key={product.id}
+                  name={product.name}
+                  price={`R$${product.price}`}
+                  onClick={() => addItems(product)}
+                />
+            })}
           </UlMenu>
           <TitleMenu>Acompanhamentos</TitleMenu>
           <UlMenu>
             {products.map((product) => {
               return product.type === 'Acompanhamentos' &&
-              <List 
-              key={product.id} 
-              name={product.name} 
-              price={`R$${product.price}`} 
-              onClick={() => setOrderItem((prevState) => [...prevState, product])}
-              />
-            })}           
+                <List
+                  key={product.id}
+                  name={product.name}
+                  price={`R$${product.price}`}
+                  onClick={() => setOrderItem((prevState) => [...prevState, product])}
+                />
+            })}
           </UlMenu>
           <TitleMenu>Bebidas</TitleMenu>
           <UlMenu>
             {products.map((product) => {
               return product.type === 'Bebidas' &&
-              <List 
-              key={product.id} 
-              name={product.name} 
-              price={`R$${product.price}`} 
-              onClick={() => setOrderItem((prevState) => [...prevState, product])}
-              />
-            })}           
+                <List
+                  key={product.id}
+                  name={product.name}
+                  price={`R$${product.price}`}
+                  onClick={() => setOrderItem((prevState) => [...prevState, product])}
+                />
+            })}
           </UlMenu>
         </SectionMenu>
-        <OrderResume 
-          orderItem={orderItem} 
+        <OrderResume
+          orderItem={orderItem}
           selectValue={selectValue}
           clientNameValue={clientName}
-          onClickDelete={handleClickDelete} 
+          onClickDelete={handleClickDelete}
           onClickQuantity={handleClickQuantity}
           total={totalOrderAmount()}
           onClickSend={handleSendOrder}
         />
+        <Modal />
       </Main>
-        
-    </> 
+
+    </>
   )
 }
 
