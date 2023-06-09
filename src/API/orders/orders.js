@@ -1,3 +1,4 @@
+const API_URL = 'http://localhost:8080';
 //função de enviar pedido para api
 /* 1. userId do atendente
     2. Nome do cliente
