@@ -1,13 +1,18 @@
-const Modal = (props) => {
+import { Background, ModalSection } from "./Modal.styles";
 
-    if(props.isOpen) {
+const Modal = (props) => {
+  if(props.isOpen) {
     return (
-        <section>
-            <p>modal</p>
-        </section>
-        )
-    }
-    
-}
+      <Background>
+        <ModalSection>
+          <h6>{props.message}</h6>
+          <button onClick={props.setModalOpen}>Fechar</button>
+        </ModalSection>
+      </Background>
+    )
+  };
+
+  return null;
+};
   
 export default Modal;

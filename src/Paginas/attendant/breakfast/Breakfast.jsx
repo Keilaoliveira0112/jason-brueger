@@ -9,12 +9,39 @@ import { Main, SectionMenu, UlMenu } from '../breakfast/Breakfast.styled';
 import { getProducts } from '../../../API/products/products';
 import { createOrder } from '../../../API/orders/orders';
 import { useNavigate } from "react-router-dom";
+import { getOrders } from '../../../API/orders/getOrders';
+import Modal from '../../../Components/modal/Modal';
 
 const Breakfast = () => {
   const [products, setProducts] = useState([]);
   const [orderItem, setOrderItem] = useState([]);
   const [selectValue, setSelectValue] = useState('');
   const [clientName, setName] = useState('');
+  const [openModal, setOpenModal] = useState(false);
+  const [modalMessage, setmodalMessage] = useState('');
+  const [orders, setOrders] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const response = await getOrders(token);
+        
+        if (!response.ok) {
+          throw new Error(`Erro ao obter os produtos da API ${response.statusText}`);
+        }
+        
+        const ordersList = await response.json();
+        setOrders(ordersList)
+      
+      } 
+      catch (error) {
+        alert(error.message)
+        console.log(error.message);
+      };
+    };
+    fetchData();
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -81,7 +108,9 @@ const Breakfast = () => {
     if(!verification){
       return setOrderItem((prevState) => [...prevState, product])
     }
-    alert('item já está adicionado! Se quiser alterar a quantidade usar os botões do resumo do pedido')
+    /* alert('item já está adicionado! Se quiser alterar a quantidade usar os botões do resumo do pedido'); */
+    setmodalMessage('Item já está adicionado! Se quiser alterar a quantidade usar os botões do resumo do pedido')
+    setOpenModal(true);
   }
 
   const totalOrderAmount = () => {
@@ -107,10 +136,13 @@ const Breakfast = () => {
       const response = await createOrder(orderItem, clientName, userId, token); 
       const orderData = await response.json();
       console.log(orderData);
-      alert('Pedido enviado com sucesso');      
+      alert('Pedido enviado com sucesso');
+      console.log(orders);
     } 
     catch (error) {
       alert(error.message)
+      setmodalMessage(error.message)
+      setOpenModal(true);
       console.log(error.message);
     };
   };
@@ -149,7 +181,8 @@ const Breakfast = () => {
           onClickQuantity={handleClickQuantity}
           total={totalOrderAmount()}
           onClickSend={handleSendOrder}
-        /> 
+        />
+        <Modal isOpen={openModal} message={modalMessage} setModalOpen={() => setOpenModal(!openModal)}/>
       </Main>
     </>
   )

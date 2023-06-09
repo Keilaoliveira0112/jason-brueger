@@ -20,7 +20,7 @@ grid-template-columns: 15vw;
   grid-template-columns: 10vw;
 }
 @media only screen and (min-width: 1024px) {
-  grid-template-columns: 5vw;
+  grid-template-columns: 6vw;
 }
 `
 export const Title = styled.h1`

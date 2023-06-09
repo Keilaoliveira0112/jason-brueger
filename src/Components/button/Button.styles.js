@@ -35,8 +35,6 @@ export const ButtonContainer = styled.button`
     font-weight: bold;
     cursor: pointer;
     border: none;
-    justify-self: center;
-    grid-area: btn;
     @media only screen and(min-width: 600px) {
     font-size: 2.5rem;
     }
@@ -72,6 +70,8 @@ export const ButtonContainer = styled.button`
     border: none;
     border-radius: 0.7rem;
     font-size: 1.3rem;
+    justify-self: center;
+    grid-area: btn;
     @media only screen and (min-width: 600px) {
       font-size: 2.2rem;
     }
