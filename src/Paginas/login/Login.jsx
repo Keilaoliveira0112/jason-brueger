@@ -8,10 +8,10 @@ import { userLogin } from "../../API/login/login";
 import { setItem } from '../../storage/local';
 
 const Login = () => {
-  const navigation = useNavigate()
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [error, setError] = useState(null)
+  const navigation = useNavigate();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState(null);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -20,11 +20,11 @@ const Login = () => {
       setItem('token', signin.accessToken);
       setItem('userId', signin.user.id);
       if (signin.user.role === 'atendente') {
-        navigation('/breakfast')
+        navigation('/breakfast');
       }
     }
     catch (error) {
-      setError(error.message)
+      setError(error.message);
     }
   }
 

@@ -30,12 +30,12 @@ const Breakfast = () => {
         }
         
         const productsList = await response.json();
-        setProducts(productsList)
+        setProducts(productsList);
       
       } 
       catch (error) {
-        alert(error.message)
-        console.log(error.message);
+        setmodalMessage(error.message);
+        setOpenModal(true);
       };
     };
     fetchData();
@@ -60,7 +60,7 @@ const Breakfast = () => {
     const newOrder = [...orderItem];
     if(children === '-'){
       if(item.quantity <= 1){
-        handleClickDelete(item)
+        handleClickDelete(item);
       }else{
         const specificItem = newOrder[getIndex];
         const valueChange = specificItem.quantity - 1;
@@ -76,16 +76,15 @@ const Breakfast = () => {
     }
   }
 
-  const addItems = (product) => {
+  const handleAddItems = (product) => {
     if(orderItem.length === 0){
-      return setOrderItem((prevState) => [...prevState, product])
+      return setOrderItem((prevState) => [...prevState, product]);
     }
     const verification = orderItem.find(prod => prod.id === product.id);
     if(!verification){
-      return setOrderItem((prevState) => [...prevState, product])
+      return setOrderItem((prevState) => [...prevState, product]);
     }
-    /* alert('item já está adicionado! Se quiser alterar a quantidade usar os botões do resumo do pedido'); */
-    setmodalMessage('Item já está adicionado! Se quiser alterar a quantidade usar os botões do resumo do pedido')
+    setmodalMessage(`Produto já foi adicionado no resumo! Caso queira alterar a quantidade, usar os botões no resumo do pedido`);
     setOpenModal(true);
   }
 
@@ -110,15 +109,13 @@ const Breakfast = () => {
         throw new Error(`Não é possível enviar pedido caso não informe a mesa do cliente!`);
       }
       const response = await createOrder(orderItem, clientName, userId, token); 
-      const orderData = await response.json();
-      console.log(orderData);
-      alert('Pedido enviado com sucesso');
+      await response.json();
+      setmodalMessage('Pedido enviado com sucesso');
+      setOpenModal(true);
     } 
     catch (error) {
-      alert(error.message)
-      setmodalMessage(error.message)
+      setmodalMessage(error.message);
       setOpenModal(true);
-      console.log(error.message);
     };
   };
 
@@ -143,7 +140,7 @@ const Breakfast = () => {
             key={product.id} 
             name={product.name} 
             price={`R$${product.price}`} 
-            onClick={() => addItems(product)}
+            onClick={() => handleAddItems(product)}
             />
           })}             
           </UlMenu>    
@@ -157,7 +154,11 @@ const Breakfast = () => {
           total={totalOrderAmount()}
           onClickSend={handleSendOrder}
         />
-        <Modal isOpen={openModal} message={modalMessage} setModalOpen={() => setOpenModal(!openModal)}/>
+        <Modal 
+          isOpen={openModal}
+          message={modalMessage}
+          setModalOpen={() => setOpenModal(!openModal)}
+        />
       </Main>
     </>
   )

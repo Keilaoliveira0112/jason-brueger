@@ -11,7 +11,6 @@ padding: 3rem;
   justify-content: space-around;
   align-items: flex-start;
 }
-
 `
 export const SectionMenu = styled.section`
 display: grid;

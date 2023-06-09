@@ -16,6 +16,8 @@ const RestOfTheDay = () => {
   const [orderItem, setOrderItem] = useState([]);
   const [selectValue, setSelectValue] = useState('');
   const [clientName, setName] = useState('');
+  const [openModal, setOpenModal] = useState(false);
+  const [modalMessage, setmodalMessage] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,12 +30,12 @@ const RestOfTheDay = () => {
         }
 
         const productsList = await response.json();
-        setProducts(productsList)
+        setProducts(productsList);
 
       }
       catch (error) {
-        alert(error.message)
-        console.log(error.message);
+        setmodalMessage(error.message);
+        setOpenModal(true);
       };
     };
     fetchData();
@@ -47,41 +49,24 @@ const RestOfTheDay = () => {
   };
 
   const handleClickDelete = (item) => {
-    //tenho que saber o index, onde esta?
-    //pega o objeto com o index desejado
     const getIndex = orderItem.findIndex((order) => order.id === item.id);
-    //console.log('getIndex', getIndex);
-
-    //pegar o resumo e fazer a copia antes da alteração no state
     const newOrder = [...orderItem];
-    //console.log('newOrder', newOrder);
-
-    //splice, primeiro localiza pelo index e o 1 quer dizer você quer modificar/remover
     newOrder.splice(getIndex, 1);
-    //console.log('splice', newOrder);;
-
-    //atualizar o estado do orderItem 
     setOrderItem(newOrder);
   }
 
-  // fazer função do botão mais e menos;
   const handleClickQuantity = (item, children) => {
-    //identificar o index para saber o item que quer aumentar/diminuir
     const getIndex = orderItem.findIndex((order) => order.id === item.id);
-    //console.log('getIndex', getIndex);
-    //fazer uma cópia
     const newOrder = [...orderItem];
     if (children === '-') {
-      //caso ja seja 1 e queira diminuir, o item será removido
       if (item.quantity <= 1) {
-        handleClickDelete(item)
+        handleClickDelete(item);
       } else {
         const specificItem = newOrder[getIndex];
         const valueChange = specificItem.quantity - 1;
         newOrder[getIndex].quantity = valueChange;
         setOrderItem(newOrder);
       }
-
     }
     if (children === '+') {
       const specificItem = newOrder[getIndex];
@@ -91,15 +76,16 @@ const RestOfTheDay = () => {
     }
   }
 
-  const addItems = (product) => {
+  const handleAddItems = (product) => {
     if (orderItem.length === 0) {
-      return setOrderItem((prevState) => [...prevState, product])
+      return setOrderItem((prevState) => [...prevState, product]);
     }
     const verification = orderItem.find(prod => prod.id === product.id);
     if (!verification) {
-      return setOrderItem((prevState) => [...prevState, product])
+      return setOrderItem((prevState) => [...prevState, product]);
     }
-    alert('item já está adicionado! Se quiser alterar a quantidade usar os botões do resumo do pedido')
+    setmodalMessage(`Produto já foi adicionado no resumo! Caso queira alterar a quantidade, usar os botões no resumo do pedido`);
+    setOpenModal(true);
   }
 
   const totalOrderAmount = () => {
@@ -124,12 +110,13 @@ const RestOfTheDay = () => {
       }
       const response = await createOrder(orderItem, clientName, userId, token);
 
-      const orderData = await response.json();
-      console.log(orderData);
-      alert('Pedido enviado com sucesso')
+      await response.json();
+      setmodalMessage('Pedido enviado com sucesso');
+      setOpenModal(true);
     }
     catch (error) {
-      alert(error.message)
+      setmodalMessage(error.message);
+      setOpenModal(true);
     };
   };
 
@@ -155,7 +142,7 @@ const RestOfTheDay = () => {
                   key={product.id}
                   name={product.name}
                   price={`R$${product.price}`}
-                  onClick={() => addItems(product)}
+                  onClick={() => handleAddItems(product)}
                 />
             })}
           </UlMenu>
@@ -193,7 +180,11 @@ const RestOfTheDay = () => {
           total={totalOrderAmount()}
           onClickSend={handleSendOrder}
         />
-        <Modal />
+        <Modal 
+          isOpen={openModal}
+          message={modalMessage}
+          setModalOpen={() => setOpenModal(!openModal)}
+        />
       </Main>
 
     </>

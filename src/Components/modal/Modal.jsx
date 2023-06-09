@@ -1,12 +1,17 @@
-import { Background, ModalSection } from "./Modal.styles";
+import { Background, ModalSection, BtnClose, Message } from "./Modal.styles";
 
 const Modal = (props) => {
   if(props.isOpen) {
+    
+    const handleOutsideClick = (e) => {
+      if(e.target.id === 'modal') props.setModalOpen();
+    }
+
     return (
-      <Background>
+      <Background id='modal' onClick={handleOutsideClick}>
         <ModalSection>
-          <h6>{props.message}</h6>
-          <button onClick={props.setModalOpen}>Fechar</button>
+          <BtnClose onClick={props.setModalOpen} />
+          <Message>{props.message}</Message>
         </ModalSection>
       </Background>
     )

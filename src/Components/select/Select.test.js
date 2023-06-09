@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 describe('<Select />', () => {
-    it('deve verificar a alteração do valor quando selcionar uma nova mesa', () =>{
+    it('deve verificar a alteração do valor quando selecionar uma nova mesa', () =>{
         render(<Select />);
         const select = screen.getByRole('combobox')
         expect(select).toBeInTheDocument();
