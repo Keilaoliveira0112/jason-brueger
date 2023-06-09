@@ -10,6 +10,7 @@ import { getProducts } from '../../API/products/products';
 import { createOrder } from '../../API/orders/orders';
 import { useNavigate } from "react-router-dom";
 import Modal from '../modal/Modal';
+import { getOrders } from '../../API/orders/getOrders';
 
 const NewOrder = (props) => {
   const [products, setProducts] = useState([]);
@@ -18,6 +19,29 @@ const NewOrder = (props) => {
   const [clientName, setName] = useState('');
   const [openModal, setOpenModal] = useState(false);
   const [modalMessage, setmodalMessage] = useState('');
+  const [orders, setOrders] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const response = await getOrders(token);
+        
+        if (!response.ok) {
+          throw new Error(`Erro ao obter os produtos da API ${response.statusText}`);
+        }
+        
+        const ordersList = await response.json();
+        setOrders(ordersList)
+      
+      } 
+      catch (error) {
+        alert(error.message)
+        console.log(error.message);
+      };
+    };
+    fetchData();
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -111,8 +135,16 @@ const NewOrder = (props) => {
       const response = await createOrder(orderItem, clientName, userId, token);
 
       await response.json();
-      setmodalMessage('Pedido enviado com sucesso');
-      setOpenModal(true);
+
+      if(response.status === 201){
+        setmodalMessage('Pedido enviado com sucesso');
+        setOpenModal(true);
+        setOrderItem([]);
+        setSelectValue('');
+        setName('');
+      }
+      
+      console.log(orders);
     }
     catch (error) {
       setmodalMessage(error.message);
@@ -129,7 +161,7 @@ const NewOrder = (props) => {
             <ContainerButtons bntBreakfast='terciary' btnRestOfTheDay='secundary' onClickBreakfast={handleClick} />
           ) : (
             <ContainerButtons bntBreakfast='secundary' btnRestOfTheDay='terciary' onClickDay={handleClick} />
-          )};          
+          )}          
           <Input
             type='text'
             value={clientName}
