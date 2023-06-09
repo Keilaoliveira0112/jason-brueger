@@ -1,6 +1,6 @@
 import { SelectContainer } from "./Select.styles"
 
- function Select(props) {
+ const Select = (props) => {
   return (
       <SelectContainer defaultValue={{value: 'Cova'}} onChange={props.onChange}>
           <option value="Cova" >Cova</option>

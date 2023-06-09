@@ -1,4 +1,4 @@
-import { Section, Title, Name, ValueName, TemplateList, ItemName, ItemPrice, BtnReduce, ItemQuantity, BtnIncrease, BtnDelete, ImgDelete } from './OrderResume.styles';
+import { Section, Title, Cova, ValueSelect, Clientame, ValueName, Ul, TemplateList, ItemName, ItemPrice, BtnReduce, ItemQuantity, BtnIncrease, BtnDelete, ImgDelete, TotalName, TotalValue } from './OrderResume.styles';
 import btnDelete from '../../assets/btnDelete.svg'
 import Button from '../button/Button';
 
@@ -6,11 +6,11 @@ const OrderResume = (props) => {
   return (
     <Section>
       <Title>Resumo da Lápide</Title>
-      <Name>Cova: </Name>
-      <ValueName>{props.selectValue}</ValueName>
-      <Name>Cliente: </Name>
+      <Cova>Cova: </Cova>
+      <ValueSelect>{props.selectValue}</ValueSelect>
+      <Clientame>Cliente: </Clientame>
       <ValueName> {props.clientNameValue}</ValueName>
-      <ul>
+      <Ul>
         {props.orderItem.map((item)=> (
           <TemplateList key={item.id}>
             <ItemName>{item.name}</ItemName>
@@ -23,8 +23,9 @@ const OrderResume = (props) => {
             </BtnDelete>
           </TemplateList>
         ))}       
-      </ul>
-      <h3>Total: R${props.total}</h3>
+      </Ul>
+      <TotalName>Total: </TotalName>
+      <TotalValue>R$ {props.total}</TotalValue>      
       <Button variant='quartenary' onClick={() => props.onClickSend()}>Enviar</Button>
     </Section>
   )

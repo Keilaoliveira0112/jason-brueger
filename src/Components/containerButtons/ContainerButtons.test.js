@@ -12,7 +12,6 @@ describe('<ContainerButtons />', () => {
         render(<ContainerButtons {...props}/>);
 
         const button = screen.getAllByRole('button');
-        //espero que eu tenha 2 botoes
         expect(button).toHaveLength(2);
         
         const btnBreakfast = screen.getByText('Café da manhã');

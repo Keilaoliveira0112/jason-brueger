@@ -13,7 +13,6 @@ describe('<Header />', () => {
         useNavigate.mockReturnValue(navigate);
 
         render(<Header />);
-        // asserção dos elementos na tela
         expect(screen.getByRole('img', { name: 'logo jason brueger'})).toBeInTheDocument();
         expect(screen.getByRole('button', { name: 'Novo Pedido'})).toBeInTheDocument();
         expect(screen.getByRole('button', { name: 'Pedidos Prontos'})).toBeInTheDocument();

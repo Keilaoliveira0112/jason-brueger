@@ -8,24 +8,23 @@ import { userLogin } from "../../API/login/login";
 import { setItem } from '../../storage/local';
 
 const Login = () => {
-  const navigation = useNavigate()
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [error, setError] = useState(null)
+  const navigation = useNavigate();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState(null);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
       const signin = await userLogin(email, password);
       setItem('token', signin.accessToken);
-      //console.log(signin.user.id)
       setItem('userId', signin.user.id);
       if (signin.user.role === 'atendente') {
-        navigation('/breakfast')
+        navigation('/breakfast');
       }
     }
     catch (error) {
-      setError(error.message)
+      setError(error.message);
     }
   }
 
@@ -46,10 +45,8 @@ const Login = () => {
           value={password}
           name='password'
           placeholder='Senha'
-          /* onChange irá pegar o evento de digitar e extrair o valor do input após esse evento */
           onChange={(e) => setPassword(e.target.value)}
         />
-        {/* Se tiver o erro, irei exibir o erro */}
         {error && <ParagraphError>{error}</ParagraphError>}
         <Button variant='primary' type='submit'>Entrar</Button> 
       </CreateForm>

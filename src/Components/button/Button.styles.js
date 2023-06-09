@@ -63,22 +63,23 @@ export const ButtonContainer = styled.button`
   `} 
 
   ${({ variant }) => variant === "quartenary" && css`
-    font-weight: bold;
-    font-family: 'Asap';
     width: 12vw;
-    font-size: 1rem;
     height: 5vh;
-    background - color: #711D17;
+    background- color: #711D17;
     color: #FFFFFF;
+    border: none;
     border-radius: 0.7rem;
-    cursor: pointer;
+    font-size: 1.3rem;
+    justify-self: center;
+    grid-area: btn;
     @media only screen and (min-width: 600px) {
-      font-size: 1.5rem;
+      font-size: 2.2rem;
     }
     @media only screen and (min-width: 1024px) {
-      width: 20vw;
-      height: 10vh;
-     
+      width: 13vw;
+      height: 8vh;
+      font-size: 3rem;
+
       &::after {
         content: '',
       } 
