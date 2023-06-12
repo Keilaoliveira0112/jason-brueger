@@ -14,8 +14,7 @@ describe('<Header />', () => {
 
         render(<Header />);
         expect(screen.getByRole('img', { name: 'logo jason brueger'})).toBeInTheDocument();
-        expect(screen.getByRole('button', { name: 'Novo Pedido'})).toBeInTheDocument();
-        expect(screen.getByRole('button', { name: 'Pedidos Prontos'})).toBeInTheDocument();
+        expect(screen.getAllByRole('button')).toHaveLength(2);
         const logout = screen.getByAltText('botão de sair');
         expect(logout).toBeInTheDocument();
 

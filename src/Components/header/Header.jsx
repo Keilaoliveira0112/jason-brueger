@@ -15,8 +15,8 @@ const Header = (props) => {
     return (
       <ContainerHeader>
         <ImgLogo src={Logo} alt='logo jason brueger' />
-        <Button type='button' variant={props.variantFirstBtn} children={props.firstBtn} />
-        <Button type='button' variant={props.variantSecondBtn} children={props.secondBtn} />
+        <Button type='button' variant={props.variantFirstBtn} onClick={props.onClick} children={props.firstBtn} />
+        <Button type='button' variant={props.variantSecondBtn} onClick={props.onClick} children={props.secondBtn} />
         <ImgLogout src={Logout} alt='botão de sair' onClick={handleClick}/>
       </ContainerHeader>
     )
