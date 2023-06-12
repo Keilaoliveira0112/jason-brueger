@@ -22,6 +22,9 @@ const Login = () => {
       if (signin.user.role === 'atendente') {
         navigation('/breakfast');
       }
+      if (signin.user.role === 'chefe de cozinha') {
+        navigation('/pedidos-pendentes');
+      }
     }
     catch (error) {
       setError(error.message);

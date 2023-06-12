@@ -10,7 +10,6 @@ import { getProducts } from '../../API/products/products';
 import { createOrder } from '../../API/orders/orders';
 import { useNavigate } from "react-router-dom";
 import Modal from '../modal/Modal';
-import { getOrders } from '../../API/orders/getOrders';
 
 const NewOrder = (props) => {
   const [products, setProducts] = useState([]);
@@ -19,29 +18,6 @@ const NewOrder = (props) => {
   const [clientName, setName] = useState('');
   const [openModal, setOpenModal] = useState(false);
   const [modalMessage, setmodalMessage] = useState('');
-  const [orders, setOrders] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const token = localStorage.getItem('token');
-        const response = await getOrders(token);
-        
-        if (!response.ok) {
-          throw new Error(`Erro ao obter os produtos da API ${response.statusText}`);
-        }
-        
-        const ordersList = await response.json();
-        setOrders(ordersList)
-      
-      } 
-      catch (error) {
-        alert(error.message)
-        console.log(error.message);
-      };
-    };
-    fetchData();
-  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -142,9 +118,9 @@ const NewOrder = (props) => {
         setOrderItem([]);
         setSelectValue('');
         setName('');
+      } else {
+        throw new Error('Erro ao enviar o pedido')
       }
-      
-      console.log(orders);
     }
     catch (error) {
       setmodalMessage(error.message);
@@ -154,13 +130,18 @@ const NewOrder = (props) => {
 
   return (
     <>
-      <Header />
+      <Header 
+        firstBtn='Novo Pedido'
+        variantFirstBtn=''
+        secondBtn='Pedidos Prontos'
+        variantSecondBtn='quinary'  
+      />
       <Main>
         <SectionMenu>
           {props.page === 'RestOfTheDay' ? (
-            <ContainerButtons bntBreakfast='terciary' btnRestOfTheDay='secundary' onClickBreakfast={handleClick} />
+            <ContainerButtons bntBreakfast='tertiary' btnRestOfTheDay='secondary' onClickBreakfast={handleClick} />
           ) : (
-            <ContainerButtons bntBreakfast='secundary' btnRestOfTheDay='terciary' onClickDay={handleClick} />
+            <ContainerButtons bntBreakfast='secondary' btnRestOfTheDay='tertiary' onClickDay={handleClick} />
           )}          
           <Input
             type='text'

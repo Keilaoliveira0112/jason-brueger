@@ -5,7 +5,7 @@ import { ContainerHeader, ImgLogo, ImgLogout } from './Header.styles';
 import { useNavigate } from "react-router-dom";
 import { removeItem } from '../../storage/local';
 
-const Header = () => {
+const Header = (props) => {
   const navigation = useNavigate();
   const handleClick = (e) => {
     e.preventDefault();
@@ -15,8 +15,8 @@ const Header = () => {
     return (
       <ContainerHeader>
         <ImgLogo src={Logo} alt='logo jason brueger' />
-        <Button type='button' children='Novo Pedido' />
-        <Button type='button'variant='quintenary' children='Pedidos Prontos' />
+        <Button type='button' variant={props.variantFirstBtn} children={props.firstBtn} />
+        <Button type='button' variant={props.variantSecondBtn} children={props.secondBtn} />
         <ImgLogout src={Logout} alt='botão de sair' onClick={handleClick}/>
       </ContainerHeader>
     )
