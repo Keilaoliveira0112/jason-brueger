@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:8080';
+const API_URL = 'https://burger-queen-api-mock-xi.vercel.app';
 
 export const createOrder = async(orderResume, clientName, idAttendant, token) => await fetch(`${API_URL}/orders`, {
 method: 'POST',
