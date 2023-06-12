@@ -9,4 +9,4 @@ const ContainerButtons = (props) => {
     </Container>
   )
 }
-export default ContainerButtons
+export default ContainerButtons;
