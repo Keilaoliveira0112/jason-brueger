@@ -1,23 +1,25 @@
 import { React, useState, useEffect } from 'react';
-import Header from '../header/Header';
-import ContainerButtons from '../containerButtons/ContainerButtons';
-import List from '../list/List';
-import Select from '../select/Select';
-import Input from '../input/Input';
-import OrderResume from '../orderResume/OrderResume';
+import Header from '../../../Components/header/Header';
+import ContainerButtons from '../../../Components/containerButtons/ContainerButtons';
+import List from '../../../Components/list/List';
+import Select from '../../../Components/select/Select';
+import Input from '../../../Components/input/Input';
+import OrderResume from '../../../Components/orderResume/OrderResume';
 import { Main, SectionMenu, TitleMenu, UlMenu } from './NewOrder.styles';
-import { getProducts } from '../../API/products/products';
-import { createOrder } from '../../API/orders/orders';
+import { getProducts } from '../../../API/products/products';
+import { createOrder } from '../../../API/orders/orders';
 import { useNavigate } from "react-router-dom";
-import Modal from '../modal/Modal';
+import Modal from '../../../Components/modal/Modal';
 
-const NewOrder = (props) => {
+const NewOrder = () => {
+  const navigation = useNavigate();
   const [products, setProducts] = useState([]);
   const [orderItem, setOrderItem] = useState([]);
   const [selectValue, setSelectValue] = useState('');
   const [clientName, setName] = useState('');
   const [openModal, setOpenModal] = useState(false);
   const [modalMessage, setmodalMessage] = useState('');
+  const [productType, setProductType] = useState('Breakfast');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -41,11 +43,16 @@ const NewOrder = (props) => {
     fetchData();
   }, []);
 
-  const navigation = useNavigate();
+  const handleClickNavigate = (e) => {
+    e.preventDefault();
+    const page = e.target.textContent === 'Novo Pedido' ? '/novo-pedido' : '/pedidos-prontos';
+    navigation(page);
+  }
 
   const handleClick = (e) => {
     e.preventDefault();
-    navigation(props.navigate);
+    const type = e.target.textContent === 'Resto do dia' ? 'RestOfTheDay' : 'Breakfast';
+    setProductType(type);
   };
 
   const handleClickDelete = (item) => {
@@ -97,7 +104,7 @@ const NewOrder = (props) => {
   const handleSendOrder = async () => {
     try {
       const token = localStorage.getItem('token');
-      const userId = localStorage.getItem('userId');
+      const username = localStorage.getItem('username');
 
       if (orderItem.length <= 0) {
         throw new Error(`Não é possível enviar pedido caso o resumo esteja vazio!`);
@@ -108,7 +115,7 @@ const NewOrder = (props) => {
       if(selectValue === '' || selectValue === 'Cova'){
         throw new Error(`Não é possível enviar pedido caso não informe a mesa do cliente!`);
       }
-      const response = await createOrder(orderItem, clientName, userId, token);
+      const response = await createOrder(selectValue, orderItem, clientName, username, token);
 
       await response.json();
 
@@ -134,11 +141,12 @@ const NewOrder = (props) => {
         firstBtn='Novo Pedido'
         variantFirstBtn=''
         secondBtn='Pedidos Prontos'
-        variantSecondBtn='quinary'  
+        variantSecondBtn='quinary'
+        onClick={handleClickNavigate}
       />
       <Main>
         <SectionMenu>
-          {props.page === 'RestOfTheDay' ? (
+          {productType === 'RestOfTheDay' ? (
             <ContainerButtons bntBreakfast='tertiary' btnRestOfTheDay='secondary' onClickBreakfast={handleClick} />
           ) : (
             <ContainerButtons bntBreakfast='secondary' btnRestOfTheDay='tertiary' onClickDay={handleClick} />
@@ -151,7 +159,7 @@ const NewOrder = (props) => {
             placeholder='Digite o nome do cliente'
           />
           <Select onChange={(e) => setSelectValue(e.target.value)} />
-          {props.page === 'RestOfTheDay' ? (
+          {productType === 'RestOfTheDay' ? (
             <>
               <TitleMenu>Hamburguers</TitleMenu>
               <UlMenu>

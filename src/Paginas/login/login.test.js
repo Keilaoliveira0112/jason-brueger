@@ -19,6 +19,7 @@ describe('<Login/>', () => {
       user: {
         email: "atendente@email.com",
         id: 4,
+        name: "Jason",
         role: "atendente"
       }
     });
@@ -34,12 +35,12 @@ describe('<Login/>', () => {
     fireEvent.click(button);
 
     await waitFor(() => {
-      expect(navigate).toHaveBeenCalledWith('/breakfast');
+      expect(navigate).toHaveBeenCalledWith('/novo-pedido');
     });
     expect(userLogin).toHaveBeenCalledWith('texto@email.com', 'password');
     expect(setItem).toHaveBeenCalledTimes(2);
     expect(setItem).toHaveBeenCalledWith('token', 'huhasud');
-    expect(setItem).toHaveBeenCalledWith('userId', 4);
+    expect(setItem).toHaveBeenCalledWith('username', 'Jason');
   });
 
   it('should not redirect if login is in error', async () => {
