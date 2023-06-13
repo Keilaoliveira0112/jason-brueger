@@ -16,7 +16,7 @@ const ReadyOrders = () => {
         variantFirstBtn='quinary'
         secondBtn='Pedidos Prontos'
         variantSecondBtn=''
-        onClick={handleClickNavigate}
+        onClick={handleClickNavigate} 
       />
       <h1>Em construção</h1>
     </>
