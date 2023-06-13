@@ -26,7 +26,7 @@ const OrderResume = (props) => {
       </Ul>
       <TotalName>Total: </TotalName>
       <TotalValue>R$ {props.total}</TotalValue>      
-      <Button variant='quaternary' onClick={() => props.onClickSend()}>Enviar</Button>
+      <Button variant='quaternary' onClick={() => props.onClickSend(props.total)}>Enviar</Button>
     </Section>
   )
 }

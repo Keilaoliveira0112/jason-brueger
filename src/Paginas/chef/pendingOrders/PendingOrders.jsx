@@ -5,8 +5,10 @@ import Button from '../../../Components/button/Button';
 import { getItem } from '../../../storage/local';
 import { getOrders } from '../../../API/orders/getOrders';
 import { Main, Section, Title, InitialDate, Hour, Pit, Number, Client, Name, Attendant, Username, Table,Thead, Tbody } from './PendingOrders.styled';
+import { useNavigate } from "react-router-dom";
 
 const PendingOrdes = () => {
+  const navigation = useNavigate();
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
@@ -20,7 +22,7 @@ const PendingOrdes = () => {
         }
 
         const orderList = await response.json();
-        const filterPending = orderList.filter((order) => order.status === 'Pendente');
+        const filterPending = orderList.filter((order) => order.status === 'pending');
         setOrders(filterPending);
       }
       catch (error) {
@@ -30,13 +32,20 @@ const PendingOrdes = () => {
     fetchData()
   }, []);
 
+  const handleClickNavigate = (e) => {
+    e.preventDefault();
+    const page = e.target.textContent === 'Pedidos Entregues' ? '/pedidos-entregues' : '/pedidos-pendentes';
+    navigation(page);
+  }
+
   return (
     <>
       <Header 
         firstBtn='Pedidos Pendentes'
         variantFirstBtn=''
         secondBtn='Pedidos Entregues'
-        variantSecondBtn='quinary'  
+        variantSecondBtn='quinary'
+        onClick={handleClickNavigate}  
       />
       <Main>
         {orders.map((order) => {
@@ -62,8 +71,8 @@ const PendingOrdes = () => {
               <Tbody>          
                 {order.products.map((item)=> (
                   <tr>
-                    <td>{item.product.name}</td>
-                    <td>{item.product.quantity}</td>
+                    <td>{item.name}</td>
+                    <td>{item.quantity}</td>
                   </tr> 
                 ))}
               </Tbody>
