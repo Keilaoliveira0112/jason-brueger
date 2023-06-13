@@ -8,7 +8,7 @@ headers: {
 },
 body: JSON.stringify({
     table: selectValue,
-    attendamt: AttendantName,
+    userName: AttendantName,
     client: clientName,
     products: orderResume,
     status: 'Pendente',
