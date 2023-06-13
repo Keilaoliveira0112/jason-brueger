@@ -101,7 +101,7 @@ const NewOrder = () => {
     }, 0);
   }
 
-  const handleSendOrder = async () => {
+  const handleSendOrder = async (orderTotal) => {
     try {
       const token = localStorage.getItem('token');
       const username = localStorage.getItem('username');
@@ -115,10 +115,10 @@ const NewOrder = () => {
       if(selectValue === '' || selectValue === 'Cova'){
         throw new Error(`Não é possível enviar pedido caso não informe a mesa do cliente!`);
       }
-      const response = await createOrder(selectValue, orderItem, clientName, username, token);
+      const response = await createOrder(orderTotal, selectValue, orderItem, clientName, username, token);
 
-      await response.json();
-
+      const teste = await response.json();
+      console.log(teste)
       if(response.status === 201){
         setmodalMessage('Pedido enviado com sucesso');
         setOpenModal(true);
