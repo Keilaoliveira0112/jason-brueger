@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Login from './Paginas/login/Login';
 import NewOrder from './Paginas/attendant/newOrder/NewOrder';
 import ReadyOrders from './Paginas/attendant/readyOrders/ReadyOrders';
-import PendingOrdes from './Paginas/chef/PendingOrders';
+import PendingOrdes from './Paginas/chef/pendingOrders/PendingOrders';
 
 const Rotas = () => {
   return (
