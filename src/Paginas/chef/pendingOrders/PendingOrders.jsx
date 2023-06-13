@@ -1,6 +1,6 @@
-import Header from '../../Components/header/Header';
-import Star from '../../assets/Star.svg';
-import Button from '../../Components/button/Button';
+import Header from '../../../Components/header/Header';
+import Star from '../../../assets/Star.svg';
+import Button from '../../../Components/button/Button';
 
 const PendingOrdes = () => {
   return (
