@@ -18,7 +18,9 @@ const NewOrder = () => {
   const [selectValue, setSelectValue] = useState('');
   const [clientName, setName] = useState('');
   const [openModal, setOpenModal] = useState(false);
+  const [typeModal, setTypeModal] = useState('notification');
   const [modalMessage, setmodalMessage] = useState('');
+  const [valueArguments, setvalueArguments] = useState([]);
   const [productType, setProductType] = useState('Breakfast');
 
   useEffect(() => {
@@ -37,6 +39,7 @@ const NewOrder = () => {
       }
       catch (error) {
         setmodalMessage(error.message);
+        setTypeModal('notification');
         setOpenModal(true);
       };
     };
@@ -56,10 +59,41 @@ const NewOrder = () => {
   };
 
   const handleClickDelete = (item) => {
-    const getIndex = orderItem.findIndex((order) => order.id === item.id);
-    const newOrder = [...orderItem];
-    newOrder.splice(getIndex, 1);
-    setOrderItem(newOrder);
+    if(!openModal){
+      //console.log(item)
+      setvalueArguments(item)
+      setmodalMessage(`Tem certeza que deseja excluir esse item do resumo de pedidos?`);
+      setTypeModal('confirmation');
+      setOpenModal(true);
+      //console.log('false', openModal)
+    } else {
+      //console.log(valueArguments);
+      const getIndex = orderItem.findIndex((order) => order.id === valueArguments.id);
+      const newOrder = [...orderItem];
+      newOrder.splice(getIndex, 1);
+      setOrderItem(newOrder);
+    }
+  };
+
+  const sendModal = (e) => {
+    e.preventDefault();
+    //console.log('entre fi duma mae');
+    //console.log('true', openModal)
+    setOpenModal(false);
+    callCorrectFunction()
+  }
+
+  const callCorrectFunction = () => {
+    switch(modalMessage) {
+      case "Tem certeza que deseja excluir esse item do resumo de pedidos?":
+        handleClickDelete()
+        break;
+      case "Confirma o envio do pedido para a cozinha?":
+        handleSendOrder()
+        break
+      default:
+        console.log('nenhuma das anteriores')
+    }
   }
 
   const handleClickQuantity = (item, children) => {
@@ -92,6 +126,7 @@ const NewOrder = () => {
       return setOrderItem((prevState) => [...prevState, product]);
     }
     setmodalMessage(`Produto já foi adicionado no resumo! Caso queira alterar a quantidade, usar os botões no resumo do pedido`);
+    setTypeModal('notification');
     setOpenModal(true);
   }
 
@@ -102,36 +137,45 @@ const NewOrder = () => {
   }
 
   const handleSendOrder = async (orderTotal) => {
-    try {
-      const token = localStorage.getItem('token');
-      const username = localStorage.getItem('username');
-
-      if (orderItem.length <= 0) {
-        throw new Error(`Não é possível enviar pedido caso o resumo esteja vazio!`);
-      }
-      if (clientName === '') {
-        throw new Error(`Não é possível enviar pedido caso não digite o nome do cliente!`);
-      }
-      if(selectValue === '' || selectValue === 'Cova'){
-        throw new Error(`Não é possível enviar pedido caso não informe a mesa do cliente!`);
-      }
-      const response = await createOrder(orderTotal, selectValue, orderItem, clientName, username, token);
-
-      const teste = await response.json();
-      console.log(teste)
-      if(response.status === 201){
-        setmodalMessage('Pedido enviado com sucesso');
-        setOpenModal(true);
-        setOrderItem([]);
-        setSelectValue('');
-        setName('');
-      } else {
-        throw new Error('Erro ao enviar o pedido')
-      }
-    }
-    catch (error) {
-      setmodalMessage(error.message);
+    if(!openModal){
+      setvalueArguments(orderTotal)
+      setmodalMessage(`Confirma o envio do pedido para a cozinha?`);
+      setTypeModal('confirmation');
       setOpenModal(true);
+    } else {
+      try {
+        const token = localStorage.getItem('token');
+        const username = localStorage.getItem('username');
+  
+        if (orderItem.length <= 0) {
+          throw new Error(`Não é possível enviar pedido caso o resumo esteja vazio!`);
+        }
+        if (clientName === '') {
+          throw new Error(`Não é possível enviar pedido caso não digite o nome do cliente!`);
+        }
+        if(selectValue === '' || selectValue === 'Cova'){
+          throw new Error(`Não é possível enviar pedido caso não informe a mesa do cliente!`);
+        }
+        const response = await createOrder(valueArguments, selectValue, orderItem, clientName, username, token);
+  
+        const teste = await response.json();
+        console.log(teste)
+        if(response.status === 201){
+          setmodalMessage('Pedido enviado com sucesso');
+          setTypeModal('notification');
+          setOpenModal(true);
+          setOrderItem([]);
+          setSelectValue('');
+          setName('');
+        } else {
+          throw new Error('Erro ao enviar o pedido')
+        }
+      }
+      catch (error) {
+        setmodalMessage(error.message);
+        setTypeModal('notification');
+        setOpenModal(true);
+      };      
     };
   };
 
@@ -147,9 +191,21 @@ const NewOrder = () => {
       <Main>
         <SectionMenu>
           {productType === 'RestOfTheDay' ? (
-            <ContainerButtons bntBreakfast='tertiary' btnRestOfTheDay='secondary' onClickBreakfast={handleClick} />
+            <ContainerButtons
+              variantBtnOne='tertiary'
+              variantBtnTwo='secondary'
+              onClickBtnOne={handleClick}
+              childrenBtnTwo={'Resto do dia'}
+              childrenBtnOne={'Café da manhã'}
+            />
           ) : (
-            <ContainerButtons bntBreakfast='secondary' btnRestOfTheDay='tertiary' onClickDay={handleClick} />
+            <ContainerButtons
+              variantBtnOne='secondary'
+              variantBtnTwo='tertiary'
+              onClickBtnTwo={handleClick}
+              childrenBtnTwo={'Resto do dia'}
+              childrenBtnOne={'Café da manhã'}
+            />
           )}          
           <Input
             type='text'
@@ -225,8 +281,10 @@ const NewOrder = () => {
         />
         <Modal 
           isOpen={openModal}
+          typeModal={typeModal}
           message={modalMessage}
           setModalOpen={() => setOpenModal(!openModal)}
+          send={sendModal}
         />
       </Main>
 

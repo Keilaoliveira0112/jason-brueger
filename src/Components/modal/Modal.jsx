@@ -1,4 +1,5 @@
 import { Background, ModalSection, BtnClose, Message } from "./Modal.styles";
+import ContainerButtons from "../containerButtons/ContainerButtons";
 
 const Modal = (props) => {
   if(props.isOpen) {
@@ -9,10 +10,26 @@ const Modal = (props) => {
 
     return (
       <Background id='modal' onClick={handleOutsideClick}>
-        <ModalSection>
-          <BtnClose onClick={props.setModalOpen} />
-          <Message>{props.message}</Message>
-        </ModalSection>
+        {props.typeModal === 'notification' ? (
+          <ModalSection>
+            <BtnClose onClick={props.setModalOpen} />
+            <Message>{props.message}</Message>
+          </ModalSection>
+        ) : (
+          <ModalSection>
+            <BtnClose onClick={props.setModalOpen} />
+            <Message>{props.message}</Message>
+            <ContainerButtons
+              variantContainer='center'
+              variantBtnOne='septenary'
+              variantBtnTwo='senary'
+              onClickBtnOne={props.setModalOpen}
+              onClickBtnTwo={props.send}
+              childrenBtnTwo={'Sim'}
+              childrenBtnOne={'Cancelar'}
+            />
+          </ModalSection>
+        )}
       </Background>
     )
   };

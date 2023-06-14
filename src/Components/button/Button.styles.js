@@ -100,4 +100,20 @@ export const ButtonContainer = styled.button`
       width: 7vw;
     }
   `}
+  ${({ variant }) => variant === "septenary" && css`
+    width: 18vw;
+    height: 3.5vh;
+    font-size: 1.3rem;
+    background-color: #959E8D;
+    color: #FFF;
+    border-radius: 0.5rem;
+    border: none;
+    @media only screen and (min-width: 600px) {
+      width: 15vw;
+      border-radius: 1rem;
+    }
+    @media only screen and (min-width: 1024px) {
+      width: 7vw;
+    }
+  `}
 `

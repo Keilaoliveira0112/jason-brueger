@@ -13,6 +13,7 @@ const PendingOrdes = () => {
   const navigation = useNavigate();
   const [orders, setOrders] = useState([]);
   const [openModal, setOpenModal] = useState(false);
+  const [typeModal, setTypeModal] = useState('notification');
   const [modalMessage, setmodalMessage] = useState('');
 
   useEffect(() => {
@@ -32,6 +33,7 @@ const PendingOrdes = () => {
       }
       catch (error) {
         setmodalMessage(error.message);
+        setTypeModal('notification');
         setOpenModal(true);
       }
     };
@@ -50,6 +52,9 @@ const PendingOrdes = () => {
       console.log(idOrder)
       console.log('pedidos pendentes', orders)
       //poderá ter um modal de confirmação se a pessoa aperta cancelar irá exibir um erro de envio.
+      setmodalMessage(`Tem certeza que deseja marcar esse pedido como concluído?`);
+      setTypeModal('confirmation');
+      setOpenModal(true);
       const token = localStorage.getItem('token');
       const response = await patchOrders(token, idOrder)
       console.log(response)
@@ -63,6 +68,7 @@ const PendingOrdes = () => {
     }
     catch (error) {
       setmodalMessage(error.message);
+      setTypeModal('notification');
       setOpenModal(true);
     }
   }
@@ -111,6 +117,7 @@ const PendingOrdes = () => {
         })}
         <Modal 
           isOpen={openModal}
+          typeModal={typeModal}
           message={modalMessage}
           setModalOpen={() => setOpenModal(!openModal)}
         />
