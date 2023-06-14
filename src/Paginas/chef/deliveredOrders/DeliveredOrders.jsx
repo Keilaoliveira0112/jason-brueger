@@ -1,12 +1,16 @@
 import Header from "../../../Components/header/Header";
-
+import { Main, Section, Pit, Title, Number, Client, Name, Attendant, Username, Hour, Date } from '../../../Paginas/chef/deliveredOrders/DeliveredOrders.styled';
 import Star from '../../../assets/Star.svg';
 import Cross from '../../../assets/Cross.svg';
+
 import { useNavigate } from "react-router-dom";
+import { React } from "react";
+
 
 
 const DeliveredOrders = () => {
     const navigation = useNavigate();
+    //const [orders, setOrders] = useState([]);
 
     const handleClickNavigate = (e) => {
     e.preventDefault();
@@ -17,27 +21,31 @@ const DeliveredOrders = () => {
     <>
       <Header
         firstBtn='Pedidos Pendentes'
-        variantFirstBtn=''
+        variantFirstBtn='quinary'
         secondBtn='Pedidos Entregues'
-        variantSecondBtn='quinary'
+        variantSecondBtn=''
         onClick={handleClickNavigate}  
       />
-      <section>
-        <h1>Resumo da Lápide</h1>
-        <img src={Star} alt='Estrela que indica a hora do pedido'/>
-        <p>19:31</p>
-        <img src={Cross} alt='Cruz que indica a hora em que o pedido foi entregue' />
+      <Main>
+       
+      <Section>
+        <Title>Resumo da Lápide</Title>
+        <Date src={Star} alt='Estrela que indica a hora do pedido'/>
+        <Hour></Hour>
+        <Date src={Cross} alt='Cruz que indica a hora em que o pedido foi entregue' />
          <p>20:45</p>
-        <h4>Cova: </h4>
-        <p>001</p>
-        <h4>Cliente: </h4>
-        <p>Manuela</p>
-        <h4>Atendente: </h4>
-        <p>Samara </p>
+        <Pit>Cova: </Pit>
+        <Number></Number>
+        <Client>Cliente: </Client>
+        <Name>Manuela</Name>
+        <Attendant>Atendente: </Attendant>
+        <Username>Samara </Username>
        
        
                  
-      </section>
+       </Section>
+     
+     </Main>
 
     </>
   )

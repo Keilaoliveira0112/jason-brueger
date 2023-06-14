@@ -54,9 +54,9 @@ const PendingOrdes = () => {
             {console.log(order.products)}
             <Title>Resumo da Lápide</Title>
             <InitialDate src={Star} alt='Estrela que indica a hora do pedido'/>
-            <Hour>{order.dataEntry}</Hour>
+            <Hour></Hour>
             <Pit>Cova: </Pit>
-            <Number>{order.table}</Number>
+            <Number></Number>
             <Client>Cliente: </Client>
             <Name>{order.client}</Name>
             <Attendant>Atendente: </Attendant>
