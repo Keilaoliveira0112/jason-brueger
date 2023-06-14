@@ -12,7 +12,7 @@ body: JSON.stringify({
     client: clientName,
     products: orderResume,
     orderTotal,
-    status: 'Pendente',
+    status: 'pending',
     dataEntry: new Date().toLocaleString('pt-BR')
 })
 });
