@@ -12,8 +12,8 @@ body: JSON.stringify({
     client: clientName,
     products: orderResume,
     orderTotal,
-    status: 'Pendente',
-    dataEntry: new Date().toLocaleString('pt-BR')
+    status: 'pending',
+    dataEntry: new Date()
 })
 });
 
