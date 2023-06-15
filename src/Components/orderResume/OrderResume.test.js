@@ -42,8 +42,8 @@ describe('<OrdeResume />', () => {
         const totalItem = screen.getByText("R$50")
         expect(totalItem).toBeInTheDocument(); 
 
-        /* const totalPedido = screen.getByText("54")
-        expect(totalPedido).toBeInTheDocument(); */ 
+        const totalPedido = screen.getByText(`R$ ${props.total}`)
+        expect(totalPedido).toBeInTheDocument();
 
         const btns = screen.getAllByRole('button');
         expect(btns).toHaveLength(7);
@@ -65,7 +65,7 @@ describe('<OrdeResume />', () => {
         const btnEnviar = btns[6]
         userEvent.click(btnEnviar);
         expect(props.onClickSend).toHaveBeenCalledTimes(1);
-        expect(props.onClickSend).toHaveBeenCalledWith();
+        expect(props.onClickSend).toHaveBeenCalledWith(props.total);
     });
 
    

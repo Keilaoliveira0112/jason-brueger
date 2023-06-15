@@ -16,7 +16,6 @@ const Login = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-        console.log(email, password);
       const signin = await userLogin(email, password);
       setItem('token', signin.accessToken);
       setItem('username', signin.user.name);
