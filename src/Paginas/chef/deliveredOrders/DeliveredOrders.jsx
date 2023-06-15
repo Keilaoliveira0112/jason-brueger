@@ -5,7 +5,7 @@ import Cross from '../../../assets/Cross.svg';
 import Table from "../../../Components/table/Table"; 
 import { useNavigate } from "react-router-dom";
 import { React, useState, useEffect } from "react";
-import { differenceInMinutes } from "date-fns";
+import { differenceInMinutes, toDate } from "date-fns";
 import { getOrders } from "../../../API/orders/getOrders";
 import { getItem } from '../../../storage/local';
 
@@ -77,7 +77,7 @@ const DeliveredOrders = () => {
           return <Section key={order.id}>
             <Title>Resumo da Lápide</Title>
             <Date src={Star} alt='Estrela que indica a hora do pedido'/>
-            <Hour>{`${order.dataEntry.slice(11, 13)}h${order.dataEntry.slice(14, 16)}min`}</Hour>
+            <Hour>{`${order.dataEntry.slice(11, 13)}h${order.dataEntry.slice(14, 16)}min`}</Hour> 
             <Date src={Cross} alt='Cruz que indica a hora em que o pedido foi entregue' />
             <p>20:45</p>
             <Pit>Cova: </Pit>
@@ -89,9 +89,9 @@ const DeliveredOrders = () => {
             <Table
              order={order.products}
             /> 
-            <Paragraph>
-             Concluído em {differenceInMinutes(new Date(), new Date(order.dataEntry))} min(s)
-            </Paragraph>
+             <Paragraph>
+             Concluído em {differenceInMinutes(toDate("2023-06-13T19:26:39.739Z"),  toDate("2023-06-13T19:26:39.739Z"))} min(s)}
+            </Paragraph> 
          {error && <ParagraphError>{error}</ParagraphError>}          
         </Section>
       })} 
