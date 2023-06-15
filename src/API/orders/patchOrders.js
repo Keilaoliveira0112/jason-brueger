@@ -8,6 +8,6 @@ export const patchOrders = async (token, idOrder) => await fetch(`${API_URL}/ord
     },
     body: JSON.stringify({
         status: 'delivered',
-        dateProcessed: new Date().toLocaleString('pt-BR')
+        dateProcessed: new Date()
     })
   })

@@ -28,9 +28,12 @@ const PendingOrdes = () => {
         }
 
         const orderList = await response.json();
-        //console.log('lista de pedidos', orderList)
         const filterPending = orderList.filter((order) => order.status === 'pending');
-        setOrders(filterPending);
+        const newOrders = [...filterPending];
+        const sortByHourAsc = newOrders.sort((a,b) => {
+          return new Date(a.dataEntry) - new Date(b.dataEntry);
+        });
+        setOrders(sortByHourAsc);
       }
       catch (error) {
         setmodalMessage(error.message);
@@ -102,7 +105,7 @@ const PendingOrdes = () => {
         {orders.map((order) => {
           
           return <Section key={order.id}>
-            {console.log(order)}
+           {/*  {console.log('cada pedido', order)} */}
             <Title>Resumo da Lápide</Title>
             <InitialDate src={Star} alt='Estrela que indica a hora do pedido'/>
             <Hour>{`${order.dataEntry.slice(11, 13)}h${order.dataEntry.slice(14, 16)}min`}</Hour>

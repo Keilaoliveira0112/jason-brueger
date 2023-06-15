@@ -14,7 +14,7 @@ align-items: center;
 `
 export const ModalSection = styled.section`
 width: 60vw;
-height: 30vh;
+height: 20vh;
 background-color: #fff;
 border-radius: 2rem;
 color: #000;
@@ -25,6 +25,7 @@ display: grid;
 }
 @media only screen and (min-width: 1024px) {
   width: 35vw;
+  height: 32vh;
 }
 `
 export const BtnClose = styled.button`
@@ -69,13 +70,16 @@ margin-right: 2rem;
 export const Check = styled.img`
   width: 10vw;
   justify-self: center;
+  @media only screen and (min-width: 1024px) {
+    width: 5vw;
+  }
+
 `
 
 export const Message = styled.p`
 font-family: 'Asap', sans-serif;
-font-size: 1.5rem;
+font-size: 1.3rem;
 justify-self: center;
-padding: 2.5rem;
 text-align: center;
 @media only screen and (min-width: 600px) {
   font-size: 2.2rem;

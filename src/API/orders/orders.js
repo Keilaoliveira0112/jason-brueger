@@ -13,7 +13,7 @@ body: JSON.stringify({
     products: orderResume,
     orderTotal,
     status: 'pending',
-    dataEntry: new Date().toLocaleString('pt-BR')
+    dataEntry: new Date()
 })
 });
 
