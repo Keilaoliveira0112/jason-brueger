@@ -90,7 +90,7 @@ const DeliveredOrders = () => {
              order={order.products}
             /> 
              <Paragraph>
-             Concluído em {differenceInMinutes(toDate("2023-06-13T19:26:39.739Z"),  toDate("2023-06-13T19:26:39.739Z"))} min(s)}
+             Concluído em {differenceInMinutes(toDate("2023-06-13T19:26:39.739Z"),  toDate("2023-06-13T19:26:39.739Z"))} min(s)
             </Paragraph> 
          {error && <ParagraphError>{error}</ParagraphError>}          
         </Section>
