@@ -15,10 +15,12 @@ const NewOrder = () => {
   const navigation = useNavigate();
   const [products, setProducts] = useState([]);
   const [orderItem, setOrderItem] = useState([]);
-  const [selectValue, setSelectValue] = useState('');
+  const [selectValue, setSelectValue] = useState('Cova');
   const [clientName, setName] = useState('');
   const [openModal, setOpenModal] = useState(false);
+  const [typeModal, setTypeModal] = useState('');
   const [modalMessage, setmodalMessage] = useState('');
+  const [valueArguments, setvalueArguments] = useState([]);
   const [productType, setProductType] = useState('Breakfast');
 
   useEffect(() => {
@@ -28,7 +30,7 @@ const NewOrder = () => {
         const response = await getProducts(token);
 
         if (!response.ok) {
-          throw new Error(`Erro ao obter os produtos da API ${response.statusText}`);
+          throw new Error(`${response.status}: Erro ao carregar os produtos!`);
         }
 
         const productsList = await response.json();
@@ -37,6 +39,7 @@ const NewOrder = () => {
       }
       catch (error) {
         setmodalMessage(error.message);
+        setTypeModal('warning');
         setOpenModal(true);
       };
     };
@@ -56,10 +59,36 @@ const NewOrder = () => {
   };
 
   const handleClickDelete = (item) => {
-    const getIndex = orderItem.findIndex((order) => order.id === item.id);
-    const newOrder = [...orderItem];
-    newOrder.splice(getIndex, 1);
-    setOrderItem(newOrder);
+    if(!openModal){
+      setvalueArguments(item)
+      setmodalMessage(`Tem certeza que deseja excluir esse item do resumo de pedidos?`);
+      setTypeModal('confirmation');
+      setOpenModal(true);
+    } else {
+      const getIndex = orderItem.findIndex((order) => order.id === valueArguments.id);
+      const newOrder = [...orderItem];
+      newOrder.splice(getIndex, 1);
+      setOrderItem(newOrder);
+    }
+  };
+
+  const sendModal = (e) => {
+    e.preventDefault();
+    setOpenModal(false);
+    callCorrectFunction()
+  }
+
+  const callCorrectFunction = () => {
+    switch(modalMessage) {
+      case "Tem certeza que deseja excluir esse item do resumo de pedidos?":
+        handleClickDelete()
+        break;
+      case "Confirma o envio do pedido para a cozinha?":
+        handleSendOrder()
+        break
+      default:
+        handleClickDelete()
+    }
   }
 
   const handleClickQuantity = (item, children) => {
@@ -92,6 +121,7 @@ const NewOrder = () => {
       return setOrderItem((prevState) => [...prevState, product]);
     }
     setmodalMessage(`Produto já foi adicionado no resumo! Caso queira alterar a quantidade, usar os botões no resumo do pedido`);
+    setTypeModal('warning');
     setOpenModal(true);
   }
 
@@ -115,24 +145,33 @@ const NewOrder = () => {
       if(selectValue === '' || selectValue === 'Cova'){
         throw new Error(`Não é possível enviar pedido caso não informe a mesa do cliente!`);
       }
-      const response = await createOrder(orderTotal, selectValue, orderItem, clientName, username, token);
+      if(!openModal){
+        setvalueArguments(orderTotal)
+        setmodalMessage(`Confirma o envio do pedido para a cozinha?`);
+        setTypeModal('confirmation');
+        return setOpenModal(true);
+      }
+      const response = await createOrder(valueArguments, selectValue, orderItem, clientName, username, token);
 
-      const teste = await response.json();
-      console.log(teste)
+      const sendOrder = await response.json();
+      console.log(sendOrder)
       if(response.status === 201){
         setmodalMessage('Pedido enviado com sucesso');
+        setTypeModal('sucess');
         setOpenModal(true);
+        setTimeout(() => {setOpenModal(false)}, 3000);
         setOrderItem([]);
         setSelectValue('');
         setName('');
       } else {
-        throw new Error('Erro ao enviar o pedido')
+        throw new Error(`${response.status}: Erro no enviar do pedido!`)
       }
     }
     catch (error) {
       setmodalMessage(error.message);
+      setTypeModal('warning');
       setOpenModal(true);
-    };
+    };      
   };
 
   return (
@@ -147,9 +186,21 @@ const NewOrder = () => {
       <Main>
         <SectionMenu>
           {productType === 'RestOfTheDay' ? (
-            <ContainerButtons bntBreakfast='tertiary' btnRestOfTheDay='secondary' onClickBreakfast={handleClick} />
+            <ContainerButtons
+              variantBtnOne='tertiary'
+              variantBtnTwo='secondary'
+              onClickBtnOne={handleClick}
+              childrenBtnTwo={'Resto do dia'}
+              childrenBtnOne={'Café da manhã'}
+            />
           ) : (
-            <ContainerButtons bntBreakfast='secondary' btnRestOfTheDay='tertiary' onClickDay={handleClick} />
+            <ContainerButtons
+              variantBtnOne='secondary'
+              variantBtnTwo='tertiary'
+              onClickBtnTwo={handleClick}
+              childrenBtnTwo={'Resto do dia'}
+              childrenBtnOne={'Café da manhã'}
+            />
           )}          
           <Input
             type='text'
@@ -225,8 +276,10 @@ const NewOrder = () => {
         />
         <Modal 
           isOpen={openModal}
+          typeModal={typeModal}
           message={modalMessage}
           setModalOpen={() => setOpenModal(!openModal)}
+          send={sendModal}
         />
       </Main>
 
