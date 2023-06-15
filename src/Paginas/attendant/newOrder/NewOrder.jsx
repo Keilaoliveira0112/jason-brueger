@@ -15,10 +15,10 @@ const NewOrder = () => {
   const navigation = useNavigate();
   const [products, setProducts] = useState([]);
   const [orderItem, setOrderItem] = useState([]);
-  const [selectValue, setSelectValue] = useState('');
+  const [selectValue, setSelectValue] = useState('Cova');
   const [clientName, setName] = useState('');
   const [openModal, setOpenModal] = useState(false);
-  const [typeModal, setTypeModal] = useState('notification');
+  const [typeModal, setTypeModal] = useState('');
   const [modalMessage, setmodalMessage] = useState('');
   const [valueArguments, setvalueArguments] = useState([]);
   const [productType, setProductType] = useState('Breakfast');
@@ -30,7 +30,7 @@ const NewOrder = () => {
         const response = await getProducts(token);
 
         if (!response.ok) {
-          throw new Error(`Erro ao obter os produtos da API ${response.statusText}`);
+          throw new Error(`${response.status}: Erro ao carregar os produtos!`);
         }
 
         const productsList = await response.json();
@@ -39,7 +39,7 @@ const NewOrder = () => {
       }
       catch (error) {
         setmodalMessage(error.message);
-        setTypeModal('notification');
+        setTypeModal('warning');
         setOpenModal(true);
       };
     };
@@ -60,14 +60,11 @@ const NewOrder = () => {
 
   const handleClickDelete = (item) => {
     if(!openModal){
-      //console.log(item)
       setvalueArguments(item)
       setmodalMessage(`Tem certeza que deseja excluir esse item do resumo de pedidos?`);
       setTypeModal('confirmation');
       setOpenModal(true);
-      //console.log('false', openModal)
     } else {
-      //console.log(valueArguments);
       const getIndex = orderItem.findIndex((order) => order.id === valueArguments.id);
       const newOrder = [...orderItem];
       newOrder.splice(getIndex, 1);
@@ -77,8 +74,6 @@ const NewOrder = () => {
 
   const sendModal = (e) => {
     e.preventDefault();
-    //console.log('entre fi duma mae');
-    //console.log('true', openModal)
     setOpenModal(false);
     callCorrectFunction()
   }
@@ -92,7 +87,7 @@ const NewOrder = () => {
         handleSendOrder()
         break
       default:
-        console.log('nenhuma das anteriores')
+        handleClickDelete()
     }
   }
 
@@ -126,7 +121,7 @@ const NewOrder = () => {
       return setOrderItem((prevState) => [...prevState, product]);
     }
     setmodalMessage(`Produto já foi adicionado no resumo! Caso queira alterar a quantidade, usar os botões no resumo do pedido`);
-    setTypeModal('notification');
+    setTypeModal('warning');
     setOpenModal(true);
   }
 
@@ -137,46 +132,46 @@ const NewOrder = () => {
   }
 
   const handleSendOrder = async (orderTotal) => {
-    if(!openModal){
-      setvalueArguments(orderTotal)
-      setmodalMessage(`Confirma o envio do pedido para a cozinha?`);
-      setTypeModal('confirmation');
-      setOpenModal(true);
-    } else {
-      try {
-        const token = localStorage.getItem('token');
-        const username = localStorage.getItem('username');
-  
-        if (orderItem.length <= 0) {
-          throw new Error(`Não é possível enviar pedido caso o resumo esteja vazio!`);
-        }
-        if (clientName === '') {
-          throw new Error(`Não é possível enviar pedido caso não digite o nome do cliente!`);
-        }
-        if(selectValue === '' || selectValue === 'Cova'){
-          throw new Error(`Não é possível enviar pedido caso não informe a mesa do cliente!`);
-        }
-        const response = await createOrder(valueArguments, selectValue, orderItem, clientName, username, token);
-  
-        const teste = await response.json();
-        console.log(teste)
-        if(response.status === 201){
-          setmodalMessage('Pedido enviado com sucesso');
-          setTypeModal('notification');
-          setOpenModal(true);
-          setOrderItem([]);
-          setSelectValue('');
-          setName('');
-        } else {
-          throw new Error('Erro ao enviar o pedido')
-        }
+    try {
+      const token = localStorage.getItem('token');
+      const username = localStorage.getItem('username');
+
+      if (orderItem.length <= 0) {
+        throw new Error(`Não é possível enviar pedido caso o resumo esteja vazio!`);
       }
-      catch (error) {
-        setmodalMessage(error.message);
-        setTypeModal('notification');
+      if (clientName === '') {
+        throw new Error(`Não é possível enviar pedido caso não digite o nome do cliente!`);
+      }
+      if(selectValue === '' || selectValue === 'Cova'){
+        throw new Error(`Não é possível enviar pedido caso não informe a mesa do cliente!`);
+      }
+      if(!openModal){
+        setvalueArguments(orderTotal)
+        setmodalMessage(`Confirma o envio do pedido para a cozinha?`);
+        setTypeModal('confirmation');
+        return setOpenModal(true);
+      }
+      const response = await createOrder(valueArguments, selectValue, orderItem, clientName, username, token);
+
+      const sendOrder = await response.json();
+      console.log(sendOrder)
+      if(response.status === 201){
+        setmodalMessage('Pedido enviado com sucesso');
+        setTypeModal('sucess');
         setOpenModal(true);
-      };      
-    };
+        setTimeout(() => {setOpenModal(false)}, 3000);
+        setOrderItem([]);
+        setSelectValue('');
+        setName('');
+      } else {
+        throw new Error(`${response.status}: Erro no enviar do pedido!`)
+      }
+    }
+    catch (error) {
+      setmodalMessage(error.message);
+      setTypeModal('warning');
+      setOpenModal(true);
+    };      
   };
 
   return (

@@ -65,6 +65,12 @@ margin-right: 2rem;
   }
 }
 `
+
+export const Check = styled.img`
+  width: 10vw;
+  justify-self: center;
+`
+
 export const Message = styled.p`
 font-family: 'Asap', sans-serif;
 font-size: 1.5rem;
