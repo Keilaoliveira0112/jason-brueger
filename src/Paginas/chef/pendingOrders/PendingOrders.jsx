@@ -85,7 +85,7 @@ const PendingOrdes = () => {
             <InitialDate src={Star} alt='Estrela que indica a hora do pedido'/>
             <Hour>{`${order.dataEntry.slice(11, 13)}h${order.dataEntry.slice(14, 16)}min`}</Hour>
             <Pit>Cova: </Pit>
-            <Number>{order.table}</Number>
+            <Number></Number>
             <Client>Cliente: </Client>
             <Name>{order.client}</Name>
             <Attendant>Atendente: </Attendant>
