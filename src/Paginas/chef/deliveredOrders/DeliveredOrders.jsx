@@ -30,7 +30,7 @@ const DeliveredOrders = () => {
 
                 const orderList = await response.json();
                 console.log('lista de pedidos', orderList)
-                const filterDelivered = orderList.filter((order) => order.status === 'delivered');
+                const filterDelivered = orderList.filter((order) => order.status === 'ready');
                 setOrders(filterDelivered);
             }
             catch (error) {

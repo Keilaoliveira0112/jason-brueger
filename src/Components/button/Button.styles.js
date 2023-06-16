@@ -71,9 +71,9 @@ export const ButtonContainer = styled.button`
       font-size: 2.2rem;
     }
     @media only screen and (min-width: 1024px) {
-      width: 13vw;
-      height: 8vh;
-      font-size: 3rem;
+      width: 10vw;
+      height: 5vh;
+      font-size: 2rem;
     }
   `}
      
@@ -113,7 +113,7 @@ export const ButtonContainer = styled.button`
       border-radius: 1rem;
     }
     @media only screen and (min-width: 1024px) {
-      width: 7vw;
+      width: 9vw;
     }
   `}
 `

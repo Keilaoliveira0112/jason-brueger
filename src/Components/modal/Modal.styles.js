@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Background = styled.section`
 width: 100vw;
 height: 100vh;
-position: absolute;
+position: fixed;
 top: 0;
 left: 0;
 z-index: 10;
@@ -24,8 +24,8 @@ display: grid;
   height: 20vh;
 }
 @media only screen and (min-width: 1024px) {
-  width: 35vw;
-  height: 32vh;
+  width: 30vw;
+  height: 30vh;
 }
 `
 export const BtnClose = styled.button`
@@ -63,6 +63,7 @@ margin-right: 2rem;
   &:before,
   &:after{
     width: 0.3vw;
+    height: 3.4vh;
   }
 }
 `
@@ -73,7 +74,6 @@ export const Check = styled.img`
   @media only screen and (min-width: 1024px) {
     width: 5vw;
   }
-
 `
 
 export const Message = styled.p`
@@ -83,8 +83,5 @@ justify-self: center;
 text-align: center;
 @media only screen and (min-width: 600px) {
   font-size: 2.2rem;
-}
-@media only screen and (min-width: 1024px) {
-  
 }
 `
