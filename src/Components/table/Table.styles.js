@@ -2,7 +2,9 @@ import styled from "styled-components";
 
 export const Base = styled.table`
   width: 100%;
+  heigth: 200px;
   border-collapse: collapse;
+  gap: 10px;
 `
 
 export const TableRow = styled.tr`
@@ -11,12 +13,13 @@ export const TableRow = styled.tr`
   }
 `
 export const TableHeader = styled.th`
-  padding: 8px;
+  padding: 29px;
   gap: 20px;
   border: none;
 `
 export const ItemName = styled.td`
-  padding: 8px;
+    with: 25%
+    padding: 4px;
   
 `
 export const ItemQuantity = styled.td`

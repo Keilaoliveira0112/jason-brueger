@@ -13,6 +13,7 @@ padding: 3rem;
 }
 `
 
+
 export const Section = styled.section`
 background-color: #D9D9D9;
 font-family: 'Asap', sans-serif;
@@ -59,8 +60,13 @@ margin-top: 2rem;
   font-size: 2.5rem;
 }
 `
+export const Hours = styled.section`
+ dislpay: flex;
+ justify-content: center;
+ align-items: center;
 
-export const Date = styled.img`
+`
+export const DateOne = styled.img`
 grid-template-colums: 200px 200px ;
 justify-self: center;
 width: 3vw;
@@ -160,6 +166,7 @@ color: #ffe000;
 export const Paragraph = styled.p`
 justify-self: center;
 color: #0D0A0B;
+font-size:;
 @media only screen and (min-width: 600px) {
   font-size: 2rem;
 }

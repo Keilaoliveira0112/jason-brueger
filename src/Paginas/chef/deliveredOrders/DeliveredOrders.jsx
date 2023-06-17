@@ -1,11 +1,12 @@
+import { React, useState, useEffect } from "react";
 import Header from "../../../Components/header/Header";
-import { Main, Section, Pit, Title, Number, Client, Name, Attendant, Username, Hour, Date, ParagraphError, Paragraph } from '../../../Paginas/chef/deliveredOrders/DeliveredOrders.styled';
+import { Main, Section, Pit, Title, Number, Client, Name, Attendant, Username, Hour, DateOne, ParagraphError, Paragraph } from '../../../Paginas/chef/deliveredOrders/DeliveredOrders.styled';
 import Star from '../../../assets/Star.svg';
 import Cross from '../../../assets/Cross.svg';
 import Table from "../../../Components/table/Table"; 
 import { useNavigate } from "react-router-dom";
-import { React, useState, useEffect } from "react";
-import { differenceInMinutes, toDate } from "date-fns";
+
+import { differenceInMinutes } from "date-fns";
 import { getOrders } from "../../../API/orders/getOrders";
 import { getItem } from '../../../storage/local';
 
@@ -15,9 +16,10 @@ const DeliveredOrders = () => {
     const navigation = useNavigate();
     const [orders, setOrders] = useState([]);
     const [error, setError] = useState(null);
-
+  
 
     useEffect(() => {
+        
         const fetchData = async () => {
               try {
                 const token = getItem('token');
@@ -30,7 +32,7 @@ const DeliveredOrders = () => {
 
                 const orderList = await response.json();
                 console.log('lista de pedidos', orderList)
-                const filterDelivered = orderList.filter((order) => order.status === 'delivered');
+                const filterDelivered = orderList.filter((order) => order.status === 'ready');
                 setOrders(filterDelivered);
             }
             catch (error) {
@@ -76,9 +78,9 @@ const DeliveredOrders = () => {
             console.log(order)
           return <Section key={order.id}>
             <Title>Resumo da Lápide</Title>
-            <Date src={Star} alt='Estrela que indica a hora do pedido'/>
+            <DateOne src={Star} alt='Estrela que indica a hora do pedido'/>
             <Hour>{`${order.dataEntry.slice(11, 13)}h${order.dataEntry.slice(14, 16)}min`}</Hour> 
-            <Date src={Cross} alt='Cruz que indica a hora em que o pedido foi entregue' />
+            <DateOne src={Cross} alt='Cruz que indica a hora em que o pedido foi entregue' />
             <p>20:45</p>
             <Pit>Cova: </Pit>
             <Number></Number>
@@ -90,7 +92,7 @@ const DeliveredOrders = () => {
              order={order.products}
             /> 
              <Paragraph>
-             Concluído em {differenceInMinutes(toDate("2023-06-13T19:26:39.739Z"),  toDate("2023-06-13T19:26:39.739Z"))} min(s)
+             Concluído em {differenceInMinutes(new Date(order.dateProcessed),  new Date(order.dataEntry))} min(s)
             </Paragraph> 
          {error && <ParagraphError>{error}</ParagraphError>}          
         </Section>
