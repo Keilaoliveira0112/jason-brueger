@@ -1,7 +1,7 @@
 import { getProducts } from "./products";
 
-describe('API dos Produtos', () => {
-    it('deve verificar se get products foi chamado com os parâmetros corretos e retornar uma resposta em caso de sucesso', async () => {
+describe('API getProducts', () => {
+    it('deve verificar se getProducts foi chamado com os parâmetros corretos e retornar uma resposta em caso de sucesso', async () => {
         const tokenMock = 'mockToken';
         const response = {
           ok: true, 
