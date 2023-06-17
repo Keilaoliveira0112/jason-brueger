@@ -5,7 +5,7 @@ import Button from '../../../Components/button/Button';
 import { getItem } from '../../../storage/local';
 import { getOrders } from '../../../API/orders/getOrders';
 import Modal from '../../../Components/modal/Modal';
-import { Main, Section, Title, InitialDate, Hour, Pit, Number, Client, Name, Attendant, Username, Table,Thead, Tbody } from './PendingOrders.styled';
+import { Main, Section, Title, InitialDate, StarImg, ValueOrder, PitNumber, Topic, ClientName, AttendantName, Table,Thead, Tbody, TableRow, Td } from './PendingOrders.styled';
 import { useNavigate } from "react-router-dom";
 import { patchOrders } from '../../../API/orders/patchOrders';
 
@@ -13,7 +13,7 @@ const PendingOrdes = () => {
   const navigation = useNavigate();
   const [orders, setOrders] = useState([]);
   const [openModal, setOpenModal] = useState(false);
-  const [typeModal, setTypeModal] = useState('notification');
+  const [typeModal, setTypeModal] = useState('');
   const [modalMessage, setmodalMessage] = useState('');
   const [valueArguments, setvalueArguments] = useState([]);
 
@@ -59,19 +59,15 @@ const PendingOrdes = () => {
   const handleReadyOrder = async (idOrder) => {
     try{
       if(!openModal){
-        //console.log(idOrder)
         setvalueArguments(idOrder)
         setmodalMessage(`Tem certeza que deseja marcar esse pedido como concluído?`);
         setTypeModal('confirmation');
         return setOpenModal(true);
       }
-      //console.log(idOrder)
-      //console.log('va', valueArguments)
       const token = localStorage.getItem('token');
       const response = await patchOrders(token, valueArguments)
-      console.log('response', response)
-      const teste = await response.json();
-      console.log('teste', teste);
+      await response.json();
+
       if(response.status >= 400) {
         throw new Error(`${response.status}: Erro no envio para atendente! Tente novamente!`);
       }
@@ -79,7 +75,6 @@ const PendingOrdes = () => {
       setTypeModal('sucess');
       setOpenModal(true);
       setTimeout(() => {setOpenModal(false)}, 3000);
-      //deletar do array o pedido enviado com sucesso
       const getIndex = orders.findIndex((order) => order.id === valueArguments);
       const newOrder = [...orders];
       newOrder.splice(getIndex, 1);
@@ -105,16 +100,23 @@ const PendingOrdes = () => {
         {orders.map((order) => {
           
           return <Section key={order.id}>
-           {/*  {console.log('cada pedido', order)} */}
             <Title>Resumo da Lápide</Title>
-            <InitialDate src={Star} alt='Estrela que indica a hora do pedido'/>
-            <Hour>{`${order.dataEntry.slice(11, 13)}h${order.dataEntry.slice(14, 16)}min`}</Hour>
-            <Pit>Cova: </Pit>
-            <Number></Number>
-            <Client>Cliente: </Client>
-            <Name>{order.client}</Name>
-            <Attendant>Atendente: </Attendant>
-            <Username>{order.userName} </Username>         
+            <InitialDate>
+              <StarImg src={Star} alt='Estrela que indica a hora do pedido'/>
+              <ValueOrder>{`${order.dataEntry.slice(11, 13)}h${order.dataEntry.slice(14, 16)}min`}</ValueOrder>
+            </InitialDate>
+            <PitNumber>
+              <Topic>Cova: </Topic>
+              <ValueOrder>{order.table}</ValueOrder>
+            </PitNumber>  
+            <ClientName>
+              <Topic>Cliente: </Topic>
+              <ValueOrder>{order.client}</ValueOrder>
+            </ClientName>         
+            <AttendantName>
+              <Topic>Atendente: </Topic>
+              <ValueOrder>{order.userName} </ValueOrder>   
+            </AttendantName>                  
             <Table>
               <Thead>
                 <tr>
@@ -124,14 +126,14 @@ const PendingOrdes = () => {
               </Thead>
               <Tbody>          
                 {order.products.map((item)=> (
-                  <tr key={item.id}>
+                  <TableRow key={item.id}>
                     <td>{item.name}</td>
-                    <td>{item.quantity}</td>
-                  </tr> 
+                    <Td>{item.quantity}</Td>
+                  </TableRow> 
                 ))}
               </Tbody>
             </Table>          
-            <Button variant='senary' onClick={() => handleReadyOrder(order.id)}>Concluído</Button>
+            <Button variant='senary' onClick={() => handleReadyOrder(order.id)}>Pronto</Button>
           </Section>  
         })}
         <Modal 

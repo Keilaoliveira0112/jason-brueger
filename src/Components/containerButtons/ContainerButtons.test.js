@@ -5,8 +5,10 @@ import userEvent from '@testing-library/user-event';
 describe('<ContainerButtons />', () => {
     it('deve renderizar e executar as funções dos botões', () => {
         const props = {
-            onClickBreakfast: jest.fn(),
-            onClickDay: jest.fn()
+            onClickBtnOne: jest.fn(),
+            onClickBtnTwo: jest.fn(),
+            childrenBtnOne: 'Café da manhã',
+            childrenBtnTwo: 'Resto do dia'
         }
 
         render(<ContainerButtons {...props}/>);
@@ -14,12 +16,12 @@ describe('<ContainerButtons />', () => {
         const button = screen.getAllByRole('button');
         expect(button).toHaveLength(2);
         
-        const btnBreakfast = screen.getByText('Café da manhã');
-        userEvent.click(btnBreakfast);
-        expect(props.onClickBreakfast).toHaveBeenCalledTimes(1);
+        const btnFirst = screen.getByText(props.childrenBtnOne);
+        userEvent.click(btnFirst);
+        expect(props.onClickBtnOne).toHaveBeenCalledTimes(1);
 
-        const btnRestOfTheDay = screen.getByText('Resto do dia');
-        userEvent.click(btnRestOfTheDay);
-        expect(props.onClickDay).toHaveBeenCalledTimes(1);
+        const btnSecond = screen.getByText(props.childrenBtnTwo);
+        userEvent.click(btnSecond);
+        expect(props.onClickBtnTwo).toHaveBeenCalledTimes(1);
     })
 })
