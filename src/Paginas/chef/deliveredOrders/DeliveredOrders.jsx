@@ -1,102 +1,86 @@
 import Header from "../../../Components/header/Header";
-import { Main, Section, Pit, Title, Number, Client, Name, Attendant, Username, Hour, Date, ParagraphError, Paragraph } from '../../../Paginas/chef/deliveredOrders/DeliveredOrders.styled';
+import { Main, Section, Title, InitialDate, ImgDate, ValueOrder, FinalDate, PitNumber, Topic, ClientName, AttendantName, ParagraphError, Paragraph } from './DeliveredOrders.styled';
 import Star from '../../../assets/Star.svg';
 import Cross from '../../../assets/Cross.svg';
 import Table from "../../../Components/table/Table"; 
 import { useNavigate } from "react-router-dom";
 import { React, useState, useEffect } from "react";
-import { differenceInMinutes, toDate } from "date-fns";
+import { differenceInMinutes } from "date-fns";
 import { getOrders } from "../../../API/orders/getOrders";
-import { getItem } from '../../../storage/local';
-
-
 
 const DeliveredOrders = () => {
     const navigation = useNavigate();
     const [orders, setOrders] = useState([]);
     const [error, setError] = useState(null);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {        
+        const response = await getOrders();
+        console.log(response)
+        const filterDelivered = response.filter((order) => order.status === 'ready');
+        console.log(filterDelivered)
+        setOrders(filterDelivered);
+      }
+      catch (error) {
+        setError(error.message);
+      }
+    };
+    fetchData()
+  }, []);
 
-    useEffect(() => {
-        const fetchData = async () => {
-              try {
-                const token = getItem('token');
-                const response = await getOrders(token);
-                
-
-                if (!response.ok){
-                    throw new Error(`${response.status}: Erro ao finalizar o pedido!`);
-                }
-
-                const orderList = await response.json();
-                console.log('lista de pedidos', orderList)
-                const filterDelivered = orderList.filter((order) => order.status === 'ready');
-                setOrders(filterDelivered);
-            }
-            catch (error) {
-                setError(error.message);
-                
-            }
-        };
-        fetchData()
-    }, []);
-
-    const handleClickNavigate = (e) => {
+  const handleClickNavigate = (e) => {
     e.preventDefault();
     const type = e.target.textContent === 'Pedidos Pendentes' ? '/pedidos-pendentes' : '/pedidos-entregues';
     navigation(type);
   }
 
-   /*  const sortByDateTime = (a, b) => {
-        console.log(a, b)
-        // Converter os tempos para objetos Date
-        const inicio = new Date(a);
-        const fim = new Date(b);
-
-        // Calcular a diferença em milissegundos
-        const diferenca = fim.getTime() - inicio.getTime();
-
-        // Converter a diferença para minutos
-        const minutes = Math.floor(diferenca / (1000 * 60));
-
-        return minutes;
-    }; */
-
-    return (
+  return (
     <>
       <Header
         firstBtn='Pedidos Pendentes'
         variantFirstBtn='quinary'
         secondBtn='Pedidos Entregues'
         variantSecondBtn=''
-        onClick={handleClickNavigate}  
+        onClick={handleClickNavigate}
       />
       <Main>
-        {orders.map((order) => {
-            console.log(order)
+      {orders.map((order) => {
+          
           return <Section key={order.id}>
             <Title>Resumo da Lápide</Title>
-            <Date src={Star} alt='Estrela que indica a hora do pedido'/>
-            <Hour>{`${order.dataEntry.slice(11, 13)}h${order.dataEntry.slice(14, 16)}min`}</Hour> 
-            <Date src={Cross} alt='Cruz que indica a hora em que o pedido foi entregue' />
-            <p>20:45</p>
-            <Pit>Cova: </Pit>
-            <Number></Number>
-            <Client>Cliente: </Client>
-            <Name>{order.client}</Name>
-            <Attendant>Atendente: </Attendant>
-            <Username>{order.userName} </Username>
-            <Table
-             order={order.products}
-            /> 
-             <Paragraph>
-             Concluído em {differenceInMinutes(toDate("2023-06-13T19:26:39.739Z"),  toDate("2023-06-13T19:26:39.739Z"))} min(s)
-            </Paragraph> 
-         {error && <ParagraphError>{error}</ParagraphError>}          
-        </Section>
-      })} 
-     </Main>
-   
+            <InitialDate>
+              <ImgDate src={Star} alt='Estrela que indica a hora do pedido'/>
+              <ValueOrder>{`${order.dataEntry.slice(11, 13)}h${order.dataEntry.slice(14, 16)}min`}</ValueOrder>
+            </InitialDate>
+            <FinalDate>
+              <ImgDate src={Cross} alt='Cruz que indica a hora em que o pedido foi concluído'/>
+              <ValueOrder>{`${order.dateProcessed.slice(11, 13)}h${order.dateProcessed.slice(14, 16)}min`}</ValueOrder>
+            </FinalDate>
+            <PitNumber>
+              <Topic>Cova: </Topic>
+              <ValueOrder>{order.table}</ValueOrder>
+            </PitNumber>  
+            <ClientName>
+              <Topic>Cliente: </Topic>
+              <ValueOrder>{order.client}</ValueOrder>
+            </ClientName>         
+            <AttendantName>
+              <Topic>Atendente: </Topic>
+              <ValueOrder>{order.userName} </ValueOrder>   
+            </AttendantName>                  
+            <Table 
+              products={order.products}
+              variant="colorGreen"
+            />
+            <Paragraph>
+              Concluído em {differenceInMinutes(new Date(order.dateProcessed), new Date(order.dataEntry))} min(s)
+            </Paragraph>
+            {error && <ParagraphError>{error}</ParagraphError>}            
+          </Section>  
+        })}
+      </Main>
+
     </>
   )
 }

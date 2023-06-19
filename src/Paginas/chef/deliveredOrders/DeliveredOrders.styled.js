@@ -8,40 +8,41 @@ gap: 3rem;
 padding: 3rem;
 @media only screen and (min-width: 600px) {
   flex-direction: row;
+  justify-content: center;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 5rem;
 }
 `
-
 export const Section = styled.section`
 background-color: #D9D9D9;
 font-family: 'Asap', sans-serif;
 width: 60vw;
-height: 40vh;
+height: auto;
 display: grid;
 grid-template-areas:
 'title title'
-'star hour'
-'pit number'
-'client name'
-'attendant username'
+'initialDate finalDate'
+'pit pit'
+'clientName clientName'
+'attendantName attendantName'
 'table table'
-'button button';
+'paragraph paragraph';
+'error error'
 padding: 0.5rem;
-grid-template-columns: 20vw 40vw;
-grid-template-rows: 10vh 3vh 3vh 3vh 5vh 10vh;
+grid-template-columns: 30vw 30vw;
+grid-template-rows: 8vh 4vh 3vh 3vh 3vh auto 4vh;
 border-radius: 8rem 8rem 0 0;
 @media only screen and (min-width: 600px) {
-    width: 40vw;
-    height: auto;
-    grid-template-columns: 11vw 29vw;
-    border-radius: 12rem 12rem 0 0;
-    grid-template-rows: 6vh 3vh 3vh 3vh 5vh 10vh;
+  width: 40vw;
+  grid-template-columns: 19vw 19vw;
+  border-radius: 12rem 12rem 0 0;
+  grid-template-rows: 8vh 4vh 2vh 2vh 2vh auto 4vh;
 }
 @media only screen and (min-width: 1024px) {
-    grid-template-rows: 12vh 3.5vh 3.5vh 3.5vh 4vh 10vh;
-    grid-template-columns: 10vw 16vw;
-    width: 26vw;
+  grid-template-rows: 10vh 4vh 3.5vh 3.5vh 4vh auto 7vh;
+  grid-template-columns: 10vw 10vw;
+  border-radius: 10rem 10rem 0 0;
+  width: 20vw;
 }
 `
 export const Title = styled.h1`
@@ -56,114 +57,92 @@ margin-top: 2rem;
   margin-top: 3rem;
 }
 @media only screen and (min-width: 1024px) {
-  font-size: 2.5rem;
+  font-size: 2.2rem;
 }
 `
+export const InitialDate = styled.section`
+grid-area: initialDate;
+display: flex;
+justify-content: center;
+align-items: center;
 
-export const Date = styled.img`
-grid-template-colums: 200px 200px ;
-justify-self: center;
+`
+export const ImgDate = styled.img`
 width: 3vw;
-@media only screen and (min-width: 600px) {
-    align-self: center;
-}
 @media only screen and (min-width: 1024px) {
-    width: 2vw;
+  width: 1.2vw;
 }
 `
-export const Hour = styled.p`
-grid-area: hour;
+export const ValueOrder = styled.p`
+font-size: 1.1rem;
+text-transform: capitalize;
+@media only screen and (min-width: 600px) {
+  font-size: 1.6rem;
+}
+`
+export const FinalDate = styled.section`
+grid-area: finalDate;
+display: flex;
+justify-content: center;
+align-items: center;
+`
+export const Topic = styled.h4`
+font-family: 'Rubik Wet Paint', cursive;
+font-weight: 100;
 font-size: 1rem;
 @media only screen and (min-width: 600px) {
-    font-size: 1.6rem;
-    align-self: center;
+    font-size: 1.5rem;
 }
 @media only screen and (min-width: 1024px) {
 }
 `
-
-export const Pit = styled.h4`
+export const PitNumber = styled.section`
 grid-area: pit;
-font-family: 'Rubik Wet Paint', cursive;
-font-weight: 100;
-font-size: 1rem;
-@media only screen and (min-width: 600px) {
-    font-size: 1.5rem;
-}
+display: flex;
+justify-content: flex-start;
+align-items: center;
+padding: 1rem;
 @media only screen and (min-width: 1024px) {
+  padding: 2rem;
 }
 `
-export const Number = styled.p`
-grid-area: number;
+export const ClientName = styled.section`
+grid-area: clientName;
+display: flex;
+justify-content: flex-start;
+align-items: center;
+padding: 1rem;
+@media only screen and (min-width: 1024px) {
+  padding: 2rem;
+}
+`
+export const AttendantName = styled.section`
+grid-area: attendantName;
+display: flex;
+justify-content: flex-start;
+align-items: center;
+padding: 1rem;
+@media only screen and (min-width: 1024px) {
+  padding: 2rem;
+}
+`
+export const Paragraph = styled.p`
+grid-area: paragraph;
+justify-self: center;
+color: #0D0A0B;
+font-weight: bold;
 font-size: 1.1rem;
 @media only screen and (min-width: 600px) {
-    font-size: 1.6rem;
-}
-@media only screen and (min-width: 1024px) {
-}
-`
-
-export const Client = styled.h4`
-grid-area: client;
-font-family: 'Rubik Wet Paint', cursive;
-font-weight: 100;
-font-size: 1rem;
-@media only screen and (min-width: 600px) {
-    font-size: 1.5rem;
-}
-@media only screen and (min-width: 1024px) {
-}
-`
-
-export const Name = styled.p`
-grid-area: name;
-font-size: 1.1rem;
-@media only screen and (min-width: 600px) {
-    font-size: 1.6rem;
-}
-@media only screen and (min-width: 1024px) {
-}
-`
-
-export const Attendant = styled.h4`
-grid-area: attendant;
-font-family: 'Rubik Wet Paint', cursive;
-font-weight: 100;
-font-size: 1rem;
-@media only screen and (min-width: 600px) {
-    font-size: 1.5rem;
-}
-@media only screen and (min-width: 1024px) {
-}
-`
-
-export const Username = styled.p`
-grid-area: username;
-font-size: 1.1rem;
-@media only screen and (min-width: 600px) {
-    font-size: 1.6rem;
-}
-@media only screen and (min-width: 1024px) {
+  font-size: 1.6rem;
 }
 `
 export const ParagraphError = styled.p`
+grid-area: error;
 justify-self: center;
 color: #ffe000;
+font-weight: bold;
+font-size: 1.1rem;
 @media only screen and (min-width: 600px) {
-  font-size: 2rem;
-}
-@media only screen and (min-width: 1024px) {
-  font-size: 2.5rem;
-}
-`
-
-export const Paragraph = styled.p`
-justify-self: center;
-color: #0D0A0B;
-@media only screen and (min-width: 600px) {
-  font-size: 2rem;
-}
-@media only screen and (min-width: 1024px) {
-  font-size: 2.5rem;
+  font-size: 1.6rem;
 }
 `

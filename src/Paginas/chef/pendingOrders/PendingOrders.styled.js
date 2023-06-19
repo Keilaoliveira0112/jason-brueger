@@ -63,7 +63,7 @@ justify-content: center;
 align-items: center;
 margin-right: 12rem;
 `
-export const StarImg = styled.img`
+export const ImgDate = styled.img`
 width: 3vw;
 @media only screen and (min-width: 1024px) {
   width: 1.2vw;
@@ -76,16 +76,6 @@ text-transform: capitalize;
   font-size: 1.6rem;
 }
 `
-export const PitNumber = styled.section`
-grid-area: pit;
-display: flex;
-justify-content: flex-start;
-align-items: center;
-padding: 1rem;
-@media only screen and (min-width: 1024px) {
-  padding: 2rem;
-}
-`
 export const Topic = styled.h4`
 font-family: 'Rubik Wet Paint', cursive;
 font-weight: 100;
@@ -94,6 +84,16 @@ font-size: 1rem;
     font-size: 1.5rem;
 }
 @media only screen and (min-width: 1024px) {
+}
+`
+export const PitNumber = styled.section`
+grid-area: pit;
+display: flex;
+justify-content: flex-start;
+align-items: center;
+padding: 1rem;
+@media only screen and (min-width: 1024px) {
+  padding: 2rem;
 }
 `
 export const ClientName = styled.section`
@@ -115,39 +115,4 @@ padding: 1rem;
 @media only screen and (min-width: 1024px) {
   padding: 2rem;
 }
-`
-export const Table = styled.table`
-grid-area: table;
-font-size: 1rem;
-border: none;
-padding: 0.5rem;
-@media only screen and (min-width: 600px) {
-  font-size: 1.6rem;
-}
-@media only screen and (min-width: 1024px) {
-  padding: 2rem;
-}
-`
-export const Thead  = styled.thead`
-text-align: justify;
-@media only screen and (min-width: 600px) {
-}
-@media only screen and (min-width: 1024px) {
-}
-`
-export const Tbody  = styled.tbody`
-color: #831717;
-font-weight: 500;
-@media only screen and (min-width: 600px) {
-}
-@media only screen and (min-width: 1024px) {
-}
-`
-export const TableRow = styled.tr`
-  &:nth-child(2n + 1) {
-    background-color: #f2f2f2;
-  }
-`
-export const Td = styled.td`
-text-align: center;
 `

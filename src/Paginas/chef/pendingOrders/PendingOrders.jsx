@@ -4,7 +4,8 @@ import Star from '../../../assets/Star.svg';
 import Button from '../../../Components/button/Button';
 import { getOrders } from '../../../API/orders/getOrders';
 import Modal from '../../../Components/modal/Modal';
-import { Main, Section, Title, InitialDate, StarImg, ValueOrder, PitNumber, Topic, ClientName, AttendantName, Table,Thead, Tbody, TableRow, Td } from './PendingOrders.styled';
+import Table from '../../../Components/table/Table'
+import { Main, Section, Title, InitialDate, ImgDate, ValueOrder, PitNumber, Topic, ClientName, AttendantName } from './PendingOrders.styled';
 import { useNavigate } from "react-router-dom";
 import { patchOrders } from '../../../API/orders/patchOrders';
 
@@ -88,7 +89,7 @@ const PendingOrdes = () => {
           return <Section key={order.id}>
             <Title>Resumo da Lápide</Title>
             <InitialDate>
-              <StarImg src={Star} alt='Estrela que indica a hora do pedido'/>
+              <ImgDate src={Star} alt='Estrela que indica a hora do pedido'/>
               <ValueOrder>{`${order.dataEntry.slice(11, 13)}h${order.dataEntry.slice(14, 16)}min`}</ValueOrder>
             </InitialDate>
             <PitNumber>
@@ -103,22 +104,10 @@ const PendingOrdes = () => {
               <Topic>Atendente: </Topic>
               <ValueOrder>{order.userName} </ValueOrder>   
             </AttendantName>                  
-            <Table>
-              <Thead>
-                <tr>
-                  <th>Pedido</th>
-                  <th>Quant.</th>
-                </tr>
-              </Thead>
-              <Tbody>          
-                {order.products.map((item)=> (
-                  <TableRow key={item.id}>
-                    <td>{item.name}</td>
-                    <Td>{item.quantity}</Td>
-                  </TableRow> 
-                ))}
-              </Tbody>
-            </Table>          
+            <Table 
+              products={order.products}
+              variant="ColorRed"
+            />             
             <Button variant='senary' onClick={() => handleReadyOrder(order.id)}>Pronto</Button>
           </Section>  
         })}
