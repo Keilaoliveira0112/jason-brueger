@@ -1,6 +1,9 @@
-import { getOrders } from "./getOrders";
+import { createOrder } from "./orders";
 
-describe('API getOrders', () => {
+describe('API createOrder', () => {
+  const userName = 'NomeDoAtendente';
+  const orderTotal = 60;
+  const table = '001';
   const products = [
     {
       id: 4,
@@ -17,14 +20,14 @@ describe('API getOrders', () => {
       quantity: 3
     }
   ];
-  it('Deve realizar uma resposta de sucesso e retornar um array de objetos com os dados do pedido', async () => {
+  const client= 'NomeDoCliente';
+  it('Deve criar um pedido com sucesso e retornar com os dados do pedido', async () => {
     const orderData = {
-      id: 9,
-      table: '001',
-      userName: 'NomeDoAtendente',
-      client: 'NomeDoCliente',
+      table,
+      userName,
+      client,
       products,
-      orderTotal: 60,
+      orderTotal,
       status:'pending',
       dataEntry: new Date()
     }
@@ -33,10 +36,11 @@ describe('API getOrders', () => {
       ok: true,
       status: 200,
       json: jest.fn().mockResolvedValue(orderData)
-    });
+    }) 
 
-    const result = await getOrders();      
+    const result = await createOrder(orderTotal, table, products, client);
+
+    expect(result).toEqual(orderData);
     expect(fetch).toHaveBeenCalledTimes(1);
-    expect(result).toEqual(orderData); 
-  });
+  })
 })

@@ -26,16 +26,9 @@ const NewOrder = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const token = localStorage.getItem('token');
-        const response = await getProducts(token);
-
-        if (!response.ok) {
-          throw new Error(`${response.status}: Erro ao carregar os produtos!`);
-        }
-
-        const productsList = await response.json();
-        setProducts(productsList);
-
+        const response = await getProducts();
+        console.log(response)
+        setProducts(response);
       }
       catch (error) {
         setmodalMessage(error.message);
@@ -133,9 +126,6 @@ const NewOrder = () => {
 
   const handleSendOrder = async (orderTotal) => {
     try {
-      const token = localStorage.getItem('token');
-      const username = localStorage.getItem('username');
-
       if (orderItem.length <= 0) {
         throw new Error(`Não é possível enviar pedido caso o resumo esteja vazio!`);
       }
@@ -151,21 +141,7 @@ const NewOrder = () => {
         setTypeModal('confirmation');
         return setOpenModal(true);
       }
-      const response = await createOrder(valueArguments, selectValue, orderItem, clientName, username, token);
-
-      const sendOrder = await response.json();
-      console.log(sendOrder)
-      if(response.status === 201){
-        setmodalMessage('Pedido enviado com sucesso');
-        setTypeModal('sucess');
-        setOpenModal(true);
-        setTimeout(() => {setOpenModal(false)}, 3000);
-        setOrderItem([]);
-        setSelectValue('');
-        setName('');
-      } else {
-        throw new Error(`${response.status}: Erro no enviar do pedido!`)
-      }
+      await createOrder(valueArguments, selectValue, orderItem, clientName);
     }
     catch (error) {
       setmodalMessage(error.message);
