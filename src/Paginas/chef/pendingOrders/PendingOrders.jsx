@@ -1,12 +1,12 @@
 import { React, useState, useEffect } from 'react';
 import Header from '../../../Components/header/Header';
 import Order from '../../../Components/order/Order';
-import { getItem } from '../../../storage/local';
 import { getOrders } from '../../../API/orders/getOrders';
 import Modal from '../../../Components/modal/Modal';
 import { Main } from './PendingOrders.styled';
 import { useNavigate } from "react-router-dom";
 import { patchOrders } from '../../../API/orders/patchOrders';
+
 
 const PendingOrdes = () => {
   const navigation = useNavigate();
@@ -19,15 +19,8 @@ const PendingOrdes = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const token = getItem('token');
-        const response = await getOrders(token);
-
-        if (!response.ok){
-          throw new Error(`${response.status}: Erro ao carregar os pedidos!`);
-        }
-
-        const orderList = await response.json();
-        const filterPending = orderList.filter((order) => order.status === 'pending');
+        const response = await getOrders();
+        const filterPending = response.filter((order) => order.status === 'pending');
         const newOrders = [...filterPending];
         const sortByHourAsc = newOrders.sort((a,b) => {
           return new Date(a.dataEntry) - new Date(b.dataEntry);
@@ -63,13 +56,7 @@ const PendingOrdes = () => {
         setTypeModal('confirmation');
         return setOpenModal(true);
       }
-      const token = localStorage.getItem('token');
-      const response = await patchOrders(token, valueArguments)
-      await response.json();
-
-      if(response.status >= 400) {
-        throw new Error(`${response.status}: Erro no envio para atendente! Tente novamente!`);
-      }
+      await patchOrders(valueArguments)
       setmodalMessage('Pedido enviado com sucesso');
       setTypeModal('sucess');
       setOpenModal(true);
@@ -103,7 +90,6 @@ const PendingOrdes = () => {
            orderResume={order}
            onClick={handleReadyOrder}
            />
-          
         })}
         <Modal 
           isOpen={openModal}

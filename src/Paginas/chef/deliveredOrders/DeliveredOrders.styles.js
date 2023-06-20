@@ -13,12 +13,11 @@ padding: 3rem;
 }
 `
 
-
 export const Section = styled.section`
 background-color: #D9D9D9;
 font-family: 'Asap', sans-serif;
 width: 60vw;
-height: 60vh;
+height: 40vh;
 display: grid;
 grid-template-areas:
 'title title'
@@ -57,19 +56,19 @@ margin-top: 2rem;
   margin-top: 3rem;
 }
 @media only screen and (min-width: 1024px) {
-  font-size: 2.2rem;
+  font-size: 2.5rem;
 }
 `
-export const Hours = styled.section`
- dislpay: flex;
- justify-content: center;
- align-items: center;
 
-`
-export const DateOne = styled.img`
+export const Date = styled.img`
+grid-template-colums: 200px 200px ;
+justify-self: center;
 width: 3vw;
+@media only screen and (min-width: 600px) {
+    align-self: center;
+}
 @media only screen and (min-width: 1024px) {
-  width: 1.2vw;
+    width: 2vw;
 }
 `
 export const Hour = styled.p`
@@ -82,12 +81,7 @@ font-size: 1rem;
 @media only screen and (min-width: 1024px) {
 }
 `
-export const DateTwo = styled.img`
-width: 3vw;
-@media only screen and (min-width: 1024px) {
-  width: 1.2vw;
-}
-`
+
 export const Pit = styled.h4`
 grid-area: pit;
 font-family: 'Rubik Wet Paint', cursive;
@@ -99,7 +93,7 @@ font-size: 1rem;
 @media only screen and (min-width: 1024px) {
 }
 `
-export const ValueOrder = styled.p`
+export const Number = styled.p`
 grid-area: number;
 font-size: 1.1rem;
 @media only screen and (min-width: 600px) {
@@ -166,7 +160,6 @@ color: #ffe000;
 export const Paragraph = styled.p`
 justify-self: center;
 color: #0D0A0B;
-font-size:;
 @media only screen and (min-width: 600px) {
   font-size: 2rem;
 }

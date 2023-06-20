@@ -1,18 +1,16 @@
-import { Base, TableRow, TableHeader, ItemName, ItemQuantity, Thead } from '../table/Table.styles';
+import { Base, TableRow, TableHeader, ItemName, ItemQuantity } from '../table/Table.styles';
 
 
 const Table = (props) => {
-    
-    
   return (
         <Base> 
        
-            <Thead>
+        <Base>
                 <TableRow>
-                    <TableHeader>Pedido</TableHeader>
-                    <TableHeader>Quantidade</TableHeader>
+                <TableHeader>Pedido</TableHeader>
+                <TableHeader>Quantidade</TableHeader>
                 </TableRow>
-            </Thead>
+            </Base>
               <tbody> 
                          
               {props.order.map((item)=> (

@@ -29,8 +29,8 @@ const Modal = (props) => {
         ) : (
           <ModalSection>
           <BtnClose onClick={props.setModalOpen} />
-          {props.typeModal === 'warning' ? (<Check src={Warning} alt='gif de alerta'/>)
-          : (<Check src={Verified} alt='marca de verificação com sucesso'/>)}
+          {props.typeModal === 'warning' ? (<Check src={Warning} alt='Símbolo de alerta'/>)
+          : (<Check src={Verified} alt='Marca de verificado com sucesso'/>)}
           <Message>{props.message}</Message>
         </ModalSection>
         )}

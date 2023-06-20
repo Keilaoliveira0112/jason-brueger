@@ -1,5 +1,5 @@
 import React from 'react'
-/* import Table from '../table/Table'; */
+import Table from '../table/Table'; 
 import Star from '../../assets/Star.svg';
 import Cross from '../../assets/Cross.svg';
 import Button from '../button/Button';
@@ -55,41 +55,41 @@ const Order = (props) =>  {
         </>
        ): (
          <>
-       {/*  {  {props.orderResume.map((order)=> (
-            <Section key={order.id}>
-                <Title>Resumo da Lápide</Title>
-                <InitialDate>
-                  <StarImg src={Star} alt='Estrela que indica a hora do pedido'/>
-                  <ValueOrder>{`${order.dataEntry.slice(11, 13)}h${order.dataEntry.slice(14, 16)}min`}</ValueOrder>
-                </InitialDate>
-                <FinalDate>
-                    <StarImg src={Cross} alt='Cruz que indica a hora em que o pedido foi entregue' />
-                    <ValueOrder>{`${order.dataEntry.slice(11, 13)}h${order.dataEntry.slice(14, 16)}min`}</ValueOrder>
-                </FinalDate>
-                <PitNumber>
-                  <Topic>Cova: </Topic>
-                  <ValueOrder>{order.table}</ValueOrder>
-                </PitNumber>  
-                <ClientName>
-                  <Topic>Cliente: </Topic>
-                  <ValueOrder>{order.client}</ValueOrder>
-                </ClientName>         
-                <AttendantName>
-                  <Topic>Atendente: </Topic>
-                  <ValueOrder>{order.userName} </ValueOrder>   
-                </AttendantName>                  
-                <Table
-                    order={order.products}
-                 /> 
-                <Paragraph>
-                    Concluído em {differenceInMinutes(new Date(order.dateProcessed),  new Date(order.dataEntry))} min(s)
-                </Paragraph> 
-                {{} && <ParagraphError>{}</ParagraphError>}                
-            </Section> 
-          
-          
-        ))} } */}
-    </>  
+           {props.orderResume.map((order)=> (
+          <Section key={order.id}>
+            <Title>Resumo da Lápide</Title>
+            <InitialDate>
+              <ImgDate src={Star} alt='Estrela que indica a hora do pedido'/>
+              <ValueOrder>{`${order.dataEntry.slice(11, 13)}h${order.dataEntry.slice(14, 16)}min`}</ValueOrder>
+            </InitialDate>
+            <FinalDate>
+              <ImgDate src={Cross} alt='Cruz que indica a hora em que o pedido foi concluído'/>
+              <ValueOrder>{`${order.dateProcessed.slice(11, 13)}h${order.dateProcessed.slice(14, 16)}min`}</ValueOrder>
+            </FinalDate>
+            <PitNumber>
+              <Topic>Cova: </Topic>
+              <ValueOrder>{order.table}</ValueOrder>
+            </PitNumber>  
+            <ClientName>
+              <Topic>Cliente: </Topic>
+              <ValueOrder>{order.client}</ValueOrder>
+            </ClientName>         
+            <AttendantName>
+              <Topic>Atendente: </Topic>
+              <ValueOrder>{order.userName} </ValueOrder>   
+            </AttendantName>                  
+            <Table 
+              products={order.products}
+              variant="colorGreen"
+            />
+            <Paragraph>
+              Concluído em {differenceInMinutes(new Date(order.dateProcessed), new Date(order.dataEntry))} min(s)
+            </Paragraph>
+            {error && <ParagraphError>{error}</ParagraphError>}            
+          </Section>
+                
+        ))}  
+        </>  
        
     )}
     </>
