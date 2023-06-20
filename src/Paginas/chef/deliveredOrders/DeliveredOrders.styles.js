@@ -18,7 +18,7 @@ export const Section = styled.section`
 background-color: #D9D9D9;
 font-family: 'Asap', sans-serif;
 width: 60vw;
-height: 40vh;
+height: 60vh;
 display: grid;
 grid-template-areas:
 'title title'
@@ -57,7 +57,7 @@ margin-top: 2rem;
   margin-top: 3rem;
 }
 @media only screen and (min-width: 1024px) {
-  font-size: 2.5rem;
+  font-size: 2.2rem;
 }
 `
 export const Hours = styled.section`
@@ -67,14 +67,9 @@ export const Hours = styled.section`
 
 `
 export const DateOne = styled.img`
-grid-template-colums: 200px 200px ;
-justify-self: center;
 width: 3vw;
-@media only screen and (min-width: 600px) {
-    align-self: center;
-}
 @media only screen and (min-width: 1024px) {
-    width: 2vw;
+  width: 1.2vw;
 }
 `
 export const Hour = styled.p`
@@ -87,7 +82,12 @@ font-size: 1rem;
 @media only screen and (min-width: 1024px) {
 }
 `
-
+export const DateTwo = styled.img`
+width: 3vw;
+@media only screen and (min-width: 1024px) {
+  width: 1.2vw;
+}
+`
 export const Pit = styled.h4`
 grid-area: pit;
 font-family: 'Rubik Wet Paint', cursive;
@@ -99,7 +99,7 @@ font-size: 1rem;
 @media only screen and (min-width: 1024px) {
 }
 `
-export const Number = styled.p`
+export const ValueOrder = styled.p`
 grid-area: number;
 font-size: 1.1rem;
 @media only screen and (min-width: 600px) {

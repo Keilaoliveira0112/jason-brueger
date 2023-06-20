@@ -1,12 +1,8 @@
 import { React, useState, useEffect } from "react";
 import Header from "../../../Components/header/Header";
-import { Main, Section, Pit, Title, Number, Client, Name, Attendant, Username, Hour, DateOne, ParagraphError, Paragraph } from '../../../Paginas/chef/deliveredOrders/DeliveredOrders.styled';
-import Star from '../../../assets/Star.svg';
-import Cross from '../../../assets/Cross.svg';
-import Table from "../../../Components/table/Table"; 
+import { Main } from './DeliveredOrders.styles';
+import Order from '../../../Components/order/Order';
 import { useNavigate } from "react-router-dom";
-
-import { differenceInMinutes } from "date-fns";
 import { getOrders } from "../../../API/orders/getOrders";
 import { getItem } from '../../../storage/local';
 
@@ -76,27 +72,12 @@ const DeliveredOrders = () => {
       <Main>
         {orders.map((order) => {
             console.log(order)
-          return <Section key={order.id}>
-            <Title>Resumo da Lápide</Title>
-            <DateOne src={Star} alt='Estrela que indica a hora do pedido'/>
-            <Hour>{`${order.dataEntry.slice(11, 13)}h${order.dataEntry.slice(14, 16)}min`}</Hour> 
-            <DateOne src={Cross} alt='Cruz que indica a hora em que o pedido foi entregue' />
-            <p>20:45</p>
-            <Pit>Cova: </Pit>
-            <Number></Number>
-            <Client>Cliente: </Client>
-            <Name>{order.client}</Name>
-            <Attendant>Atendente: </Attendant>
-            <Username>{order.userName} </Username>
-            <Table
-             order={order.products}
-            /> 
-             <Paragraph>
-             Concluído em {differenceInMinutes(new Date(order.dateProcessed),  new Date(order.dataEntry))} min(s)
-            </Paragraph> 
-         {error && <ParagraphError>{error}</ParagraphError>}          
-        </Section>
-      })} 
+          return <Order 
+            page='deliveredOrders'
+            orderResume={order}
+            error={error}
+         />
+        })}    
      </Main>
    
     </>

@@ -1,11 +1,10 @@
 import { React, useState, useEffect } from 'react';
 import Header from '../../../Components/header/Header';
-import Star from '../../../assets/Star.svg';
-import Button from '../../../Components/button/Button';
+import Order from '../../../Components/order/Order';
 import { getItem } from '../../../storage/local';
 import { getOrders } from '../../../API/orders/getOrders';
 import Modal from '../../../Components/modal/Modal';
-import { Main, Section, Title, InitialDate, StarImg, ValueOrder, PitNumber, Topic, ClientName, AttendantName, Table,Thead, Tbody, TableRow, Td } from './PendingOrders.styled';
+import { Main } from './PendingOrders.styled';
 import { useNavigate } from "react-router-dom";
 import { patchOrders } from '../../../API/orders/patchOrders';
 
@@ -98,43 +97,13 @@ const PendingOrdes = () => {
       />
       <Main>
         {orders.map((order) => {
+            console.log(order)
+         return <Order key={order.id}
+           page='pendingOrders'
+           orderResume={order}
+           onClick={handleReadyOrder}
+           />
           
-          return <Section key={order.id}>
-            <Title>Resumo da Lápide</Title>
-            <InitialDate>
-              <StarImg src={Star} alt='Estrela que indica a hora do pedido'/>
-              <ValueOrder>{`${order.dataEntry.slice(11, 13)}h${order.dataEntry.slice(14, 16)}min`}</ValueOrder>
-            </InitialDate>
-            <PitNumber>
-              <Topic>Cova: </Topic>
-              <ValueOrder>{order.table}</ValueOrder>
-            </PitNumber>  
-            <ClientName>
-              <Topic>Cliente: </Topic>
-              <ValueOrder>{order.client}</ValueOrder>
-            </ClientName>         
-            <AttendantName>
-              <Topic>Atendente: </Topic>
-              <ValueOrder>{order.userName} </ValueOrder>   
-            </AttendantName>                  
-            <Table>
-              <Thead>
-                <tr>
-                  <th>Pedido</th>
-                  <th>Quant.</th>
-                </tr>
-              </Thead>
-              <Tbody>          
-                {order.products.map((item)=> (
-                  <TableRow key={item.id}>
-                    <td>{item.name}</td>
-                    <Td>{item.quantity}</Td>
-                  </TableRow> 
-                ))}
-              </Tbody>
-            </Table>          
-            <Button variant='senary' onClick={() => handleReadyOrder(order.id)}>Pronto</Button>
-          </Section>  
         })}
         <Modal 
           isOpen={openModal}
