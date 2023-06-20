@@ -55,7 +55,7 @@ const PendingOrdes = () => {
         setTypeModal('confirmation');
         return setOpenModal(true);
       }
-      await patchOrders(valueArguments)
+      await patchOrders(valueArguments, 'ready')
       setmodalMessage('Pedido enviado com sucesso');
       setTypeModal('sucess');
       setOpenModal(true);

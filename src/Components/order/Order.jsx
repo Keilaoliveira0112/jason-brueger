@@ -2,7 +2,7 @@ import Star from '../../assets/Star.svg';
 import Cross from '../../assets/Cross.svg';
 import Button from '../button/Button';
 import Table from '../table/Table';
-import { Section, Title, InitialDate, FinalDate, ImgDate, ValueOrder, PitNumber, ClientName, Topic, AttendantName, Paragraph, ParagraphError } from './Order.styles'
+import { Section, Title, InitialDate, FinalDate, ImgDate, ValueOrder, PitNumber, ClientName, Topic, AttendantName, Paragraph } from './Order.styles'
 import { differenceInMinutes } from "date-fns";
 
 const Order = (props) => {
@@ -61,10 +61,12 @@ const Order = (props) => {
           products={order.products}
           variant="colorGreen"
         />
-        <Paragraph>
-          Concluído em {differenceInMinutes(new Date(order.dateProcessed), new Date(order.dataEntry))} min(s)
-        </Paragraph>
-        {props.error && <ParagraphError>{props.error}</ParagraphError>}            
+        {props.page === "Pedidos Prontos" ? (<Button variant='senary' onClick={() => props.onClick(order.id)}>Entregue</Button>)
+        : (
+          <Paragraph>
+            Concluído em {differenceInMinutes(new Date(order.dateProcessed), new Date(order.dataEntry))} min(s)
+          </Paragraph>     
+        )}
       </Section>  
     )))      
 }

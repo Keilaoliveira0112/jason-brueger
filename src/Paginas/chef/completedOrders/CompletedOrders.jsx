@@ -4,11 +4,14 @@ import { Main } from './CompletedOrders.styled';
 import { useNavigate } from "react-router-dom";
 import { React, useState, useEffect } from "react";
 import { getOrders } from "../../../API/orders/getOrders";
+import Modal from '../../../Components/modal/Modal'
 
 const CompletedOrders = () => {
     const navigation = useNavigate();
     const [orders, setOrders] = useState([]);
-    const [error, setError] = useState(null);
+    const [openModal, setOpenModal] = useState(false);
+    const [typeModal, setTypeModal] = useState('');
+    const [modalMessage, setmodalMessage] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -19,11 +22,18 @@ const CompletedOrders = () => {
         setOrders(filterDelivered);
       }
       catch (error) {
-        setError(error.message);
+        setmodalMessage(error.message);
+        setTypeModal('warning');
+        setOpenModal(true);
       }
     };
     fetchData()
   }, []);
+
+  const sendModal = (e) => {
+    e.preventDefault();
+    setOpenModal(false);
+  }
 
   const handleClickNavigate = (e) => {
     e.preventDefault();
@@ -44,7 +54,13 @@ const CompletedOrders = () => {
         <Order
           page="Pedidos Concluídos"
           orders={orders}
-          error={error}
+        />
+        <Modal 
+          isOpen={openModal}
+          typeModal={typeModal}
+          message={modalMessage}
+          setModalOpen={() => setOpenModal(!openModal)}
+          send={sendModal}
         />
       </Main>
     </>

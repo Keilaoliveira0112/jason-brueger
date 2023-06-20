@@ -14,6 +14,7 @@ const Rotas = () => {
         <Route path='/pedidos-prontos' element={<ReadyOrders />} />
         <Route path='/pedidos-pendentes' element={<PendingOrdes />} />
         <Route path='/pedidos-concluídos' element={<CompletedOrders />} />
+        <Route path='/pedidos-prontos' element={<ReadyOrders />} />
       </Routes>
     </BrowserRouter>
   )
