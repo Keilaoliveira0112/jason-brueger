@@ -38,7 +38,7 @@ const PendingOrdes = () => {
 
   const handleClickNavigate = (e) => {
     e.preventDefault();
-    const page = e.target.textContent === 'Pedidos Entregues' ? '/pedidos-entregues' : '/pedidos-pendentes';
+    const page = e.target.textContent === 'Pedidos Concluídos' ? '/pedidos-concluídos' : '/pedidos-pendentes';
     navigation(page);
   }
 
@@ -76,21 +76,18 @@ const PendingOrdes = () => {
   return (
     <>
       <Header 
-        firstBtn='Pedidos Pendentes'
-        variantFirstBtn=''
-        secondBtn='Pedidos Entregues'
-        variantSecondBtn='quinary'
+        firstBtn="Pedidos Pendentes"
+        variantFirstBtn=""
+        secondBtn="Pedidos Concluídos"
+        variantSecondBtn="quinary"
         onClick={handleClickNavigate}  
       />
       <Main>
-        {orders.map((order) => {
-            console.log(order)
-         return <Order key={order.id}
-           page='pendingOrders'
-           orderResume={order}
-           onClick={handleReadyOrder}
-           />
-        })}
+        <Order 
+        page="Pedidos Pendentes"
+        orders={orders}
+        onClick={handleReadyOrder}
+        />
         <Modal 
           isOpen={openModal}
           typeModal={typeModal}
