@@ -27,7 +27,6 @@ export const Section = styled.section`
   'attendantName attendantName'
   'table table'
   'paragraph paragraph';
-  'error error'
   padding: 0.5rem;
   grid-template-columns: 30vw 30vw;
   grid-template-rows: 8vh 4vh 3vh 3vh 3vh auto 4vh;
@@ -52,7 +51,7 @@ export const Section = styled.section`
       'clientName'
       'attendantName'
       'table'
-      'button';
+      'paragraph';
       grid-template-columns: 60vw 0vw;
     @media only screen and (min-width: 600px) {
       grid-template-columns: 40vw 0vw;
@@ -147,16 +146,6 @@ export const Paragraph = styled.p`
   grid-area: paragraph;
   justify-self: center;
   color: #0D0A0B;
-  font-weight: bold;
-  font-size: 1.1rem;
-  @media only screen and (min-width: 600px) {
-    font-size: 1.6rem;
-  }
-`
-export const ParagraphError = styled.p`
-  grid-area: error;
-  justify-self: center;
-  color: #ffe000;
   font-weight: bold;
   font-size: 1.1rem;
   @media only screen and (min-width: 600px) {
