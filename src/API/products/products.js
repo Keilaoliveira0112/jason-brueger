@@ -1,9 +1,7 @@
-const API_URL = 'https://burger-queen-api-mock-xi.vercel.app';
+import {request} from '../request/request';
+import {getItem} from '../../storage/local';
 
-export const getProducts = async (token) => await fetch(`${API_URL}/products`, {
-  method: "GET",
-  headers: {
-    'Content-Type': 'application/json',
-    Authorization: `Bearer ${token}`
-  },
-});
+export const getProducts = () => {
+  const token = getItem('token');
+  return request('products', 'GET', {Authorization: `Bearer ${token}`});
+}

@@ -1,13 +1,10 @@
-const API_URL = 'https://burger-queen-api-mock-xi.vercel.app';
+import {request} from '../request/request';
+import {getItem} from '../../storage/local';
 
-export const patchOrders = async (token, idOrder) => await fetch(`${API_URL}/orders/${idOrder}`, {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`
-    },
-    body: JSON.stringify({
-        status: "ready",
-        dateProcessed: new Date()
-    })
-})
+export const patchOrders = async (idOrder) => {
+  const token = getItem('token');
+  return request(`orders/${idOrder}`, 'PATCH', {Authorization: `Bearer ${token}`}, {
+    status: "ready",
+    dateProcessed: new Date()
+  })
+}

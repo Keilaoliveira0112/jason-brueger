@@ -1,30 +1,23 @@
-import { Base, TableRow, TableHeader, ItemName, ItemQuantity } from '../table/Table.styles';
-
+import { Background, Thead, Tbody, TableRow, Td } from "./Table.styles";
 
 const Table = (props) => {
-    
-    
   return (
-        <Base> 
-       
-        <Base>
-                <TableRow>
-                <TableHeader>Pedido</TableHeader>
-                <TableHeader>Quantidade</TableHeader>
-                </TableRow>
-            </Base>
-              <tbody> 
-                         
-              {props.order.map((item)=> (
-                <TableRow key={item.id}>
-                    <ItemName>{item.name}</ItemName>
-                    <ItemQuantity>{item.quantity}</ItemQuantity>
-                </TableRow> 
-              
-            ))}
-              </tbody>
-         
-        </Base>
-    )
+    <Background>
+      <Thead>
+        <tr>
+          <th>Pedido</th>
+          <th>Quant.</th>
+        </tr>
+      </Thead>
+      <Tbody variant={props.variant}>
+        {props.products.map((item) => (
+          <TableRow key={item.id}>
+            <td>{item.name}</td>
+            <Td>{item.quantity}</Td>
+          </TableRow>
+        ))}
+      </Tbody>
+    </Background>
+  )
 }
 export default Table;
