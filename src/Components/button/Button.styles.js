@@ -91,7 +91,7 @@ export const ButtonContainer = styled.button`
     border-radius: 0.5rem;
     border: none;
     justify-self: center;
-    grid-area: button;
+    grid-area: paragraph;
     @media only screen and (min-width: 600px) {
       width: 15vw;
       border-radius: 1rem;

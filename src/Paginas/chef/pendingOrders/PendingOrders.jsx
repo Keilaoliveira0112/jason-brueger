@@ -37,7 +37,7 @@ const PendingOrdes = () => {
 
   const handleClickNavigate = (e) => {
     e.preventDefault();
-    const page = e.target.textContent === 'Pedidos Entregues' ? '/pedidos-entregues' : '/pedidos-concluídos';
+    const page = e.target.textContent === 'Pedidos Concluídos' ? '/pedidos-concluídos' : '/pedidos-pendentes';
     navigation(page);
   }
 
@@ -55,7 +55,7 @@ const PendingOrdes = () => {
         setTypeModal('confirmation');
         return setOpenModal(true);
       }
-      await patchOrders(valueArguments)
+      await patchOrders(valueArguments, 'ready')
       setmodalMessage('Pedido enviado com sucesso');
       setTypeModal('sucess');
       setOpenModal(true);
