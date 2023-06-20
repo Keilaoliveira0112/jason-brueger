@@ -2,7 +2,7 @@ import Select from "./Select";
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-describe('<Select />', () => {
+describe('Select', () => {
     it('deve verificar a alteração do valor quando selecionar uma nova mesa', () =>{
         render(<Select />);
         const select = screen.getByRole('combobox')

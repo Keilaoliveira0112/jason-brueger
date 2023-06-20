@@ -37,7 +37,7 @@ const PendingOrdes = () => {
 
   const handleClickNavigate = (e) => {
     e.preventDefault();
-    const page = e.target.textContent === 'Pedidos Entregues' ? '/pedidos-entregues' : '/pedidos-concluídos';
+    const page = e.target.textContent === 'Pedidos Concluídos' ? '/pedidos-concluídos' : '/pedidos-pendentes';
     navigation(page);
   }
 
