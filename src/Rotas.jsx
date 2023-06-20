@@ -3,7 +3,7 @@ import Login from './Paginas/login/Login';
 import NewOrder from './Paginas/attendant/newOrder/NewOrder';
 import ReadyOrders from './Paginas/attendant/readyOrders/ReadyOrders';
 import PendingOrdes from './Paginas/chef/pendingOrders/PendingOrders';
-import DeliveredOrders from './Paginas/chef/deliveredOrders/DeliveredOrders';
+import CompletedOrders from './Paginas/chef/completedOrders/CompletedOrders';
 
 const Rotas = () => {
   return (
@@ -13,7 +13,7 @@ const Rotas = () => {
         <Route path='/novo-pedido' element={<NewOrder />} />
         <Route path='/pedidos-prontos' element={<ReadyOrders />} />
         <Route path='/pedidos-pendentes' element={<PendingOrdes />} />
-        <Route path='/pedidos-entregues' element={<DeliveredOrders />} />
+        <Route path='/pedidos-concluídos' element={<CompletedOrders />} />
       </Routes>
     </BrowserRouter>
   )

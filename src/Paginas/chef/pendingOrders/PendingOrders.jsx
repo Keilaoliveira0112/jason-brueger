@@ -1,11 +1,9 @@
 import { React, useState, useEffect } from 'react';
 import Header from '../../../Components/header/Header';
-import Star from '../../../assets/Star.svg';
-import Button from '../../../Components/button/Button';
+import Order from '../../../Components/order/Order';
 import { getOrders } from '../../../API/orders/getOrders';
 import Modal from '../../../Components/modal/Modal';
-import Table from '../../../Components/table/Table'
-import { Main, Section, Title, InitialDate, ImgDate, ValueOrder, PitNumber, Topic, ClientName, AttendantName } from './PendingOrders.styled';
+import { Main } from './PendingOrders.styled';
 import { useNavigate } from "react-router-dom";
 import { patchOrders } from '../../../API/orders/patchOrders';
 
@@ -39,7 +37,7 @@ const PendingOrdes = () => {
 
   const handleClickNavigate = (e) => {
     e.preventDefault();
-    const page = e.target.textContent === 'Pedidos Entregues' ? '/pedidos-entregues' : '/pedidos-pendentes';
+    const page = e.target.textContent === 'Pedidos Entregues' ? '/pedidos-entregues' : '/pedidos-concluídos';
     navigation(page);
   }
 
@@ -77,40 +75,18 @@ const PendingOrdes = () => {
   return (
     <>
       <Header 
-        firstBtn='Pedidos Pendentes'
-        variantFirstBtn=''
-        secondBtn='Pedidos Entregues'
-        variantSecondBtn='quinary'
+        firstBtn="Pedidos Pendentes"
+        variantFirstBtn=""
+        secondBtn="Pedidos Concluídos"
+        variantSecondBtn="quinary"
         onClick={handleClickNavigate}  
       />
       <Main>
-        {orders.map((order) => {
-          
-          return <Section key={order.id}>
-            <Title>Resumo da Lápide</Title>
-            <InitialDate>
-              <ImgDate src={Star} alt='Estrela que indica a hora do pedido'/>
-              <ValueOrder>{`${order.dataEntry.slice(11, 13)}h${order.dataEntry.slice(14, 16)}min`}</ValueOrder>
-            </InitialDate>
-            <PitNumber>
-              <Topic>Cova: </Topic>
-              <ValueOrder>{order.table}</ValueOrder>
-            </PitNumber>  
-            <ClientName>
-              <Topic>Cliente: </Topic>
-              <ValueOrder>{order.client}</ValueOrder>
-            </ClientName>         
-            <AttendantName>
-              <Topic>Atendente: </Topic>
-              <ValueOrder>{order.userName} </ValueOrder>   
-            </AttendantName>                  
-            <Table 
-              products={order.products}
-              variant="ColorRed"
-            />             
-            <Button variant='senary' onClick={() => handleReadyOrder(order.id)}>Pronto</Button>
-          </Section>  
-        })}
+        <Order 
+        page="Pedidos Pendentes"
+        orders={orders}
+        onClick={handleReadyOrder}
+        />
         <Modal 
           isOpen={openModal}
           typeModal={typeModal}
