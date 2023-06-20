@@ -142,6 +142,13 @@ const NewOrder = () => {
         return setOpenModal(true);
       }
       await createOrder(valueArguments, selectValue, orderItem, clientName);
+      setmodalMessage('Pedido enviado com sucesso');
+      setTypeModal('sucess');
+      setOpenModal(true);
+      setTimeout(() => {setOpenModal(false)}, 3000);
+      setOrderItem([]);
+      setName('');
+      setSelectValue('');
     }
     catch (error) {
       setmodalMessage(error.message);
