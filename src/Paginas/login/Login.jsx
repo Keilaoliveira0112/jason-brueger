@@ -25,6 +25,9 @@ const Login = () => {
       if (signin.user.role === 'chefe de cozinha') {
         navigation('/pedidos-pendentes');
       }
+      if (signin.user.role === 'admin') {
+        navigation('/produtos');
+      }
     }
     catch (error) {
       setError(error.message);

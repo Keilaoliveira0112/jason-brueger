@@ -4,6 +4,7 @@ import NewOrder from './Paginas/attendant/newOrder/NewOrder';
 import ReadyOrders from './Paginas/attendant/readyOrders/ReadyOrders';
 import PendingOrdes from './Paginas/chef/pendingOrders/PendingOrders';
 import CompletedOrders from './Paginas/chef/completedOrders/CompletedOrders';
+import Products from './Paginas/manager/products/Products';
 
 const Rotas = () => {
   return (
@@ -15,6 +16,7 @@ const Rotas = () => {
         <Route path='/pedidos-pendentes' element={<PendingOrdes />} />
         <Route path='/pedidos-concluídos' element={<CompletedOrders />} />
         <Route path='/pedidos-prontos' element={<ReadyOrders />} />
+        <Route path='/produtos' element={<Products />} />
       </Routes>
     </BrowserRouter>
   )
