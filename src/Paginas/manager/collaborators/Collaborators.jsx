@@ -1,6 +1,7 @@
 import React from 'react'
 import Header from '../../../Components/header/Header';
-
+import FilterCollaborators from '../../../Components/filterCollaborators/FilterCollaborators';
+import { Filter, Section } from './Collaborators.styles';
 import { useNavigate } from "react-router-dom";
 
  const Collaborators = () => {
@@ -14,13 +15,16 @@ import { useNavigate } from "react-router-dom";
   return (
     <>
         <Header 
-        firstBtn='Funcionarios'
-        variantFirstBtn=''
-        secondBtn='Produtos'
-        variantSecondBtn='quinary'
-        onClick={handleClickNavigate}
+            firstBtn='Funcionarios'
+            variantFirstBtn=''
+            secondBtn='Produtos'
+            variantSecondBtn='quinary'
+            onClick={handleClickNavigate}
         />
-    
+        <Section>
+            <Filter>Filtro:</Filter>
+            <FilterCollaborators />
+        </Section>
     
     
     </>
