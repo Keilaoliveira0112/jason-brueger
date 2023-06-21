@@ -8,10 +8,10 @@ import { differenceInMinutes } from "date-fns";
 const Order = (props) => {
   return props.page === 'Pedidos Pendentes' ? (
     props.orders.map((order) => (
-      <Section variant="OneColumn">
-        <Title key={order.id}>Resumo da Lápide</Title>
+      <Section key={order.id} variant="OneColumn">
+        <Title>Resumo da Lápide</Title>
         <InitialDate>
-          <ImgDate src={Star} alt="Estrela que indica a hora do pedido"/>
+          <ImgDate src={Star} alt="Imagem de uma estrela que indica a hora que o pedido foi feito"/>
           <ValueOrder>{`${order.dataEntry.slice(11, 13)}h${order.dataEntry.slice(14, 16)}min`}</ValueOrder>
         </InitialDate>
         <PitNumber>
@@ -42,7 +42,7 @@ const Order = (props) => {
           <ValueOrder>{`${order.dataEntry.slice(11, 13)}h${order.dataEntry.slice(14, 16)}min`}</ValueOrder>
         </InitialDate>
         <FinalDate>
-          <ImgDate src={Cross} alt='Cruz que indica a hora em que o pedido foi concluído'/>
+          <ImgDate src={Cross} alt='Imagem de uma cruz que indica a hora em que o pedido foi concluído'/>
           <ValueOrder>{`${order.dateProcessed.slice(11, 13)}h${order.dateProcessed.slice(14, 16)}min`}</ValueOrder>
         </FinalDate>
         <PitNumber>

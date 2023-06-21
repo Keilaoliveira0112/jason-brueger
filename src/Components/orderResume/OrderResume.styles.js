@@ -18,6 +18,7 @@ grid-template-columns: 15vw;
 @media only screen and (min-width: 600px) {
   width: 40vw;
   grid-template-columns: 10vw;
+  grid-template-rows: 5vh;
 }
 @media only screen and (min-width: 1024px) {
   width: 30vw;
