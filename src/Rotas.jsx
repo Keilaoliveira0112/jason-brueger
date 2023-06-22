@@ -5,18 +5,38 @@ import ReadyOrders from './Paginas/attendant/readyOrders/ReadyOrders';
 import PendingOrdes from './Paginas/chef/pendingOrders/PendingOrders';
 import CompletedOrders from './Paginas/chef/completedOrders/CompletedOrders';
 import Products from './Paginas/manager/products/Products';
+import ProtectedRoute from './Components/protectedRoute/ProtectedRoute';
 
 const Rotas = () => {
   return (
     <BrowserRouter>        
       <Routes>
         <Route path='/' element={<Login />} />
-        <Route path='/novo-pedido' element={<NewOrder />} />
-        <Route path='/pedidos-prontos' element={<ReadyOrders />} />
-        <Route path='/pedidos-pendentes' element={<PendingOrdes />} />
-        <Route path='/pedidos-concluídos' element={<CompletedOrders />} />
-        <Route path='/pedidos-prontos' element={<ReadyOrders />} />
-        <Route path='/produtos' element={<Products />} />
+        <Route path='/novo-pedido' element={
+          <ProtectedRoute user={'atendente'}>
+            <NewOrder />
+          </ProtectedRoute>
+        } />
+        <Route path='/pedidos-prontos' element={
+          <ProtectedRoute user={'atendente'}>
+            <ReadyOrders />
+          </ProtectedRoute>
+        } />
+        <Route path='/pedidos-pendentes' element={
+          <ProtectedRoute user={'chefe de cozinha'}>
+            <PendingOrdes />
+          </ProtectedRoute>
+        } />
+        <Route path='/pedidos-concluídos' element={
+          <ProtectedRoute user={'chefe de cozinha'}>
+            <CompletedOrders />
+          </ProtectedRoute>
+        } />
+        <Route path='/produtos' element={
+          <ProtectedRoute user={'admin'}>
+            <Products />
+          </ProtectedRoute>
+        } />
       </Routes>
     </BrowserRouter>
   )
