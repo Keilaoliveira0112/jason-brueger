@@ -2,10 +2,12 @@ import { React, useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import Header from "../../../Components/header/Header";
 import Select from "../../../Components/select/Select";
+import FormAdd from "../../../Components/formAdd/FormAdd";
 import Modal from "../../../Components/modal/Modal";
-import Card from "../../../Components/card/Card"
-import { Filter, FilterTitle } from "./Products.styled";
-import { getProducts } from "../../../API/products/products";
+import Card from "../../../Components/card/Card";
+import { Main, Filter, FilterTitle } from "./Products.styled";
+import { getProducts } from "../../../API/products/getProducts";
+
 
 const Products = () => {
   const navigation = useNavigate();
@@ -50,7 +52,7 @@ const Products = () => {
         variantSecondBtn=""
         onClick={handleClickNavigate}
       />
-      <main>
+      <Main>
         <Filter>
          <FilterTitle>Filtro: </FilterTitle>
          <Select
@@ -61,21 +63,7 @@ const Products = () => {
           />
         </Filter>
         {selectValue === "Adicionar produtos" ? (
-          <form>
-            <label for="name">Nome: </label>
-            <input type="text" name="name" id="name" />
-            <label for="price">Preço: </label>
-            <input type="text" name="price" id="price" />
-            <label for="type">Tipo: </label>
-            <input type="radio" name="cafe_da_manha" id="cafe_da_manha" />
-            <label for="cafe_da_manha">Café da Manhã</label><br></br>
-            <input type="radio" name="hamburguers" id="hamburguers" />
-            <label for="hamburguers">Hamburguers</label><br></br>
-            <input type="radio" name="acompanhamentos" id="acompanhamentos" />
-            <label for="acompanhamentos">Acompanhamentos</label><br></br>
-            <input type="radio" name="bebidas" id="bebidas" />
-            <label for="bebidas">Bebidas</label><br></br>
-          </form>
+          <FormAdd></FormAdd>
         ) : (
           <Card 
             list="products"
@@ -89,7 +77,7 @@ const Products = () => {
           setModalOpen={() => setOpenModal(!openModal)}
           send={sendModal}
         />
-      </main>
+      </Main>
     </>
   )
 }

@@ -6,7 +6,7 @@ import Select from '../../../Components/select/Select';
 import Input from '../../../Components/input/Input';
 import OrderResume from '../../../Components/orderResume/OrderResume';
 import { Main, SectionMenu, TitleMenu, UlMenu } from './NewOrder.styles';
-import { getProducts } from '../../../API/products/products';
+import { getProducts } from '../../../API/products/getProducts';
 import { createOrder } from '../../../API/orders/orders';
 import { useNavigate } from "react-router-dom";
 import Modal from '../../../Components/modal/Modal';
