@@ -27,9 +27,11 @@ export const ButtonContainer = styled.button`
     background-color: #711D17;
     color: #FFFFFF;
     font-size: 1.6rem;
-    width: 18vw;
+    width: auto;
+    padding: 0.5rem;
     height: 5vh;
     border: none;
+    justify-self: end;
     @media only screen and(min-width: 600px) {
     font-size: 2.5rem;
     }
@@ -116,4 +118,45 @@ export const ButtonContainer = styled.button`
       width: 9vw;
     }
   `}
+  ${({ variant }) => variant === "octonary" && css`
+    background: #0D0A0B;
+    border-color: #0D0A0B;
+    height: 3vh;
+    border-radius: 0.8rem;
+    padding: 0.3rem;
+    width: auto;
+    @media only screen and(min-width: 600px) {
+      border-radius: 1rem;
+    }
+    @media only screen and (min-width: 1024px) {
+      width: auto;
+      height: 6vh;
+      border-width: thick;
+    }
+
+    &:hover{
+      border-color: #D9D9D9;
+    }
+
+    &:active{
+      border-color: #D9D9D9;
+      transform: scale(0.97);
+      transition-duration: 0.05s;
+    }
+  `}
+  ${({ variant }) => variant === "nonary" && css`
+    background-color: #0B2F05;
+    color: #FFFFFF;
+    font-size: 1.6rem;
+    width: auto;
+    padding: 0.5rem;
+    height: 5vh;
+    border: none;
+    @media only screen and(min-width: 600px) {
+    font-size: 2.5rem;
+    }
+    @media only screen and(min-width: 1024px) {
+    height: 5vh;
+    }
+   `}
 `

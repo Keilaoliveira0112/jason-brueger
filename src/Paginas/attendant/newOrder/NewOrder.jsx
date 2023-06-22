@@ -6,7 +6,7 @@ import Select from '../../../Components/select/Select';
 import Input from '../../../Components/input/Input';
 import OrderResume from '../../../Components/orderResume/OrderResume';
 import { Main, SectionMenu, TitleMenu, UlMenu } from './NewOrder.styles';
-import { getProducts } from '../../../API/products/products';
+import { getProducts } from '../../../API/products/getProducts';
 import { createOrder } from '../../../API/orders/orders';
 import { useNavigate } from "react-router-dom";
 import Modal from '../../../Components/modal/Modal';
@@ -15,7 +15,7 @@ const NewOrder = () => {
   const navigation = useNavigate();
   const [products, setProducts] = useState([]);
   const [orderItem, setOrderItem] = useState([]);
-  const [selectValue, setSelectValue] = useState('Cova');
+  const [selectValue, setSelectValue] = useState('');
   const [clientName, setName] = useState('');
   const [openModal, setOpenModal] = useState(false);
   const [typeModal, setTypeModal] = useState('');
@@ -27,7 +27,6 @@ const NewOrder = () => {
     const fetchData = async () => {
       try {
         const response = await getProducts();
-        console.log(response)
         setProducts(response);
       }
       catch (error) {
@@ -160,45 +159,49 @@ const NewOrder = () => {
   return (
     <>
       <Header 
-        firstBtn='Novo Pedido'
-        variantFirstBtn=''
-        secondBtn='Pedidos Prontos'
-        variantSecondBtn='quinary'
+        firstBtn="Novo Pedido"
+        variantFirstBtn=""
+        secondBtn="Pedidos Prontos"
+        variantSecondBtn="quinary"
         onClick={handleClickNavigate}
       />
       <Main>
         <SectionMenu>
-          {productType === 'RestOfTheDay' ? (
+          {productType === "RestOfTheDay" ? (
             <ContainerButtons
-              variantBtnOne='tertiary'
-              variantBtnTwo='secondary'
+              variantBtnOne="tertiary"
+              variantBtnTwo="secondary"
               onClickBtnOne={handleClick}
-              childrenBtnTwo={'Resto do dia'}
-              childrenBtnOne={'Café da manhã'}
+              childrenBtnTwo="Resto do dia"
+              childrenBtnOne="Café da manhã"
             />
           ) : (
             <ContainerButtons
-              variantBtnOne='secondary'
-              variantBtnTwo='tertiary'
+              variantBtnOne="secondary"
+              variantBtnTwo="tertiary"
               onClickBtnTwo={handleClick}
-              childrenBtnTwo={'Resto do dia'}
-              childrenBtnOne={'Café da manhã'}
+              childrenBtnTwo="Resto do dia"
+              childrenBtnOne="Café da manhã"
             />
           )}          
           <Input
-            type='text'
+            type="text"
             value={clientName}
             onChange={(e) => setName(e.target.value)}
-            name='name'
-            placeholder='Digite o nome do cliente'
+            name="name"
+            placeholder="Digite o nome do cliente"
           />
-          <Select onChange={(e) => setSelectValue(e.target.value)} />
-          {productType === 'RestOfTheDay' ? (
+          <Select
+           onChange={(e) => setSelectValue(e.target.value)} 
+           defaultValue="Cova"
+           optionValues={["001", "002", "003", "004"]}
+          />
+          {productType === "RestOfTheDay" ? (
             <>
               <TitleMenu>Hamburguers</TitleMenu>
               <UlMenu>
                 {products.map((product) => {
-                  return product.type === 'Hamburguers' &&
+                  return product.type === "Hamburguers" &&
                     <List
                       key={product.id}
                       name={product.name}
@@ -210,7 +213,7 @@ const NewOrder = () => {
               <TitleMenu>Acompanhamentos</TitleMenu>
               <UlMenu>
                 {products.map((product) => {
-                  return product.type === 'Acompanhamentos' &&
+                  return product.type === "Acompanhamentos" &&
                     <List
                       key={product.id}
                       name={product.name}
@@ -222,7 +225,7 @@ const NewOrder = () => {
               <TitleMenu>Bebidas</TitleMenu>
               <UlMenu>
                 {products.map((product) => {
-                  return product.type === 'Bebidas' &&
+                  return product.type === "Bebidas" &&
                     <List
                       key={product.id}
                       name={product.name}
@@ -236,7 +239,7 @@ const NewOrder = () => {
             <>
               <UlMenu>
                 {products.map((product) => {
-                  return product.type === 'Café da manhã' &&
+                  return product.type === "Café da manhã" &&
                   <List 
                     key={product.id} 
                     name={product.name} 

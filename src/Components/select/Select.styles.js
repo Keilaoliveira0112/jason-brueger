@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const SelectContainer = styled.select`
 width: 18vw;
@@ -15,4 +15,13 @@ border: none;
 @media only screen and (min-width: 1024px) {
   width: 8vw;
 }
+${({ variant }) => variant === "primary" && css`
+  width: auto;
+  @media only screen and (min-width: 600px) {
+    width: auto;
+  }
+  @media only screen and (min-width: 1024px) {
+    width: auto;
+  }
+`}
 `

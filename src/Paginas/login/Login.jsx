@@ -19,11 +19,15 @@ const Login = () => {
       const signin = await userLogin(email, password);
       setItem('token', signin.accessToken);
       setItem('username', signin.user.name);
+      setItem('role', signin.user.role);
       if (signin.user.role === 'atendente') {
         navigation('/novo-pedido');
       }
       if (signin.user.role === 'chefe de cozinha') {
         navigation('/pedidos-pendentes');
+      }
+      if (signin.user.role === 'admin') {
+        navigation('/produtos');
       }
     }
     catch (error) {

@@ -1,4 +1,4 @@
-import { getProducts } from "./products";
+import { getProducts } from "./getProducts";
 
 describe('API getProducts', () => {
   const authTokenMock = 'mockAuthToken';
