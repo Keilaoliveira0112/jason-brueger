@@ -4,7 +4,7 @@ export const Form = styled.form`
 display: grid;
 justify-items: center;
 gap: 2rem;
-width: 90vw;
+width: auto;
 border: 1rem #fffff;
 padding: 1rem;
 border-radius: 1rem;

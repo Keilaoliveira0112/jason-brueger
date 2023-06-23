@@ -6,7 +6,7 @@ height: 100vh;
 position: fixed;
 top: 0;
 left: 0;
-z-index: 10;
+z-index: 20;
 background-color: rgba(0,0,0,0.7);
 display: flex;
 justify-content: center;

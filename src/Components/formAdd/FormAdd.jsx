@@ -5,7 +5,7 @@ import { Form, Topic, GroupButtons } from "./FormAdd.styles";
 const FormAdd = (props) => {
   return (
     <Form onSubmit={props.onSubmit}>
-      <Topic for="name">Nome do Produto: </Topic>
+      <Topic htmlFor="name">Nome do Produto: </Topic>
       <Input
         type="text"
         value={props.name}
@@ -13,7 +13,7 @@ const FormAdd = (props) => {
         name="name"
         placeholder="Nome do Produto"
       />
-      <Topic for="price">Preço: </Topic>
+      <Topic htmlFor="price">Preço: </Topic>
       <Input
         min="0"
         type="number"
@@ -29,7 +29,7 @@ const FormAdd = (props) => {
         <Button variant='octonary' onClick={props.onClick}>Acompanhamentos</Button>
         <Button variant='octonary' onClick={props.onClick}>Bebidas</Button>
       </GroupButtons>
-      <Button variant='nonary' type='submit'>Criar Produto</Button>
+      <Button variant='nonary' type='submit'>{props.childrenBtn}</Button>
     </Form>
   )
 }
