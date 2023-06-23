@@ -3,7 +3,7 @@ import Cross from '../../assets/Cross.svg';
 import Button from '../button/Button';
 import Table from '../table/Table';
 import { Section, Title, InitialDate, FinalDate, ImgDate, ValueOrder, PitNumber, ClientName, Topic, AttendantName, Paragraph } from './Order.styles'
-import { differenceInMinutes } from "date-fns";
+import { differenceInMinutes, getHours, getMinutes } from "date-fns";
 
 const Order = (props) => {
   return props.page === 'Pedidos Pendentes' ? (
@@ -12,7 +12,7 @@ const Order = (props) => {
         <Title>Resumo da Lápide</Title>
         <InitialDate>
           <ImgDate src={Star} alt="Imagem de uma estrela que indica a hora que o pedido foi feito"/>
-          <ValueOrder>{`${order.dataEntry.slice(11, 13)}h${order.dataEntry.slice(14, 16)}min`}</ValueOrder>
+          <ValueOrder>{`${getHours(new Date(order.dataEntry))}h${getMinutes(new Date(order.dataEntry))}min`}</ValueOrder>
         </InitialDate>
         <PitNumber>
           <Topic>Cova: </Topic>
@@ -39,11 +39,11 @@ const Order = (props) => {
         <Title>Resumo da Lápide</Title>
         <InitialDate>
           <ImgDate src={Star} alt='Estrela que indica a hora do pedido'/>
-          <ValueOrder>{`${order.dataEntry.slice(11, 13)}h${order.dataEntry.slice(14, 16)}min`}</ValueOrder>
+          <ValueOrder>{`${getHours(new Date(order.dataEntry))}h${getMinutes(new Date(order.dataEntry))}min`}</ValueOrder>
         </InitialDate>
         <FinalDate>
           <ImgDate src={Cross} alt='Imagem de uma cruz que indica a hora em que o pedido foi concluído'/>
-          <ValueOrder>{`${order.dateProcessed.slice(11, 13)}h${order.dateProcessed.slice(14, 16)}min`}</ValueOrder>
+          <ValueOrder>{`${getHours(new Date(order.dateProcessed))}h${getMinutes(new Date(order.dateProcessed))}min`}</ValueOrder>
         </FinalDate>
         <PitNumber>
           <Topic>Cova: </Topic>

@@ -2,13 +2,13 @@ import { Filter } from "./FilterCollaborators.styles";
 
  const FilterCollaborators = (props) => {
   return (
-    <Filter defaultValue={{value: ''}} onChange={props.onChange}>
-          <option value="Lista de Funcionários" >Lista de Funcionários</option>
-          <option value="Adm">Administrador</option>
-          <option value="Atendente">Atendente</option>
-          <option value="Chef de Cozinha">Chef de Cozinha</option>
-          <option value="Adicionar Funcionário">Adicionar Funcionário</option>
+    <Filter  variant={props.variant} defaultValue={{value: props.defaultValue}} onChange={props.onChange}>
+      <option value={props.defaultValue}>{props.defaultValue}</option>
+        {props.optionValues.map((value) => (
+          <option key={value} value={value}>{value}</option>
+        ))}
     </Filter>
   )
 }
 export default FilterCollaborators;
+
