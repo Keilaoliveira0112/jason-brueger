@@ -15,6 +15,7 @@ const FormAdd = (props) => {
       />
       <Topic for="price">Preço: </Topic>
       <Input
+        min="0"
         type="number"
         value={props.price}
         name="price"
@@ -23,10 +24,10 @@ const FormAdd = (props) => {
       />
       <Topic>Selecione o tipo: </Topic>
       <GroupButtons>
-        <Button variant='octonary' onClick={() => props.onClick()}>Café da Manhã</Button>
-        <Button variant='octonary' onClick={() => props.onClick()}>Hamburguers</Button>
-        <Button variant='octonary' onClick={() => props.onClick()}>Acompanhamentos</Button>
-        <Button variant='octonary' onClick={() => props.onClick()}>Bebidas</Button>
+        <Button variant='octonary' onClick={props.onClick}>Café da Manhã</Button>
+        <Button variant='octonary' onClick={props.onClick}>Hamburguers</Button>
+        <Button variant='octonary' onClick={props.onClick}>Acompanhamentos</Button>
+        <Button variant='octonary' onClick={props.onClick}>Bebidas</Button>
       </GroupButtons>
       <Button variant='nonary' type='submit'>Criar Produto</Button>
     </Form>
