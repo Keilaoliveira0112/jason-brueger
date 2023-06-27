@@ -7,6 +7,7 @@ import { Main } from './PendingOrders.styled';
 import { useNavigate } from "react-router-dom";
 import { patchOrders } from '../../../API/orders/patchOrders';
 
+
 const PendingOrdes = () => {
   const navigation = useNavigate();
   const [orders, setOrders] = useState([]);

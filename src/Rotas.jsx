@@ -6,6 +6,7 @@ import PendingOrdes from './Paginas/chef/pendingOrders/PendingOrders';
 import CompletedOrders from './Paginas/chef/completedOrders/CompletedOrders';
 import Products from './Paginas/manager/products/Products';
 import ProtectedRoute from './Components/protectedRoute/ProtectedRoute';
+import Collaborators from './Paginas/manager/collaborators/Collaborators';
 
 const Rotas = () => {
   return (
@@ -35,6 +36,11 @@ const Rotas = () => {
         <Route path='/produtos' element={
           <ProtectedRoute user={'admin'}>
             <Products />
+          </ProtectedRoute>
+        } />
+        <Route path='/colaboradores' element={
+          <ProtectedRoute user={'admin'}>
+            <Collaborators />
           </ProtectedRoute>
         } />
       </Routes>

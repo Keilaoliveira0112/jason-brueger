@@ -21,14 +21,20 @@ const ModalUpdate = (props) => {
       <Background id='modal' onClick={handleOutsideClick}>
         <ModalSection>
           <BtnClose onClick={props.setModalOpen} />
+
           <FormAdd
+            form={props.form}
             onSubmit={props.onSubmit} 
             name={props.name}
             onChangeName={props.onChangeName}
             price={props.price}
             onChangePrice={props.onChangePrice}
-            onClick={props.type}
-            childrenBtn="Atualizar Produto"
+            email={props.email}
+            onChangeEmail={props.onChangeEmail}
+            password={props.password}
+            onChangePassword={props.onChangePassword}
+            onClick={props.onClick}
+            childrenBtn={props.childrenBtn}
           />
         </ModalSection>
       </Background>
