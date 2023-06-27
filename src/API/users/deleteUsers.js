@@ -1,9 +1,9 @@
 import {request} from '../request/request';
-import { removeItem } from "../../storage/local";
+import { getItem } from "../../storage/local";
 
 export const deleteUser =  ( id ) =>  {
  
-    const token = removeItem('token'); 
+    const token = getItem('token'); 
 
     return request( `users/${id}`, 'DELETE', {Authorization: `Bearer ${token}`})
 };

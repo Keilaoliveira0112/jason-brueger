@@ -13,14 +13,14 @@ const FormAddUsers = (props) => {
         placeholder="Nome"
       />
       <Input
-        type="text"
+        type="email"
         value={props.email}
         name="email"
         placeholder="Email"
         onChange={props.onChangeEmail}
       />
        <Input
-        type="text"
+        type="password"
         value={props.password}
         name="password"
         placeholder="Senha"

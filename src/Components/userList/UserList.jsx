@@ -24,10 +24,10 @@ const UserList = (props) => {
                     <ValueOffice>{value.role}</ValueOffice>
                 </Topic>
                 <GroupButtons>
-                <Buttons onClick={() => props.onClickEdit()}>
+                <Buttons onClick={() => props.onClickEdit(value)}>
                   <ImgEdit src={btnEdit} alt="Botão de editar funcionários" />
                 </Buttons>
-                <Buttons onClick={() => props.onClickDelete()}>
+                <Buttons onClick={() => props.onClickDelete(value.id)}>
                   <ImgDelete src={btnDelete} alt="Botão de excluir funcionários" />
                 </Buttons>
               </GroupButtons>
