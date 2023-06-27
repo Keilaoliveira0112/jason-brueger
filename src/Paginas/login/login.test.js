@@ -38,7 +38,7 @@ describe('<Login/>', () => {
       expect(navigate).toHaveBeenCalledWith('/novo-pedido');
     });
     expect(userLogin).toHaveBeenCalledWith('texto@email.com', 'password');
-    expect(setItem).toHaveBeenCalledTimes(2);
+    expect(setItem).toHaveBeenCalledTimes(3);
     expect(setItem).toHaveBeenCalledWith('token', 'huhasud');
     expect(setItem).toHaveBeenCalledWith('username', 'Jason');
   });

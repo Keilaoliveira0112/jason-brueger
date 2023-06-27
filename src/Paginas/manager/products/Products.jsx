@@ -19,11 +19,12 @@ const Products = () => {
   const [valueArguments, setvalueArguments] = useState([]);
   const [openModal, setOpenModal] = useState(false);
   const [typeModal, setTypeModal] = useState("");
-  const [modalMessage, setmodalMessage] = useState("");
+  const [modalMessage, setModalMessage] = useState("");
   const [openModalUpdate, setOpenModalUpdate] = useState(false);
-  const [price, setPrice] = useState();
-  const [name, setName] = useState("");
-  const [type, setType] = useState("");
+  //const [price, setPrice] = useState();
+  //const [name, setName] = useState("");
+  //const [type, setType] = useState("");
+  const [editingProduct, setEditingProduct] = useState({});
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,7 +33,7 @@ const Products = () => {
         setProducts(response);
       }
       catch (error) {
-        setmodalMessage(error.message);
+        setModalMessage(error.message);
         setTypeModal('warning');
         setOpenModal(true);
       };
@@ -61,18 +62,72 @@ const Products = () => {
         handleClickDelete(valueArguments)
         break
       default:
-        handleSubmitNewProduct()
+        //handleSubmitNewProduct()
     }
+  }
+
+  const handleOnChange = (e) => {
+    console.log('aqui', e.target.value)
+    setEditingProduct((prevState) => 
+    ({...prevState,  name: e.target.value}))
+    console.log(editingProduct);
   }
 
   const handleClickType = (e) => {
     e.preventDefault();
     const typeValue = e.target.textContent;
-    setType(typeValue)
+    setEditingProduct((prevState) => 
+    ({...prevState,  type: typeValue}));
   }
 
   //lidar com envio do novo produto
-  const handleSubmitNewProduct = async (e) => {
+  const handleSubmit = (e) => {
+    let errorMessage; 
+    e.preventDefault();
+    if (editingProduct.name === "") {
+      errorMessage = "Informe um nome para o produto."
+    }
+    if (editingProduct.price <= 0) {
+      errorMessage = "Informe um preço acima de 0."
+    }
+    if (editingProduct.type === "") {
+      errorMessage ="Informe o tipo do produto." 
+    }
+    if(errorMessage){
+      setModalMessage(errorMessage)
+      setTypeModal('warning');
+      setOpenModal(true);
+    }
+    if(!openModal){
+      setModalMessage("Confirma a criação do novo produto?");
+      setTypeModal("confirmation");
+      return setOpenModal(true);
+    }
+  } 
+
+  const handleSubmitNewProduct = async () => {
+    try {
+      console.log(editingProduct)
+      const response = await createProduct(editingProduct.name, editingProduct.price, editingProduct.type);
+      console.log(response);
+      const newProducts = [...products];
+      newProducts.push(response);
+      setProducts(newProducts);
+      setModalMessage("Produto criado com sucesso");
+      setTypeModal("sucess");
+      setOpenModal(true);
+      setTimeout(() => { setOpenModal(false) }, 3000);
+      setEditingProduct({})
+    }
+    catch (error) {
+      setModalMessage(error.message);
+      setTypeModal('warning');
+      setOpenModal(true);
+    };
+  }; 
+
+  /* const handleSubmitNewProduct = async (e) => {
+    e.preventDefault();
     try {
       if (name === "") {
         throw new Error("Informe um nome para o produto.");
@@ -84,63 +139,66 @@ const Products = () => {
         throw new Error("Informe o tipo do produto.");
       }
       if(!openModal){
-        e.preventDefault();
-        setmodalMessage("Confirma a criação do novo produto?");
+        setvalueArguments(e)
+        setModalMessage("Confirma a criação do novo produto?");
         setTypeModal("confirmation");
         return setOpenModal(true);
       }
-      const teste = await createProduct(name, price, type);
-      console.log(teste);
-      setmodalMessage("Produto criado com sucesso");
+      const response = await createProduct(name, price, type);
+      console.log(response);
+      const newProducts = [...products];
+      newProducts.push(response);
+      setProducts(newProducts);
+      setModalMessage("Produto criado com sucesso");
       setTypeModal("sucess");
       setOpenModal(true);
       setTimeout(() => {setOpenModal(false)}, 3000);
       setName("");
-      setPrice();
+      setPrice(0);
       setType("");
     }
     catch (error) {
-      setmodalMessage(error.message);
+      setModalMessage(error.message);
       setTypeModal('warning');
       setOpenModal(true);
     };
-  };
+  }; */
 
   //edit
   const handleClickEdit = (product) => {
-    setvalueArguments(product);
-    setName(product.name);
-    setPrice(product.price);
-    setType(product.type);
+    setEditingProduct(product);
     setOpenModalUpdate(true);
   }
   
   const handleSubmitEditProduct = async (e) => {
+    e.preventDefault();
     try {
-      if (name === "") {
+      if (editingProduct.name === "") {
         throw new Error("Informe um nome para o produto.");
       }
-      if (price <= 0) {
+      if (editingProduct.price <= 0) {
         throw new Error("Informe um preço acima de 0.");
       }
-      if (type.length <= 0) {
+      if (editingProduct.type.length <= 0) {
         throw new Error("Informe o tipo do produto.");
       }
-      e.preventDefault();
-      const teste = await patchProducts(valueArguments.id, name, price, type);
+      //console.log(editingProduct);
+      const teste = await patchProducts(editingProduct.id, {name: editingProduct.name, type: editingProduct.type, price: editingProduct.price});
       console.log(teste);
       setOpenModalUpdate(false)
-      setmodalMessage("Produto atualizado com sucesso");
+      setModalMessage("Produto atualizado com sucesso");
       setTypeModal("sucess");
       setOpenModal(true);
       setTimeout(() => {setOpenModal(false)}, 3000);
+      const getIndexElementFirst = products.findIndex((product) => product.id === editingProduct.id);
+      const newProduct = [...products];
+      newProduct.splice(getIndexElementFirst, 1);
+      setProducts([...newProduct, editingProduct].sort((a,b) => a.id - b.id));
       setvalueArguments([]);
-      setName("");
-      setPrice();
-      setType("");
+      setEditingProduct({});
     }
     catch (error) {
-      setmodalMessage(error.message);
+      setModalMessage(error.message);
       setTypeModal('warning');
       setOpenModal(true);
     };
@@ -151,22 +209,25 @@ const Products = () => {
     try {
       if(!openModal){
         setvalueArguments(product)
-        setmodalMessage(`Tem certeza que deseja excluir esse produto?`);
+        setModalMessage(`Tem certeza que deseja excluir esse produto?`);
         setTypeModal('confirmation');
         return setOpenModal(true);
       } else {
         const teste = await deleteProducts(product);
         console.log(teste);
-        setmodalMessage("Produto deletado com sucesso");
+        setModalMessage("Produto deletado com sucesso");
         setTypeModal("sucess");
         setOpenModal(true);
         setTimeout(() => {setOpenModal(false)}, 3000);
+        const getElementFirst = products.findIndex((product) => product.id === valueArguments.id);
+        const newProduct = [...products];
+        newProduct.splice(getElementFirst, 1);
+        setProducts(newProduct);
         setvalueArguments([])
-        //falta o reload da tela para atualizar
       }
     } 
     catch (error) {
-      setmodalMessage(error.message);
+      setModalMessage(error.message);
       setTypeModal('warning');
       setOpenModal(true);
     }
@@ -193,11 +254,11 @@ const Products = () => {
         </Filter>
         {selectValue === "Adicionar produtos" ? (
           <FormAdd
-            onSubmit={handleSubmitNewProduct}
-            name={name}
-            onChangeName={(e) => setName(e.target.value)}
-            price={price}
-            onChangePrice={(e) => setPrice(e.target.value)}
+            onSubmit={handleSubmit}
+            name={editingProduct.name}
+            onChangeName={(e) => handleOnChange(e)}
+            price={editingProduct.price}
+            onChangePrice={(e) => setEditingProduct((prevState) => ({...prevState, price: e.target.value}))}
             onClick={handleClickType}
             childrenBtn="Criar Produto"
           />
@@ -220,10 +281,10 @@ const Products = () => {
           isOpen={openModalUpdate}
           onSubmit={handleSubmitEditProduct}
           setModalOpen={() => setOpenModalUpdate(!openModalUpdate)}
-          name={name}
-          onChangeName={(e) => setName(e.target.value)}
-          price={price}
-          onChangePrice={(e) => setPrice(e.target.value)}
+          name={editingProduct.name}
+          onChangeName={(e) => setEditingProduct((prevState) => ({...prevState,  name: e.target.value}))}
+          price={editingProduct.price}
+          onChangePrice={(e) => setEditingProduct((prevState) => ({...prevState, price: e.target.value}))}
           type={handleClickType}
         />
       </Main>

@@ -34,7 +34,7 @@ describe('<Order />', () => {
           products,
           orderTotal: 60,
           status:'pending',
-          dataEntry: '2023-06-14T19:26:39.739Z'
+          dataEntry: '2023-06-14T16:26:39.739Z'
         }
       ],
       onClick: jest.fn()
@@ -46,7 +46,7 @@ describe('<Order />', () => {
     const imgStar = screen.getByRole('img', { name: 'Imagem de uma estrela que indica a hora que o pedido foi feito'});
     expect(imgStar).toBeInTheDocument();
 
-    const startTime = screen.getByText('19h26min')
+    const startTime = screen.getByText('13h26min')
     expect(startTime).toBeInTheDocument();
 
     const tableNumber= screen.getByText(props.orders[0].table)
@@ -81,8 +81,8 @@ describe('<Order />', () => {
           products,
           orderTotal: 60,
           status:'ready',
-          dataEntry: '2023-06-14T19:26:39.739Z',
-          dateProcessed: '2023-06-14T19:40:39.739Z'
+          dataEntry: '2023-06-14T16:26:39.739Z',
+          dateProcessed: '2023-06-14T16:40:39.739Z'
         }
       ],
     }
@@ -96,7 +96,7 @@ describe('<Order />', () => {
     const imgCross = screen.getByRole('img', { name: 'Imagem de uma cruz que indica a hora em que o pedido foi concluído'});
     expect(imgCross).toBeInTheDocument();
 
-    const endTime = screen.getByText('19h40min')
+    const endTime = screen.getByText('13h40min')
     expect(endTime).toBeInTheDocument();
 
     //expect(minutesCalculation).toHaveBeenCalledTimes(1);
