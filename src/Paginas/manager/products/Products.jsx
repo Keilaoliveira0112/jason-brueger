@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 import Header from "../../../Components/header/Header";
 import Select from "../../../Components/select/Select";
 import FormAdd from "../../../Components/formAdd/FormAdd";
+import Card from "../../../Components/card/Card";
 import Modal from "../../../Components/modal/Modal";
 import ModalUpdate from "../../../Components/modalUpdate/ModalUpdate"
-import Card from "../../../Components/card/Card";
 import { Main, Filter, FilterTitle } from "./Products.styled";
 import { getProducts } from "../../../API/products/getProducts";
 import { createProduct } from "../../../API/products/postProducts";
@@ -44,6 +44,11 @@ const Products = () => {
     navigation(page);
   };
 
+  const handleModalClosure = () => {
+    setOpenModalUpdate(!openModalUpdate);
+    setEditingProduct({});
+  }
+
   const sendModal = (e) => {
     e.preventDefault();
     setOpenModal(false);
@@ -73,7 +78,6 @@ const Products = () => {
   const handleSubmit = (e) => {
     let errorMessage = "";
     e.preventDefault();
-    console.log(editingProduct.name)
     if (!editingProduct.name) {
       errorMessage = "Informe um nome para o produto."
     }
@@ -83,7 +87,6 @@ const Products = () => {
     if (!editingProduct.type) {
       errorMessage = "Informe o tipo do produto."
     }
-    console.log(errorMessage)
     if (errorMessage) {
       setModalMessage(errorMessage)
       setTypeModal("warning");
@@ -99,7 +102,6 @@ const Products = () => {
   const handleSubmitNewProduct = async () => {
     try {
       const response = await createProduct(editingProduct.name, editingProduct.price, editingProduct.type);
-      console.log(response);
       const newProducts = [...products];
       newProducts.push(response);
       setProducts(newProducts);
@@ -133,8 +135,7 @@ const Products = () => {
       if (!editingProduct.type) {
         throw new Error("Informe o tipo do produto.");
       }
-      const response = await patchProducts(editingProduct.id, { name: editingProduct.name, type: editingProduct.type, price: editingProduct.price });
-      console.log(response);
+      await patchProducts(editingProduct.id, { name: editingProduct.name, type: editingProduct.type, price: editingProduct.price });
       setOpenModalUpdate(false)
       setModalMessage("Produto atualizado com sucesso");
       setTypeModal("sucess");
@@ -161,8 +162,7 @@ const Products = () => {
         setTypeModal('confirmation');
         return setOpenModal(true);
       } else {
-        const response = await deleteProducts(product);
-        console.log(response);
+        await deleteProducts(product);
         setModalMessage("Produto deletado com sucesso");
         setTypeModal("sucess");
         setOpenModal(true);
@@ -202,7 +202,7 @@ const Products = () => {
         </Filter>
         {selectValue === "Adicionar produtos" ? (
           <FormAdd
-            form="products"
+            isProductForm={true}
             onSubmit={handleSubmit}
             name={editingProduct.name}
             onChangeName={(e) => setEditingProduct((prevState) => ({ ...prevState, name: e.target.value }))}
@@ -213,7 +213,7 @@ const Products = () => {
           />
         ) : (
           <Card
-            list="products"
+            isProductList={true}
             values={products}
             onClickEdit={handleClickEdit}
             onClickDelete={handleClickDelete}
@@ -229,8 +229,8 @@ const Products = () => {
         <ModalUpdate
           isOpen={openModalUpdate}
           onSubmit={handleSubmitEditProduct}
-          setModalOpen={() => setOpenModalUpdate(!openModalUpdate)}
-          form="products"
+          setModalOpen={handleModalClosure}
+          isProductForm={true}
           name={editingProduct.name}
           onChangeName={(e) => setEditingProduct((prevState) => ({ ...prevState, name: e.target.value }))}
           price={editingProduct.price}

@@ -2,9 +2,9 @@ import { React, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../../../Components/header/Header";
 import Select from "../../../Components/select/Select";
-import UserList from "../../../Components/userList/UserList";
-import Modal from "../../../Components/modal/Modal";
 import FormAdd from "../../../Components/formAdd/FormAdd";
+import Card from "../../../Components/card/Card";
+import Modal from "../../../Components/modal/Modal";
 import ModalUpdate from "../../../Components/modalUpdate/ModalUpdate";
 import { Main, Filter, FilterTitle } from "./Collaborators.styles";
 import { getUsers } from "../../../API/users/getUsers";
@@ -44,6 +44,11 @@ const Collaborators = () => {
     navigation(page);
   };
 
+  const handleModalClosure = () => {
+    setOpenModalUpdate(!openModalUpdate);
+    SetEditingUser({});
+  }
+
   const sendModal = (e) => {
     e.preventDefault();
     setOpenModal(false);
@@ -66,8 +71,8 @@ const Collaborators = () => {
   const handleClickRole = (e) => {
     e.preventDefault();
     const roleValue = e.target.textContent;
-    console.log(roleValue);
-    SetEditingUser((prevState) => ({ ...prevState, role: roleValue }))
+    const convertingLowerCase = roleValue.toLowerCase();
+    SetEditingUser((prevState) => ({ ...prevState, role: convertingLowerCase }))
   };
 
   const handleSubmit = (e) => {
@@ -80,11 +85,9 @@ const Collaborators = () => {
       errorMessage = "Informe o email do colaborador.";
     }
     if (!editingUser.password || editingUser.password.length < 6) {
-      console.log('password')
       errorMessage = "Senha deve ser maior ou igual que 6 caracteres.";
     }
     if (!editingUser.role) {
-      console.log('role')
       errorMessage = "Informe a função do colaborador";
     }
     if (errorMessage) {
@@ -102,7 +105,6 @@ const Collaborators = () => {
   const handleSubmitNewCollaborators = async () => {
     try {
       const response = await createUsers(editingUser.name, editingUser.email, editingUser.password, editingUser.role);
-      console.log(response);
       const newUsers = [...users];
       newUsers.push(response.user);
       setUsers(newUsers);
@@ -139,8 +141,7 @@ const Collaborators = () => {
       if (!editingUser.role) {
         throw new Error("Informe a função do colaborador");
       }
-      const response = await patchUser(editingUser.id, { name: editingUser.name, email: editingUser.email, password: editingUser.password, role: editingUser.role });
-      console.log(response);
+      await patchUser(editingUser.id, { name: editingUser.name, email: editingUser.email, password: editingUser.password, role: editingUser.role });
       setOpenModalUpdate(false)
       setmodalMessage("Cadastro atualizado com sucesso");
       setTypeModal("sucess");
@@ -166,8 +167,7 @@ const Collaborators = () => {
         setTypeModal('confirmation');
         return setOpenModal(true);
       } else {
-        const response = await deleteUser(usersId);
-        console.log(response);
+        await deleteUser(usersId);
         setmodalMessage("Cadastro deletado com sucesso");
         setTypeModal("sucess");
         setOpenModal(true);
@@ -207,7 +207,7 @@ const Collaborators = () => {
         </Filter>
         {selectValue === "Cadastrar novo funcionário" ? (
           <FormAdd
-            form="users"
+            isProductForm={false}
             onSubmit={handleSubmit}
             name={editingUser.name}
             onChangeName={(e) => SetEditingUser((prevState) => ({ ...prevState, name: e.target.value }))}
@@ -219,9 +219,9 @@ const Collaborators = () => {
             childrenBtn="Criar Cadastro"
           />
         ) : (
-          <UserList
-            list="users"
-            uservalue={users}
+          <Card
+            isProductList={false}
+            values={users}
             onClickEdit={handleClickEdit}
             onClickDelete={handleClickDelete}
           />
@@ -236,8 +236,8 @@ const Collaborators = () => {
         <ModalUpdate
           isOpen={openModalUpdate}
           onSubmit={handleSubmitEditCollaborators}
-          setModalOpen={() => setOpenModalUpdate(!openModalUpdate)}
-          form="users"
+          setModalOpen={handleModalClosure}
+          isProductForm={false}
           name={editingUser.name}
           onChangeName={(e) => SetEditingUser((prevState) => ({ ...prevState, name: e.target.value }))}
           email={editingUser.email}

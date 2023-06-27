@@ -1,16 +1,16 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const Form = styled.form`
-display: grid;
-justify-items: center;
-gap: 2rem;
-width: auto;
-border: 1rem #fffff;
-padding: 1rem;
-border-radius: 1rem;
+  display: grid;
+  justify-items: center;
+  gap: 2rem;
+  width: auto;
+  border: 1rem #fffff;
+  padding: 1rem;
+  border-radius: 1rem;
 `
 export const Topic = styled.label`
-  font-family: 'Asap', sans-serif;
+  font-family: "Asap", sans-serif;
   font-size: 1.5rem;
   color: #FFFFFF;
   @media only screen and (min-width: 600px) {
