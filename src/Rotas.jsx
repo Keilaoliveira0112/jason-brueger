@@ -33,14 +33,14 @@ const Rotas = () => {
             <CompletedOrders />
           </ProtectedRoute>
         } />
-        <Route path='/produtos' element={
-          <ProtectedRoute user={'admin'}>
-            <Products />
-          </ProtectedRoute>
-        } />
         <Route path='/colaboradores' element={
           <ProtectedRoute user={'admin'}>
             <Collaborators />
+          </ProtectedRoute>
+        } />
+        <Route path='/produtos' element={
+          <ProtectedRoute user={'admin'}>         
+            <Products />
           </ProtectedRoute>
         } />
       </Routes>
