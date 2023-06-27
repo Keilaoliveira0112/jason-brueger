@@ -121,7 +121,7 @@ export const ButtonContainer = styled.button`
   ${({ variant }) => variant === "octonary" && css`
     background: #0D0A0B;
     border-color: #0D0A0B;
-    height: 3vh;
+    height: auto;
     border-radius: 0.8rem;
     padding: 0.3rem;
     width: auto;
@@ -133,12 +133,13 @@ export const ButtonContainer = styled.button`
       height: 6vh;
       border-width: thick;
     }
-
+    
     &:hover{
       border-color: #D9D9D9;
     }
-
-    &:active{
+    
+    &:active,
+    &:focus{
       border-color: #D9D9D9;
       transform: scale(0.97);
       transition-duration: 0.05s;

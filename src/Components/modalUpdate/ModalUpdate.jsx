@@ -21,7 +21,6 @@ const ModalUpdate = (props) => {
       <Background id='modal' onClick={handleOutsideClick}>
         <ModalSection>
           <BtnClose onClick={props.setModalOpen} />
-
           <FormAdd
             form={props.form}
             onSubmit={props.onSubmit} 

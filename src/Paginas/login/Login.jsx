@@ -27,7 +27,7 @@ const Login = () => {
         navigation('/pedidos-pendentes');
       }
       if (signin.user.role === 'admin') {
-        navigation('/produtos');
+        navigation('/colaboradores');
       }
     }
     catch (error) {

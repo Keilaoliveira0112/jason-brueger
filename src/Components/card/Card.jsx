@@ -55,14 +55,14 @@ const Card = (props) => {
               </Topic>
               <Topic>
                 <h6>Role: </h6>
-                <Value>{value.type}</Value>
+                <Value>{value.role}</Value>
               </Topic>
               <GroupButtons>
-                <Buttons onClick={() => props.onClickEdit()}>
-                  <ImgEdit src={btnEdit} alt="Botão de editar produto" />
+                <Buttons onClick={() => props.onClickEdit(value)}>
+                  <ImgEdit src={btnEdit} alt="Botão de editar usuário" />
                 </Buttons>
-                <Buttons onClick={() => props.onClickDelete()}>
-                  <ImgDelete src={btnDelete} alt="Botão de excluir produto" />
+                <Buttons onClick={() => props.onClickDelete(value.id)}>
+                  <ImgDelete src={btnDelete} alt="Botão de excluir usuário" />
                 </Buttons>
               </GroupButtons>
             </Each>

@@ -6,7 +6,7 @@ const FormAdd = (props) => {
   return (
    
     <Form onSubmit={props.onSubmit}>
-    {props.form === 'products' ? ( 
+    {props.form === "products" ? ( 
     <>
       <Topic htmlFor="name">Nome do Produto: </Topic>
       <Input
@@ -33,7 +33,6 @@ const FormAdd = (props) => {
         <Button variant='octonary' onClick={props.onClick}>Bebidas</Button>
       </GroupButtons>
     </>
-
     ) : (
       <>
       <Input
@@ -61,8 +60,7 @@ const FormAdd = (props) => {
         <Button variant='octonary' onClick={props.onClick}>atendente</Button>
         <Button variant='octonary' onClick={props.onClick}>chefe de cozinha</Button>
         <Button variant='octonary' onClick={props.onClick}>admin</Button>
-        </GroupButtons>
-      
+        </GroupButtons>     
       </>  
     )}
     <Button variant='nonary' type='submit'>{props.childrenBtn}</Button>
