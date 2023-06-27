@@ -43,7 +43,7 @@ const Products = () => {
 
   const handleClickNavigate = (e) => {
     e.preventDefault();
-    const page = e.target.textContent === "Funcionários" ? "/novo-pedido" : "/produtos";
+    const page = e.target.textContent === "Funcionários" ? "/colaboradores" : "/produtos";
     navigation(page);
   }
 
