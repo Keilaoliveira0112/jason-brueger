@@ -1,9 +1,8 @@
-# Burger-Queen
+# Jason Brueger
 
 <div align="center">
-<img width="250" src="https://github.com/AdrianaKatarina/jason-brueger/assets/122534293/306d3bdb-97ba-4af0-a5f1-9f22569be0dc"/>
+  <img width="250" src="https://github.com/AdrianaKatarina/jason-brueger/assets/122534293/306d3bdb-97ba-4af0-a5f1-9f22569be0dc"/>
 </div>
-
 <br>
 
 <div align="center">
@@ -32,7 +31,7 @@
     <img alt="icon-Figma" height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" />
   </a>  
 </div>  
-  <br>
+<br>
 
 # Índice
 
@@ -40,9 +39,8 @@
 * [2. Histórias de Usuários](#2-histórias-de-usuários) 
 * [3. Funcionalidades](#3-funcionalidades) 
 * [4. Considerações Técnicas](#4-considerações-técnicas) 
-* [5. Testes Unitários](#6-testes-unitários) 
-* [6. Desenvolvedoras](#8-desenvolvedoras)
-
+* [5. Testes Unitários](#5-testes-unitários) 
+* [6. Desenvolvedoras](#6-desenvolvedoras)
 
 # 1. Resumo do Projeto
 
@@ -57,15 +55,13 @@ As informações do cliente são as seguintes:
 -  A interface deve permitir a seleção de produtos e mostrar o resumo do pedido com o custo total.
 -  O objetivo principal do projeto é aprender a construir uma interface web usando o framework React. Isso envolve compreender o conceito de estado da tela e como cada mudança no estado reflete na interface. 
 
-***
+# 2. Histórias de Usuários
 
-# 2. História de Usuários
-
-## [Historia de usuario 1] Garçom/Garçonete deve poder entrar no sistema, caso o admin já lhe tenha dado as credenciais
+### [Historia de usuario 1] Garçom/Garçonete deve poder entrar no sistema, caso o admin já lhe tenha dado as credenciais
 
 Eu, como garçom/garçonete quero entrar no sistema de pedidos.
 
-### Critérios de aceitação
+#### Critérios de aceitação
 
 O que deve acontecer para satisfazer as necessidades do usuário?
 
@@ -78,13 +74,13 @@ O que deve acontecer para satisfazer as necessidades do usuário?
 
 ***
 
-## [História de usuário 2] Garçom/Garçonete deve ser capaz de anotar o pedido do cliente
+### [História de usuário 2] Garçom/Garçonete deve ser capaz de anotar o pedido do cliente
 
 Eu como garçom/garçonete quero poder anotar o pedido de um cliente para não
 depender da minha memória, saber quanto cobrar e poder enviar os pedidos para a
 cozinha para serem preparados em ordem.
 
-### Critérios de aceitação
+#### Critérios de aceitação
 
 O que deve acontecer para satisfazer as necessidades do usuário?
 
@@ -100,13 +96,13 @@ O que deve acontecer para satisfazer as necessidades do usuário?
 
 ***
 
-## [História de usuário 3] Chefe de cozinha deve ver os pedidos
+### [História de usuário 3] Chefe de cozinha deve ver os pedidos
 
 Eu como chefe de cozinha quero ver os pedidos dos clientes em ordem, poder
 marcar que estão prontos e poder notificar os garçons/garçonetes que o pedido
 está pronto para ser entregue ao cliente.
 
-### Critérios de aceitação
+#### Critérios de aceitação
 
 * Ver os pedidos ordenados à medida em que são feitos.
 * Marcar os pedidos que foram preparados e estão prontos para serem servidos.
@@ -118,12 +114,12 @@ está pronto para ser entregue ao cliente.
 
 ***
 
-## [Historia de usuário 4] Garçom/Garçonete deve ver os pedidos prontos para servir
+### [Historia de usuário 4] Garçom/Garçonete deve ver os pedidos prontos para servir
 
 Eu como garçom/garçonete quero ver os pedidos que estão prontos para entregá-los
 rapidamente aos clientes.
 
-### Critérios de aceitação
+#### Critérios de aceitação
 
 * Ver a lista de pedidos prontos para servir.
 * Marcar os pedidos que foram entregues.
@@ -132,12 +128,12 @@ rapidamente aos clientes.
 
 ***
 
-## [Historia de usuário 5] Administrador(a) de loja deve administrar seus funcionários
+### [Historia de usuário 5] Administrador(a) de loja deve administrar seus funcionários
 
 Eu como administrador(a) de loja quero gerenciar os usuários da
 plataforma para manter atualizado as informações de meus funcionários.
 
-### Critérios de aceitação
+#### Critérios de aceitação
 
 * Ver lista de funcionários.
 * Adicionar funcionários.
@@ -149,12 +145,12 @@ plataforma para manter atualizado as informações de meus funcionários.
 
 ***
 
-## [História de usuário 6] Administrador(a) de loja deve administrar os produtos
+### [História de usuário 6] Administrador(a) de loja deve administrar os produtos
 
 Eu como administrador(a) de loja quero gerenciar os produtos
 para manter atualizado o menu.
 
-### Critérios de aceitação
+#### Critérios de aceitação
 
 * Ver lista de produtos.
 * Adicionar produtos.
@@ -168,40 +164,6 @@ para manter atualizado o menu.
 
 # 3. Funcionalidades
 
-A interface oferece recursos com base nas permissões destinadas a cada usuário. Após a validação de login, o usuário é redirecionado para as páginas pertinentes ao cargo.
-
-* ### ATENDIMENTO
-
-  * `Novos Pedidos:` Usuário tem acesso a essa funcionalidade de registro dos pedidos. O atendente pode selecionar itens, a mesa, adicionar o nome do cliente e pode removê-los. Dinamicamente o resumo do pedido é preenchido, incluindo o cálculo de custo total da comanda.
-
-  * `Pedidos Prontos`: Os atendentes podem visualizar todos os pedidos enviados para a cozinha e estão aguardando a entrega. Assim que prontos, podem marcá-los como entregues.
-
-* ### COZINHA
-
-  * `Pedidos Pendentes:` O chef de cozinha tem acesso a interface destinada aos cozinheiros que recebem os pedidos feitos pelos atendentes. Esses são enviados por ordenação para serem preparados. Ao finalizar o pedido o chef pode alterar o status para pedidos prontos.
-
-  * `Pedidos Concluídos:` Os pedidos concluídos são automaticamente enviados para os atendentes para serem entregues. Essa notificação há o cálculo de quanto tempo foi gasto para a preparação do pedido até a ser finalizado.
-
-* ### ADMIN
-
-  * `Funcionários:` Os usuários com acesso á essa funcionalidade tem a permissão de gerenciar colaboradores. Além de lista-los, adicionar, remover e atualizar o cadastro dos mesmos.
-
-  * `Produtos:` Estes também tem acesso ao gereciamento de produtos para adicionar ao cardápio, excluir e tambem alterá-los conforme suas necessidades.
-
-
-# 4. Considerações Técnicas
-
-Para o desenvolvimento deste projeto, utilizamos ferramentas e tecnologias adotadas para o desenvolvimento de aplicações web.
-O mesmo foi totalmente construído usando o framework `REACT`, que nos possibilita criar interfaces mais dinâmicas e interativas.
-
-Outra ferramenta utilizada foi `Insomnia` que nos auxilia para testar e simular as requisições da `API`. Com o Insomnia foi possível enviar requisições HTTP e visualizar as resposta recebidas, garantindo assim a comunicação entre interface e API.
-
-Além dessas ferramentas citadas, também utilizamos a biblioteca `Styled-components` que nos permite escrever estilos CSS para a aplicação em arquivos `Javascript`.
-
-Para o processamento
-
-Essa combinação de tecnologias nos permitiu a criação de uma interface moderna, funcional, responsiva e eficiente para o ambiente proposto.
-
 ## Login:
 
 Para ter [acesso](https://jason-brueger.vercel.app/) será necessário realizar o login em um dos email e senha disponibilizados abaixo:
@@ -212,6 +174,39 @@ Cargo | Email | Senha
 `Atendente` | atendente@teste.com | 123456
 `Cozinha` | cozinha@teste.com | 123456
 
+<br>
+A interface oferece recursos com base nas permissões destinadas a cada usuário. Após a validação de login, o usuário é redirecionado para as páginas pertinentes ao cargo.
+
+<br>
+
+* ### Admin
+
+  * `Funcionários:` Os usuários com acesso á essa funcionalidade tem a permissão de gerenciar colaboradores. Além de lista-los, adicionar, remover e atualizar o cadastro dos mesmos.
+
+  * `Produtos:` Estes também tem acesso ao gereciamento de produtos para adicionar ao cardápio, excluir e tambem alterá-los conforme suas necessidades.
+
+* ### Atendente
+
+  * `Novos Pedidos:` Usuário tem acesso a essa funcionalidade de registro dos pedidos. O atendente pode selecionar itens, a mesa, adicionar o nome do cliente e pode removê-los. Dinamicamente o resumo do pedido é preenchido, incluindo o cálculo de custo total da comanda.
+
+  * `Pedidos Prontos`: Os atendentes podem visualizar todos os pedidos enviados para a cozinha e estão aguardando a entrega. Assim que prontos, podem marcá-los como entregues.
+
+* ### Cozinha
+
+  * `Pedidos Pendentes:` O chef de cozinha tem acesso a interface destinada aos cozinheiros que recebem os pedidos feitos pelos atendentes. Esses são enviados por ordenação para serem preparados. Ao finalizar o pedido o chef pode alterar o status para pedidos prontos.
+
+  * `Pedidos Concluídos:` Os pedidos concluídos são automaticamente enviados para os atendentes para serem entregues. Essa notificação há o cálculo de quanto tempo foi gasto para a preparação do pedido até a ser finalizado.
+
+# 4. Considerações Técnicas
+
+Para o desenvolvimento deste projeto, utilizamos ferramentas e tecnologias adotadas para o desenvolvimento de aplicações web.
+O mesmo foi totalmente construído usando o framework `REACT`, que nos possibilita criar interfaces mais dinâmicas e interativas.
+
+Outra ferramenta utilizada foi `Insomnia` que nos auxilia para testar e simular as requisições da `API`. Com o Insomnia foi possível enviar requisições HTTP e visualizar as resposta recebidas, garantindo assim a comunicação entre interface e API.
+
+Além dessas ferramentas citadas, também utilizamos a biblioteca `Styled-components` que nos permite escrever estilos CSS para a aplicação em arquivos `Javascript`.
+
+Essa combinação de tecnologias nos permitiu a criação de uma interface moderna, funcional, responsiva e eficiente para o ambiente proposto.
 
 # 5. Testes Unitários
  
@@ -219,21 +214,10 @@ Para garantir a qualidades e o bom funcionamento da aplicação, foram realizado
 
 Os testes unitários se aplica por toda a aplicação, desde a renderização adequada dos componentes, validação de dados e a interação correta com o `mock da API.
 
-
 # 6. Desenvolvedoras
 
-
- Desenvolvido por : <br>
-  <br>
-    Keila Oliveira<br>
-  [![Github Keila](https://img.shields.io/badge/-KeilaOliveira-000?style=flat-square&logo=Github&logoColor=white&link=https://github.com/Keilaoliveira0112)](https://github.com/Keilaoliveira0112) 
-  [![Linkedin Keila](https://img.shields.io/badge/-Keila-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/keilaoliveiradev/)](https://www.linkedin.com/in/keilaoliveiradev/) 
-  [![Gmail Keila](https://img.shields.io/badge/-Email-c14438?style=flat-square&logo=Gmail&logoColor=white&link=mailto:keilaoliveira.copy@gmail.com)](mailto:keilaoliveira.copy@gmail.com)
-  <br>
-  <br>
-    Adriana Oliveira<br>
-  [![Github Adriana](https://img.shields.io/badge/-AdrianaOliveira-000?style=flat-square&logo=Github&logoColor=white&link=https://github.com/AdrianaKatarina)](https://github.com/AdrianaKatarina)
-  [![Linkedin Adriana](https://img.shields.io/badge/-Adriana-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/adroliveira/)](https://www.linkedin.com/in/adroliveira/)
-  [![Gmail Adriana](https://img.shields.io/badge/-Email-c14438?style=flat-square&logo=Gmail&logoColor=white&link=mailto:dricakatarina@gmail.com)](mailto:dricakatarina@gmail.com)
-  <br>
-  
+[<img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/122534293?v=4" width=100><br>](https://github.com/AdrianaKatarina) | [<img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/122574525?v=4" width=100><br>](https://github.com/Keilaoliveira0112)
+:---: | :--: 
+[![Github Adriana](https://img.shields.io/badge/-AdrianaOliveira-000?style=flat-square&logo=Github&logoColor=white&link=https://github.com/AdrianaKatarina)](https://github.com/AdrianaKatarina) | [![Github Keila](https://img.shields.io/badge/-KeilaOliveira-000?style=flat-square&logo=Github&logoColor=white&link=https://github.com/Keilaoliveira0112)](https://github.com/Keilaoliveira0112)
+[![Linkedin Adriana](https://img.shields.io/badge/-Adriana-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/adroliveira/)](https://www.linkedin.com/in/adroliveira/) | [![Linkedin Keila](https://img.shields.io/badge/-Keila-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/keilaoliveiradev/)](https://www.linkedin.com/in/keilaoliveiradev/) 
+[![Gmail Adriana](https://img.shields.io/badge/-Email-c14438?style=flat-square&logo=Gmail&logoColor=white&link=mailto:dricakatarina@gmail.com)](mailto:dricakatarina@gmail.com) | [![Gmail Keila](https://img.shields.io/badge/-Email-c14438?style=flat-square&logo=Gmail&logoColor=white&link=mailto:keilaoliveira.copy@gmail.com)](mailto:keilaoliveira.copy@gmail.com)
