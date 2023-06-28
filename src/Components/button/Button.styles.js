@@ -1,8 +1,8 @@
-import styled, { css } from 'styled-components';
+import styled, { css } from "styled-components";
 
 export const ButtonContainer = styled.button`
   font-weight: bold;
-  font-family: 'Asap';
+  font-family: "Asap";
   width: 25vw;
   font-size: 1rem;
   height: 3.8vh;
@@ -27,17 +27,19 @@ export const ButtonContainer = styled.button`
     background-color: #711D17;
     color: #FFFFFF;
     font-size: 1.6rem;
-    width: 18vw;
+    width: auto;
+    padding: 0.5rem;
     height: 5vh;
     border: none;
+    justify-self: end;
     @media only screen and(min-width: 600px) {
-    font-size: 2.5rem;
+      font-size: 2.5rem;
     }
     @media only screen and(min-width: 1024px) {
-    width: 10vw;
-    height: 5vh;
+      width: 10vw;
+      height: 5vh;
     }
-   `}
+  `}
 
   ${({ variant }) => variant === "secondary" && css`
     background: #0D0A0B;
@@ -71,9 +73,9 @@ export const ButtonContainer = styled.button`
       font-size: 2.2rem;
     }
     @media only screen and (min-width: 1024px) {
-      width: 13vw;
-      height: 8vh;
-      font-size: 3rem;
+      width: 10vw;
+      height: 5vh;
+      font-size: 2rem;
     }
   `}
      
@@ -91,7 +93,7 @@ export const ButtonContainer = styled.button`
     border-radius: 0.5rem;
     border: none;
     justify-self: center;
-    grid-area: button;
+    grid-area: paragraph;
     @media only screen and (min-width: 600px) {
       width: 15vw;
       border-radius: 1rem;
@@ -100,6 +102,7 @@ export const ButtonContainer = styled.button`
       width: 7vw;
     }
   `}
+
   ${({ variant }) => variant === "septenary" && css`
     width: 18vw;
     height: 3.5vh;
@@ -113,7 +116,51 @@ export const ButtonContainer = styled.button`
       border-radius: 1rem;
     }
     @media only screen and (min-width: 1024px) {
-      width: 7vw;
+      width: 9vw;
+    }
+  `}
+
+  ${({ variant }) => variant === "octonary" && css`
+    background: #0D0A0B;
+    border-color: #0D0A0B;
+    height: auto;
+    border-radius: 0.8rem;
+    padding: 0.3rem;
+    width: auto;
+    @media only screen and(min-width: 600px) {
+      border-radius: 1rem;
+    }
+    @media only screen and (min-width: 1024px) {
+      width: auto;
+      height: 6vh;
+      border-width: thick;
+    }
+    
+    &:hover{
+      border-color: #D9D9D9;
+    }
+    
+    &:active,
+    &:focus{
+      border-color: #D9D9D9;
+      transform: scale(0.97);
+      transition-duration: 0.05s;
+    }
+  `}
+
+  ${({ variant }) => variant === "nonary" && css`
+    background-color: #0B2F05;
+    color: #FFFFFF;
+    font-size: 1.6rem;
+    width: auto;
+    padding: 0.5rem;
+    height: 5vh;
+    border: none;
+    @media only screen and(min-width: 600px) {
+      font-size: 2.5rem;
+    }
+    @media only screen and(min-width: 1024px) {
+      height: 5vh;
     }
   `}
 `
