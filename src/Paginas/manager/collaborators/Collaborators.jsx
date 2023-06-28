@@ -2,9 +2,9 @@ import { React, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../../../Components/header/Header";
 import Select from "../../../Components/select/Select";
-import UserList from "../../../Components/userList/UserList";
-import Modal from "../../../Components/modal/Modal";
 import FormAdd from "../../../Components/formAdd/FormAdd";
+import Card from "../../../Components/card/Card";
+import Modal from "../../../Components/modal/Modal";
 import ModalUpdate from "../../../Components/modalUpdate/ModalUpdate";
 import { Main, Filter, FilterTitle } from "./Collaborators.styles";
 import { getUsers } from "../../../API/users/getUsers";
@@ -44,30 +44,35 @@ const Collaborators = () => {
     navigation(page);
   };
 
+  const handleModalClosure = () => {
+    setOpenModalUpdate(!openModalUpdate);
+    SetEditingUser({});
+  };
+
   const sendModal = (e) => {
     e.preventDefault();
     setOpenModal(false);
-    callCorrectFunction()
+    callCorrectFunction();
   };
 
   const callCorrectFunction = () => {
     switch (modalMessage) {
       case "Confirma o novo cadastro?":
-        handleSubmitNewCollaborators()
+        handleSubmitNewCollaborators();
         break;
       case "Tem certeza que deseja excluir este cadastro?":
-        handleClickDelete(valueArguments)
-        break
+        handleClickDelete(valueArguments);
+        break;
       default:
-        handleSubmitNewCollaborators()
-    }
+        handleSubmitNewCollaborators();
+    };
   };
 
   const handleClickRole = (e) => {
     e.preventDefault();
     const roleValue = e.target.textContent;
-    console.log(roleValue);
-    SetEditingUser((prevState) => ({ ...prevState, role: roleValue }))
+    const convertingLowerCase = roleValue.toLowerCase();
+    SetEditingUser((prevState) => ({ ...prevState, role: convertingLowerCase }));
   };
 
   const handleSubmit = (e) => {
@@ -75,34 +80,31 @@ const Collaborators = () => {
     e.preventDefault();
     if (!editingUser.name) {
       errorMessage = "Informe um nome colaborador.";
-    }
+    };
     if (!editingUser.email) {
       errorMessage = "Informe o email do colaborador.";
-    }
+    };
     if (!editingUser.password || editingUser.password.length < 6) {
-      console.log('password')
       errorMessage = "Senha deve ser maior ou igual que 6 caracteres.";
-    }
+    };
     if (!editingUser.role) {
-      console.log('role')
       errorMessage = "Informe a função do colaborador";
-    }
+    };
     if (errorMessage) {
-      setmodalMessage(errorMessage)
-      setTypeModal("warning")
+      setmodalMessage(errorMessage);
+      setTypeModal("warning");
       return setOpenModal(true);
-    }
+    };
     if (!openModal) {
       setmodalMessage("Confirma o novo cadastro?");
       setTypeModal("confirmation");
       return setOpenModal(true);
-    }
+    };
   };
 
   const handleSubmitNewCollaborators = async () => {
     try {
       const response = await createUsers(editingUser.name, editingUser.email, editingUser.password, editingUser.role);
-      console.log(response);
       const newUsers = [...users];
       newUsers.push(response.user);
       setUsers(newUsers);
@@ -129,26 +131,25 @@ const Collaborators = () => {
     try {
       if (!editingUser.name) {
         throw new Error("Informe um nome colaborador.");
-      }
+      };
       if (!editingUser.email) {
         throw new Error("Informe o email do colaborador.");
-      }
+      };
       if (!editingUser.password || editingUser.password.length < 6) {
         throw new Error("Senha deve ser maior ou igual que 6 caracteres.");
-      }
+      };
       if (!editingUser.role) {
         throw new Error("Informe a função do colaborador");
-      }
-      const response = await patchUser(editingUser.id, { name: editingUser.name, email: editingUser.email, password: editingUser.password, role: editingUser.role });
-      console.log(response);
-      setOpenModalUpdate(false)
+      };
+      await patchUser(editingUser.id, { name: editingUser.name, email: editingUser.email, password: editingUser.password, role: editingUser.role });
+      setOpenModalUpdate(false);
       setmodalMessage("Cadastro atualizado com sucesso");
       setTypeModal("sucess");
       setOpenModal(true);
       setTimeout(() => { setOpenModal(false) }, 3000);
       const getIndexFirstElement = users.findIndex((user) => user.id === editingUser.id);
       const newUsers = [...users];
-      newUsers.splice(getIndexFirstElement, 1)
+      newUsers.splice(getIndexFirstElement, 1);
       setUsers([...newUsers, editingUser].sort((a, b) => a.id - b.id));
       SetEditingUser({});
     } catch (error) {
@@ -161,13 +162,12 @@ const Collaborators = () => {
   const handleClickDelete = async (usersId) => {
     try {
       if (!openModal) {
-        setvalueArguments(usersId)
+        setvalueArguments(usersId);
         setmodalMessage(`Tem certeza que deseja excluir este cadastro?`);
-        setTypeModal('confirmation');
+        setTypeModal("confirmation");
         return setOpenModal(true);
       } else {
-        const response = await deleteUser(usersId);
-        console.log(response);
+        await deleteUser(usersId);
         setmodalMessage("Cadastro deletado com sucesso");
         setTypeModal("sucess");
         setOpenModal(true);
@@ -176,14 +176,14 @@ const Collaborators = () => {
         const newUsers = [...users];
         newUsers.splice(getFirstElement, 1);
         setUsers(newUsers);
-        setvalueArguments([])
-      }
+        setvalueArguments([]);
+      };
     }
     catch (error) {
       setmodalMessage(error.message);
       setTypeModal("warning");
       setOpenModal(true);
-    }
+    };
   };
 
   return (
@@ -207,7 +207,7 @@ const Collaborators = () => {
         </Filter>
         {selectValue === "Cadastrar novo funcionário" ? (
           <FormAdd
-            form="users"
+            isProductForm={false}
             onSubmit={handleSubmit}
             name={editingUser.name}
             onChangeName={(e) => SetEditingUser((prevState) => ({ ...prevState, name: e.target.value }))}
@@ -219,9 +219,9 @@ const Collaborators = () => {
             childrenBtn="Criar Cadastro"
           />
         ) : (
-          <UserList
-            list="users"
-            uservalue={users}
+          <Card
+            isProductList={false}
+            values={users}
             onClickEdit={handleClickEdit}
             onClickDelete={handleClickDelete}
           />
@@ -236,8 +236,8 @@ const Collaborators = () => {
         <ModalUpdate
           isOpen={openModalUpdate}
           onSubmit={handleSubmitEditCollaborators}
-          setModalOpen={() => setOpenModalUpdate(!openModalUpdate)}
-          form="users"
+          setModalOpen={handleModalClosure}
+          isProductForm={false}
           name={editingUser.name}
           onChangeName={(e) => SetEditingUser((prevState) => ({ ...prevState, name: e.target.value }))}
           email={editingUser.email}
@@ -249,6 +249,6 @@ const Collaborators = () => {
         />
       </Main>
     </>
-  )
-}
+  );
+};
 export default Collaborators;

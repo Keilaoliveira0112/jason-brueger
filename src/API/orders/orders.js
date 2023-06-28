@@ -1,17 +1,17 @@
-import {request} from '../request/request';
-import {getItem} from '../../storage/local';
+import { request } from "../request/request";
+import { getItem } from "../../storage/local";
 
 export const createOrder = (orderTotal, table, products, client) => {
-  const token = getItem('token');
-  const userName = getItem('username');
+  const token = getItem("token");
+  const userName = getItem("username");
 
-  return request('orders', 'POST', {Authorization: `Bearer ${token}`}, {
+  return request("orders", "POST", { Authorization: `Bearer ${token}` }, {
     table,
     userName,
     client,
     products,
     orderTotal,
-    status: 'pending',
+    status: "pending",
     dataEntry: new Date()
-  })
-}
+  });
+};

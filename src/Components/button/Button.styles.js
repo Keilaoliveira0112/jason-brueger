@@ -1,8 +1,8 @@
-import styled, { css } from 'styled-components';
+import styled, { css } from "styled-components";
 
 export const ButtonContainer = styled.button`
   font-weight: bold;
-  font-family: 'Asap';
+  font-family: "Asap";
   width: 25vw;
   font-size: 1rem;
   height: 3.8vh;
@@ -33,13 +33,13 @@ export const ButtonContainer = styled.button`
     border: none;
     justify-self: end;
     @media only screen and(min-width: 600px) {
-    font-size: 2.5rem;
+      font-size: 2.5rem;
     }
     @media only screen and(min-width: 1024px) {
-    width: 10vw;
-    height: 5vh;
+      width: 10vw;
+      height: 5vh;
     }
-   `}
+  `}
 
   ${({ variant }) => variant === "secondary" && css`
     background: #0D0A0B;
@@ -102,6 +102,7 @@ export const ButtonContainer = styled.button`
       width: 7vw;
     }
   `}
+
   ${({ variant }) => variant === "septenary" && css`
     width: 18vw;
     height: 3.5vh;
@@ -118,6 +119,7 @@ export const ButtonContainer = styled.button`
       width: 9vw;
     }
   `}
+
   ${({ variant }) => variant === "octonary" && css`
     background: #0D0A0B;
     border-color: #0D0A0B;
@@ -145,6 +147,7 @@ export const ButtonContainer = styled.button`
       transition-duration: 0.05s;
     }
   `}
+
   ${({ variant }) => variant === "nonary" && css`
     background-color: #0B2F05;
     color: #FFFFFF;
@@ -154,10 +157,10 @@ export const ButtonContainer = styled.button`
     height: 5vh;
     border: none;
     @media only screen and(min-width: 600px) {
-    font-size: 2.5rem;
+      font-size: 2.5rem;
     }
     @media only screen and(min-width: 1024px) {
-    height: 5vh;
+      height: 5vh;
     }
-   `}
+  `}
 `

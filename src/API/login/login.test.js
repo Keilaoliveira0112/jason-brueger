@@ -1,11 +1,11 @@
-import { userLogin } from './login';
-import '@testing-library/jest-dom/extend-expect';
+import { userLogin } from "./login";
+import "@testing-library/jest-dom/extend-expect";
 
-describe('API de Login dos Usuários', () => {
-  it('Deve fazer login com sucesso e retornar o token de autenticação', async () => {
-    const authTokenMock = 'mockAuthToken';
-    const email = 'example@example.com';
-    const password = '123456';
+describe("Users Login API", () => {
+  it("Should login successfully and return the auth token", async () => {
+    const authTokenMock = "mockAuthToken";
+    const email = "example@example.com";
+    const password = "123456";
 
     const loginData = {
       accessToken: authTokenMock
@@ -20,19 +20,19 @@ describe('API de Login dos Usuários', () => {
     expect(fetch).toHaveBeenCalledTimes(1)
     expect(result).toEqual(loginData);
   });
- 
+
   it.each([
-    ["Cannot find user", 'Usuário Inexistente'],
-    ["Password is too short", 'Senha muito curta'],
-    ["Incorrect password", 'Senha incorreta'],
-    ["Email and password are required", 'Email e senha são obrigatórios'],
-    ["jwt malformed", 'Acesso restrito para apenas pessoas autorizadas'],
+    ["Cannot find user", "Usuário Inexistente"],
+    ["Password is too short", "Senha muito curta"],
+    ["Incorrect password", "Senha incorreta"],
+    ["Email and password are required", "Email e senha são obrigatórios"],
+    ["jwt malformed", "Acesso restrito para apenas pessoas autorizadas"],
     ["error", "error"]
-  ])('Deve retornar um erro quando o login não for realizado com sucesso', async (error, message) => {
+  ])("Should return an error when login is unsuccessful", async (error, message) => {
     expect.assertions(2);
 
-    const email = 'example@example.com';
-    const password = '12';
+    const email = "example@example.com";
+    const password = "12";
 
     global.fetch = jest.fn().mockResolvedValue({
       ok: false,
@@ -40,19 +40,11 @@ describe('API de Login dos Usuários', () => {
       json: jest.fn().mockResolvedValue(error)
     });
 
-   // console.log(error); // Error: Password is too short
-   // console.log(error.message); // Password is too short
-
-    try{
+    try {
       await userLogin(email, password);
-    } catch(error){
+    } catch (error) {
       expect(fetch).toHaveBeenCalledTimes(1);
-      expect(error.message).toEqual(message);     
-    }
-    //console.log('result', result)
-    //console.log('result', result.thrown);
-    //expect(result).toEqual(error.message);
+      expect(error.message).toEqual(message);
+    };
   });
-
-  
-});        
+});

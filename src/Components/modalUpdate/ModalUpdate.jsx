@@ -3,27 +3,18 @@ import { Background, BtnClose } from "../modal/Modal.styles";
 import { ModalSection } from "../modalUpdate/ModalUpdate.styles";
 
 const ModalUpdate = (props) => {
-  if(props.isOpen) {
+  if (props.isOpen) {
     const handleOutsideClick = (e) => {
-      if(e.target.id === 'modal') props.setModalOpen();
-    }
-
-    /* const predefinedButton = (e) => {
-      e.preventDefault();
-      const typeValue = props.value.type;
-      console.log(typeValue)
-      //deixar ativo o botão selecionado
-      //simular o click
-      return props.type;
-    } */
+      if (e.target.id === "modal") props.setModalOpen();
+    };
 
     return (
-      <Background id='modal' onClick={handleOutsideClick}>
+      <Background id="modal" onClick={handleOutsideClick}>
         <ModalSection>
           <BtnClose onClick={props.setModalOpen} />
           <FormAdd
-            form={props.form}
-            onSubmit={props.onSubmit} 
+            isProductForm={props.isProductForm}
+            onSubmit={props.onSubmit}
             name={props.name}
             onChangeName={props.onChangeName}
             price={props.price}
@@ -37,9 +28,9 @@ const ModalUpdate = (props) => {
           />
         </ModalSection>
       </Background>
-    )
-  }
+    );
+  };
   return null;
-}
+};
 
 export default ModalUpdate;

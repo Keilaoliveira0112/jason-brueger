@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 import Header from "../../../Components/header/Header";
 import Select from "../../../Components/select/Select";
 import FormAdd from "../../../Components/formAdd/FormAdd";
+import Card from "../../../Components/card/Card";
 import Modal from "../../../Components/modal/Modal";
 import ModalUpdate from "../../../Components/modalUpdate/ModalUpdate"
-import Card from "../../../Components/card/Card";
 import { Main, Filter, FilterTitle } from "./Products.styled";
 import { getProducts } from "../../../API/products/getProducts";
 import { createProduct } from "../../../API/products/postProducts";
@@ -44,23 +44,28 @@ const Products = () => {
     navigation(page);
   };
 
+  const handleModalClosure = () => {
+    setOpenModalUpdate(!openModalUpdate);
+    setEditingProduct({});
+  };
+
   const sendModal = (e) => {
     e.preventDefault();
     setOpenModal(false);
-    callCorrectFunction()
+    callCorrectFunction();
   };
 
   const callCorrectFunction = () => {
     switch (modalMessage) {
       case "Confirma a criação do novo produto?":
-        handleSubmitNewProduct()
+        handleSubmitNewProduct();
         break;
       case "Tem certeza que deseja excluir esse produto?":
-        handleClickDelete(valueArguments)
-        break
+        handleClickDelete(valueArguments);
+        break;
       default:
-      handleSubmitNewProduct()
-    }
+        handleSubmitNewProduct();
+    };
   };
 
   const handleClickType = (e) => {
@@ -73,19 +78,17 @@ const Products = () => {
   const handleSubmit = (e) => {
     let errorMessage = "";
     e.preventDefault();
-    console.log(editingProduct.name)
     if (!editingProduct.name) {
-      errorMessage = "Informe um nome para o produto."
-    }
+      errorMessage = "Informe um nome para o produto.";
+    };
     if (!editingProduct.price || editingProduct.price <= 0) {
-      errorMessage = "Informe um preço acima de 0."
-    }
+      errorMessage = "Informe um preço acima de 0.";
+    };
     if (!editingProduct.type) {
-      errorMessage = "Informe o tipo do produto."
-    }
-    console.log(errorMessage)
+      errorMessage = "Informe o tipo do produto.";
+    };
     if (errorMessage) {
-      setModalMessage(errorMessage)
+      setModalMessage(errorMessage);
       setTypeModal("warning");
       return setOpenModal(true);
     }
@@ -93,13 +96,12 @@ const Products = () => {
       setModalMessage("Confirma a criação do novo produto?");
       setTypeModal("confirmation");
       return setOpenModal(true);
-    }
+    };
   };
 
   const handleSubmitNewProduct = async () => {
     try {
       const response = await createProduct(editingProduct.name, editingProduct.price, editingProduct.type);
-      console.log(response);
       const newProducts = [...products];
       newProducts.push(response);
       setProducts(newProducts);
@@ -107,7 +109,7 @@ const Products = () => {
       setTypeModal("sucess");
       setOpenModal(true);
       setTimeout(() => { setOpenModal(false) }, 3000);
-      setEditingProduct({})
+      setEditingProduct({});
     }
     catch (error) {
       setModalMessage(error.message);
@@ -133,9 +135,8 @@ const Products = () => {
       if (!editingProduct.type) {
         throw new Error("Informe o tipo do produto.");
       }
-      const response = await patchProducts(editingProduct.id, { name: editingProduct.name, type: editingProduct.type, price: editingProduct.price });
-      console.log(response);
-      setOpenModalUpdate(false)
+      await patchProducts(editingProduct.id, { name: editingProduct.name, type: editingProduct.type, price: editingProduct.price });
+      setOpenModalUpdate(false);
       setModalMessage("Produto atualizado com sucesso");
       setTypeModal("sucess");
       setOpenModal(true);
@@ -156,13 +157,12 @@ const Products = () => {
   const handleClickDelete = async (product) => {
     try {
       if (!openModal) {
-        setvalueArguments(product)
+        setvalueArguments(product);
         setModalMessage(`Tem certeza que deseja excluir esse produto?`);
-        setTypeModal('confirmation');
+        setTypeModal("confirmation");
         return setOpenModal(true);
       } else {
-        const response = await deleteProducts(product);
-        console.log(response);
+        await deleteProducts(product);
         setModalMessage("Produto deletado com sucesso");
         setTypeModal("sucess");
         setOpenModal(true);
@@ -171,14 +171,14 @@ const Products = () => {
         const newProduct = [...products];
         newProduct.splice(getElementFirst, 1);
         setProducts(newProduct);
-        setvalueArguments([])
-      }
+        setvalueArguments([]);
+      };
     }
     catch (error) {
       setModalMessage(error.message);
       setTypeModal("warning");
       setOpenModal(true);
-    }
+    };
   };
 
   return (
@@ -202,7 +202,7 @@ const Products = () => {
         </Filter>
         {selectValue === "Adicionar produtos" ? (
           <FormAdd
-            form="products"
+            isProductForm={true}
             onSubmit={handleSubmit}
             name={editingProduct.name}
             onChangeName={(e) => setEditingProduct((prevState) => ({ ...prevState, name: e.target.value }))}
@@ -213,7 +213,7 @@ const Products = () => {
           />
         ) : (
           <Card
-            list="products"
+            isProductList={true}
             values={products}
             onClickEdit={handleClickEdit}
             onClickDelete={handleClickDelete}
@@ -229,8 +229,8 @@ const Products = () => {
         <ModalUpdate
           isOpen={openModalUpdate}
           onSubmit={handleSubmitEditProduct}
-          setModalOpen={() => setOpenModalUpdate(!openModalUpdate)}
-          form="products"
+          setModalOpen={handleModalClosure}
+          isProductForm={true}
           name={editingProduct.name}
           onChangeName={(e) => setEditingProduct((prevState) => ({ ...prevState, name: e.target.value }))}
           price={editingProduct.price}
@@ -240,7 +240,7 @@ const Products = () => {
         />
       </Main>
     </>
-  )
-}
+  );
+};
 
 export default Products;

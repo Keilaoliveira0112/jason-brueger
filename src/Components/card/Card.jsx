@@ -6,12 +6,12 @@ const Card = (props) => {
 
   return (
     <CardSection>
-      {props.list === "products" ? (
+      {props.isProductList ? (
         <>
           {props.values.map((value) => (
             <Each key={value.id}>
               <Topic>
-                <h6>Nº de Identifcação: </h6>
+                <h6>Nº de Identificação: </h6>
                 <Value>{value.id}</Value>
               </Topic>
               <Topic>
@@ -42,7 +42,7 @@ const Card = (props) => {
           {props.values.map((value) => (
             <Each key={value.id}>
               <Topic>
-                <h6>Nº de Identifcação: </h6>
+                <h6>Nº de Identificação: </h6>
                 <Value>{value.id}</Value>
               </Topic>
               <Topic>
@@ -51,10 +51,10 @@ const Card = (props) => {
               </Topic>
               <Topic>
                 <h6>Email: </h6>
-                <Value>{value.price}</Value>
+                <Value>{value.email}</Value>
               </Topic>
               <Topic>
-                <h6>Role: </h6>
+                <h6>Cargo: </h6>
                 <Value>{value.role}</Value>
               </Topic>
               <GroupButtons>
@@ -70,8 +70,7 @@ const Card = (props) => {
         </>
       )}
     </CardSection>
-  )
-
-}
+  );
+};
 
 export default Card;

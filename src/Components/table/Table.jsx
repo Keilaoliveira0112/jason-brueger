@@ -18,6 +18,6 @@ const Table = (props) => {
         ))}
       </Tbody>
     </Background>
-  )
-}
+  );
+};
 export default Table;

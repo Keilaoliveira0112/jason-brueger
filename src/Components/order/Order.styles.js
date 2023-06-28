@@ -15,18 +15,18 @@ export const Main = styled.main`
 `
 export const Section = styled.section`
   background-color: #D9D9D9;
-  font-family: 'Asap', sans-serif;
+  font-family: "Asap", sans-serif;
   width: 60vw;
   height: auto;
   display: grid;
   grid-template-areas:
-  'title title'
-  'initialDate finalDate'
-  'pit pit'
-  'clientName clientName'
-  'attendantName attendantName'
-  'table table'
-  'paragraph paragraph';
+    "title title"
+    "initialDate finalDate"
+    "pit pit"
+    "clientName clientName"
+    "attendantName attendantName"
+    "table table"
+    "paragraph paragraph";
   padding: 0.5rem;
   grid-template-columns: 30vw 30vw;
   grid-template-rows: 8vh 4vh 3vh 3vh 3vh auto 4vh;
@@ -45,14 +45,14 @@ export const Section = styled.section`
   }
   ${({ variant }) => variant === "OneColumn" && css`
     grid-template-areas:
-      'title'
-      'initialDate'
-      'pit'
-      'clientName'
-      'attendantName'
-      'table'
-      'paragraph';
-      grid-template-columns: 60vw 0vw;
+      "title"
+      "initialDate"
+      "pit"
+      "clientName"
+      "attendantName"
+      "table"
+      "paragraph";
+    grid-template-columns: 60vw 0vw;
     @media only screen and (min-width: 600px) {
       grid-template-columns: 40vw 0vw;
     }
@@ -61,10 +61,9 @@ export const Section = styled.section`
     }
   `}
 `
-
 export const Title = styled.h1`
   grid-area: title;
-  font-family: 'Rubik Wet Paint', cursive;
+  font-family: "Rubik Wet Paint", cursive;
   font-weight: 100;
   font-size: 1.5rem;
   text-align: center;
@@ -103,13 +102,11 @@ export const FinalDate = styled.section`
   align-items: center;
 `
 export const Topic = styled.h4`
-  font-family: 'Rubik Wet Paint', cursive;
+  font-family: "Rubik Wet Paint", cursive;
   font-weight: 100;
   font-size: 1rem;
   @media only screen and (min-width: 600px) {
-      font-size: 1.5rem;
-  }
-  @media only screen and (min-width: 1024px) {
+    font-size: 1.5rem;
   }
 `
 export const PitNumber = styled.section`

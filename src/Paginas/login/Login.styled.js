@@ -12,7 +12,7 @@ export const Section = styled.section`
 export const H1 = styled.h1`
   font-size: 6rem;
   color: #711D17;
-  font-family: 'Rubik Wet Paint', cursive;
+  font-family: "Rubik Wet Paint", cursive;
   @media only screen and (min-width: 600px) {
     font-size: 9rem;
   }
@@ -21,23 +21,23 @@ export const H1 = styled.h1`
   }
 `
 export const LogoImg = styled.img`
-    width: 40vw;
-    @media only screen and (min-width: 1024px) {
-      width: 15vw;
-    }
+  width: 40vw;
+  @media only screen and (min-width: 1024px) {
+    width: 15vw;
+  }
 `
 export const CreateForm = styled.form`
-display: grid;
-justify-items: end;
-gap: 2.5rem;
+  display: grid;
+  justify-items: end;
+  gap: 2.5rem;
 `
 export const ParagraphError = styled.p`
-justify-self: center;
-color: #ffe000;
-@media only screen and (min-width: 600px) {
-  font-size: 2rem;
-}
-@media only screen and (min-width: 1024px) {
-  font-size: 2.5rem;
-}
+  justify-self: center;
+  color: #ffe000;
+  @media only screen and (min-width: 600px) {
+    font-size: 2rem;
+  }
+  @media only screen and (min-width: 1024px) {
+    font-size: 2.5rem;
+  }
 `

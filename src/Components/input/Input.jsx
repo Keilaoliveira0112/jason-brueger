@@ -5,12 +5,12 @@ const Input = (props) => {
     <>
       <Text
         onChange={props.onChange}
-        type={props.type || 'text'}
+        type={props.type || "text"}
         value={props.value}
         name={props.name}
         placeholder={props.placeholder}
       />
     </>
-  )
-}
+  );
+};
 export default Input;
