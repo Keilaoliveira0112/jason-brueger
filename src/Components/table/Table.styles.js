@@ -12,10 +12,10 @@ export const Background = styled.table`
     padding: 2rem;
   }
 `
-export const Thead  = styled.thead`
+export const Thead = styled.thead`
   text-align: justify;
 `
-export const Tbody  = styled.tbody`
+export const Tbody = styled.tbody`
   color: #831717;
   font-weight: 500;
 

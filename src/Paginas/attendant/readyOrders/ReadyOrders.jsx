@@ -1,65 +1,65 @@
-import { React, useState, useEffect } from 'react';
+import { React, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Header from '../../../Components/header/Header';
-import Order from '../../../Components/order/Order';
-import { getOrders } from '../../../API/orders/getOrders';
-import { patchOrders } from '../../../API/orders/patchOrders';
-import Modal from '../../../Components/modal/Modal';
-import {Main} from './ReadyOrders.styled'
+import Header from "../../../Components/header/Header";
+import Order from "../../../Components/order/Order";
+import { getOrders } from "../../../API/orders/getOrders";
+import { patchOrders } from "../../../API/orders/patchOrders";
+import Modal from "../../../Components/modal/Modal";
+import { Main } from "./ReadyOrders.styled";
 
 const ReadyOrders = () => {
   const navigation = useNavigate();
   const [orders, setOrders] = useState([]);
   const [openModal, setOpenModal] = useState(false);
-  const [typeModal, setTypeModal] = useState('');
-  const [modalMessage, setmodalMessage] = useState('');
+  const [typeModal, setTypeModal] = useState("");
+  const [modalMessage, setmodalMessage] = useState("");
   const [valueArguments, setvalueArguments] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await getOrders();
-        const filterPending = response.filter((order) => order.status === 'ready');
+        const filterPending = response.filter((order) => order.status === "ready");
         const newOrders = [...filterPending];
-        const sortByHourAsc = newOrders.sort((a,b) => {
+        const sortByHourAsc = newOrders.sort((a, b) => {
           return new Date(a.dataEntry) - new Date(b.dataEntry);
         });
         setOrders(sortByHourAsc);
       }
       catch (error) {
         setmodalMessage(error.message);
-        setTypeModal('warning');
+        setTypeModal("warning");
         setOpenModal(true);
-      }
+      };
     };
     fetchData()
   }, []);
 
   const handleClickNavigate = (e) => {
     e.preventDefault();
-    const type = e.target.textContent === 'Novo Pedido' ? '/novo-pedido' : '/pedidos-prontos';
+    const type = e.target.textContent === "Novo Pedido" ? "/novo-pedido" : "/pedidos-prontos";
     navigation(type);
-  }
+  };
 
   const sendModal = (e) => {
     e.preventDefault();
     setOpenModal(false);
-    handleReadyOrder()
-  }
+    handleReadyOrder();
+  };
 
   const handleReadyOrder = async (idOrder) => {
-    try{
-      if(!openModal){
-        setvalueArguments(idOrder)
+    try {
+      if (!openModal) {
+        setvalueArguments(idOrder);
         setmodalMessage(`Deseja marcar o pedido como entregue?`);
-        setTypeModal('confirmation');
+        setTypeModal("confirmation");
         return setOpenModal(true);
-      }
-      await patchOrders(valueArguments, 'delivered');
-      setmodalMessage('Pedido enviado com sucesso');
-      setTypeModal('sucess');
+      };
+      await patchOrders(valueArguments, "delivered");
+      setmodalMessage("Pedido enviado com sucesso");
+      setTypeModal("sucess");
       setOpenModal(true);
-      setTimeout(() => {setOpenModal(false)}, 3000);
+      setTimeout(() => { setOpenModal(false) }, 3000);
       const getIndex = orders.findIndex((order) => order.id === valueArguments);
       const newOrder = [...orders];
       newOrder.splice(getIndex, 1);
@@ -67,19 +67,19 @@ const ReadyOrders = () => {
     }
     catch (error) {
       setmodalMessage(error.message);
-      setTypeModal('warning');
+      setTypeModal("warning");
       setOpenModal(true);
-    }
-  }
+    };
+  };
 
   return (
     <>
-      <Header 
-        firstBtn='Novo Pedido'
-        variantFirstBtn='quinary'
-        secondBtn='Pedidos Prontos'
-        variantSecondBtn=''
-        onClick={handleClickNavigate} 
+      <Header
+        firstBtn="Novo Pedido"
+        variantFirstBtn="quinary"
+        secondBtn="Pedidos Prontos"
+        variantSecondBtn=""
+        onClick={handleClickNavigate}
       />
       <Main>
         <Order
@@ -87,7 +87,7 @@ const ReadyOrders = () => {
           orders={orders}
           onClick={handleReadyOrder}
         />
-        <Modal 
+        <Modal
           isOpen={openModal}
           typeModal={typeModal}
           message={modalMessage}
@@ -96,7 +96,7 @@ const ReadyOrders = () => {
         />
       </Main>
     </>
-  )
-}
+  );
+};
 
 export default ReadyOrders;

@@ -1,6 +1,6 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
-export const Text = styled.input `
+export const Text = styled.input`
   background-color: #FFFFFF;
   border: none;
   color: #000000;

@@ -3,18 +3,18 @@ import { Background, BtnClose } from "../modal/Modal.styles";
 import { ModalSection } from "../modalUpdate/ModalUpdate.styles";
 
 const ModalUpdate = (props) => {
-  if(props.isOpen) {
+  if (props.isOpen) {
     const handleOutsideClick = (e) => {
-      if(e.target.id === "modal") props.setModalOpen();
-    }
-    
+      if (e.target.id === "modal") props.setModalOpen();
+    };
+
     return (
       <Background id="modal" onClick={handleOutsideClick}>
         <ModalSection>
           <BtnClose onClick={props.setModalOpen} />
           <FormAdd
             isProductForm={props.isProductForm}
-            onSubmit={props.onSubmit} 
+            onSubmit={props.onSubmit}
             name={props.name}
             onChangeName={props.onChangeName}
             price={props.price}
@@ -28,9 +28,9 @@ const ModalUpdate = (props) => {
           />
         </ModalSection>
       </Background>
-    )
-  }
+    );
+  };
   return null;
-}
+};
 
 export default ModalUpdate;

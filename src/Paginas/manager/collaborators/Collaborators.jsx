@@ -47,32 +47,32 @@ const Collaborators = () => {
   const handleModalClosure = () => {
     setOpenModalUpdate(!openModalUpdate);
     SetEditingUser({});
-  }
+  };
 
   const sendModal = (e) => {
     e.preventDefault();
     setOpenModal(false);
-    callCorrectFunction()
+    callCorrectFunction();
   };
 
   const callCorrectFunction = () => {
     switch (modalMessage) {
       case "Confirma o novo cadastro?":
-        handleSubmitNewCollaborators()
+        handleSubmitNewCollaborators();
         break;
       case "Tem certeza que deseja excluir este cadastro?":
-        handleClickDelete(valueArguments)
-        break
+        handleClickDelete(valueArguments);
+        break;
       default:
-        handleSubmitNewCollaborators()
-    }
+        handleSubmitNewCollaborators();
+    };
   };
 
   const handleClickRole = (e) => {
     e.preventDefault();
     const roleValue = e.target.textContent;
     const convertingLowerCase = roleValue.toLowerCase();
-    SetEditingUser((prevState) => ({ ...prevState, role: convertingLowerCase }))
+    SetEditingUser((prevState) => ({ ...prevState, role: convertingLowerCase }));
   };
 
   const handleSubmit = (e) => {
@@ -80,26 +80,26 @@ const Collaborators = () => {
     e.preventDefault();
     if (!editingUser.name) {
       errorMessage = "Informe um nome colaborador.";
-    }
+    };
     if (!editingUser.email) {
       errorMessage = "Informe o email do colaborador.";
-    }
+    };
     if (!editingUser.password || editingUser.password.length < 6) {
       errorMessage = "Senha deve ser maior ou igual que 6 caracteres.";
-    }
+    };
     if (!editingUser.role) {
       errorMessage = "Informe a função do colaborador";
-    }
+    };
     if (errorMessage) {
-      setmodalMessage(errorMessage)
-      setTypeModal("warning")
+      setmodalMessage(errorMessage);
+      setTypeModal("warning");
       return setOpenModal(true);
-    }
+    };
     if (!openModal) {
       setmodalMessage("Confirma o novo cadastro?");
       setTypeModal("confirmation");
       return setOpenModal(true);
-    }
+    };
   };
 
   const handleSubmitNewCollaborators = async () => {
@@ -131,25 +131,25 @@ const Collaborators = () => {
     try {
       if (!editingUser.name) {
         throw new Error("Informe um nome colaborador.");
-      }
+      };
       if (!editingUser.email) {
         throw new Error("Informe o email do colaborador.");
-      }
+      };
       if (!editingUser.password || editingUser.password.length < 6) {
         throw new Error("Senha deve ser maior ou igual que 6 caracteres.");
-      }
+      };
       if (!editingUser.role) {
         throw new Error("Informe a função do colaborador");
-      }
+      };
       await patchUser(editingUser.id, { name: editingUser.name, email: editingUser.email, password: editingUser.password, role: editingUser.role });
-      setOpenModalUpdate(false)
+      setOpenModalUpdate(false);
       setmodalMessage("Cadastro atualizado com sucesso");
       setTypeModal("sucess");
       setOpenModal(true);
       setTimeout(() => { setOpenModal(false) }, 3000);
       const getIndexFirstElement = users.findIndex((user) => user.id === editingUser.id);
       const newUsers = [...users];
-      newUsers.splice(getIndexFirstElement, 1)
+      newUsers.splice(getIndexFirstElement, 1);
       setUsers([...newUsers, editingUser].sort((a, b) => a.id - b.id));
       SetEditingUser({});
     } catch (error) {
@@ -162,9 +162,9 @@ const Collaborators = () => {
   const handleClickDelete = async (usersId) => {
     try {
       if (!openModal) {
-        setvalueArguments(usersId)
+        setvalueArguments(usersId);
         setmodalMessage(`Tem certeza que deseja excluir este cadastro?`);
-        setTypeModal('confirmation');
+        setTypeModal("confirmation");
         return setOpenModal(true);
       } else {
         await deleteUser(usersId);
@@ -176,14 +176,14 @@ const Collaborators = () => {
         const newUsers = [...users];
         newUsers.splice(getFirstElement, 1);
         setUsers(newUsers);
-        setvalueArguments([])
-      }
+        setvalueArguments([]);
+      };
     }
     catch (error) {
       setmodalMessage(error.message);
       setTypeModal("warning");
       setOpenModal(true);
-    }
+    };
   };
 
   return (
@@ -249,6 +249,6 @@ const Collaborators = () => {
         />
       </Main>
     </>
-  )
-}
+  );
+};
 export default Collaborators;

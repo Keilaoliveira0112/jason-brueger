@@ -15,19 +15,10 @@ export const CardSection = styled.ul`
 `
 export const Each = styled.li`
   background-color: #D9D9D9;
-  width: 60vw;
+  width: auto;
   height: auto;
   padding: 1rem;
   list-style-type: none;
-  @media only screen and (min-width: 600px) {
-    width: 40vw;
-  }
-  @media only screen and (min-width: 1024px) {
-    width: 30vw;
-  }
-  @media only screen and (min-width: 1200px){
-    width: 25vw;
-  }
 `
 export const Topic = styled.section`
   display: flex;
@@ -76,15 +67,12 @@ export const ImgEdit = styled.img`
     width: 4vw;
     height: 4vh;
   }
-  @media only screen and (min-width: 1024px) {
-    height: 5vh;
-  }
 `
 export const ImgDelete = styled.img`
   width: 4.5vw;
   height: 5vh;
   @media only screen and (min-width: 600px) {
     width: 3.5vw;
-    height: 4vh;
+    height: 3vh;
   }
 `

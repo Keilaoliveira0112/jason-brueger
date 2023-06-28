@@ -47,25 +47,25 @@ const Products = () => {
   const handleModalClosure = () => {
     setOpenModalUpdate(!openModalUpdate);
     setEditingProduct({});
-  }
+  };
 
   const sendModal = (e) => {
     e.preventDefault();
     setOpenModal(false);
-    callCorrectFunction()
+    callCorrectFunction();
   };
 
   const callCorrectFunction = () => {
     switch (modalMessage) {
       case "Confirma a criação do novo produto?":
-        handleSubmitNewProduct()
+        handleSubmitNewProduct();
         break;
       case "Tem certeza que deseja excluir esse produto?":
-        handleClickDelete(valueArguments)
-        break
+        handleClickDelete(valueArguments);
+        break;
       default:
-      handleSubmitNewProduct()
-    }
+        handleSubmitNewProduct();
+    };
   };
 
   const handleClickType = (e) => {
@@ -79,16 +79,16 @@ const Products = () => {
     let errorMessage = "";
     e.preventDefault();
     if (!editingProduct.name) {
-      errorMessage = "Informe um nome para o produto."
-    }
+      errorMessage = "Informe um nome para o produto.";
+    };
     if (!editingProduct.price || editingProduct.price <= 0) {
-      errorMessage = "Informe um preço acima de 0."
-    }
+      errorMessage = "Informe um preço acima de 0.";
+    };
     if (!editingProduct.type) {
-      errorMessage = "Informe o tipo do produto."
-    }
+      errorMessage = "Informe o tipo do produto.";
+    };
     if (errorMessage) {
-      setModalMessage(errorMessage)
+      setModalMessage(errorMessage);
       setTypeModal("warning");
       return setOpenModal(true);
     }
@@ -96,7 +96,7 @@ const Products = () => {
       setModalMessage("Confirma a criação do novo produto?");
       setTypeModal("confirmation");
       return setOpenModal(true);
-    }
+    };
   };
 
   const handleSubmitNewProduct = async () => {
@@ -109,7 +109,7 @@ const Products = () => {
       setTypeModal("sucess");
       setOpenModal(true);
       setTimeout(() => { setOpenModal(false) }, 3000);
-      setEditingProduct({})
+      setEditingProduct({});
     }
     catch (error) {
       setModalMessage(error.message);
@@ -136,7 +136,7 @@ const Products = () => {
         throw new Error("Informe o tipo do produto.");
       }
       await patchProducts(editingProduct.id, { name: editingProduct.name, type: editingProduct.type, price: editingProduct.price });
-      setOpenModalUpdate(false)
+      setOpenModalUpdate(false);
       setModalMessage("Produto atualizado com sucesso");
       setTypeModal("sucess");
       setOpenModal(true);
@@ -157,9 +157,9 @@ const Products = () => {
   const handleClickDelete = async (product) => {
     try {
       if (!openModal) {
-        setvalueArguments(product)
+        setvalueArguments(product);
         setModalMessage(`Tem certeza que deseja excluir esse produto?`);
-        setTypeModal('confirmation');
+        setTypeModal("confirmation");
         return setOpenModal(true);
       } else {
         await deleteProducts(product);
@@ -171,14 +171,14 @@ const Products = () => {
         const newProduct = [...products];
         newProduct.splice(getElementFirst, 1);
         setProducts(newProduct);
-        setvalueArguments([])
-      }
+        setvalueArguments([]);
+      };
     }
     catch (error) {
       setModalMessage(error.message);
       setTypeModal("warning");
       setOpenModal(true);
-    }
+    };
   };
 
   return (
@@ -240,7 +240,7 @@ const Products = () => {
         />
       </Main>
     </>
-  )
-}
+  );
+};
 
 export default Products;

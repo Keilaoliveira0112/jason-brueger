@@ -15,4 +15,4 @@ export const GlobalStyle = createGlobalStyle`
     background-color: #AC5D05;
     font-size: 1.6rem;
   }
-  `
+`

@@ -1,31 +1,31 @@
 import Header from "../../../Components/header/Header";
-import Order from '../../../Components/order/Order'
-import { Main } from './CompletedOrders.styled';
+import Order from "../../../Components/order/Order"
+import { Main } from "./CompletedOrders.styled";
 import { useNavigate } from "react-router-dom";
 import { React, useState, useEffect } from "react";
 import { getOrders } from "../../../API/orders/getOrders";
-import Modal from '../../../Components/modal/Modal'
+import Modal from "../../../Components/modal/Modal";
 
 const CompletedOrders = () => {
-    const navigation = useNavigate();
-    const [orders, setOrders] = useState([]);
-    const [openModal, setOpenModal] = useState(false);
-    const [typeModal, setTypeModal] = useState('');
-    const [modalMessage, setmodalMessage] = useState('');
+  const navigation = useNavigate();
+  const [orders, setOrders] = useState([]);
+  const [openModal, setOpenModal] = useState(false);
+  const [typeModal, setTypeModal] = useState("");
+  const [modalMessage, setmodalMessage] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
-      try {        
+      try {
         const response = await getOrders();
-        const filterDelivered = response.filter((order) => order.status === 'ready');
-        console.log(filterDelivered)
+        const filterDelivered = response.filter((order) => order.status === "ready");
+        console.log(filterDelivered);
         setOrders(filterDelivered);
       }
       catch (error) {
         setmodalMessage(error.message);
-        setTypeModal('warning');
+        setTypeModal("warning");
         setOpenModal(true);
-      }
+      };
     };
     fetchData()
   }, []);
@@ -33,13 +33,13 @@ const CompletedOrders = () => {
   const sendModal = (e) => {
     e.preventDefault();
     setOpenModal(false);
-  }
+  };
 
   const handleClickNavigate = (e) => {
     e.preventDefault();
-    const type = e.target.textContent === 'Pedidos Pendentes' ? '/pedidos-pendentes' : '/pedidos-concluídos';
+    const type = e.target.textContent === "Pedidos Pendentes" ? "/pedidos-pendentes" : "/pedidos-concluídos";
     navigation(type);
-  }
+  };
 
   return (
     <>
@@ -55,7 +55,7 @@ const CompletedOrders = () => {
           page="Pedidos Concluídos"
           orders={orders}
         />
-        <Modal 
+        <Modal
           isOpen={openModal}
           typeModal={typeModal}
           message={modalMessage}
@@ -64,7 +64,7 @@ const CompletedOrders = () => {
         />
       </Main>
     </>
-  )
-}
+  );
+};
 
 export default CompletedOrders;
