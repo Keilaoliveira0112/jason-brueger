@@ -1,4 +1,4 @@
-import { SelectContainer } from "./Select.styles";
+import SelectContainer from "./Select.styles";
 
 const Select = (props) => {
   return (
@@ -10,4 +10,5 @@ const Select = (props) => {
     </SelectContainer>
   );
 };
+
 export default Select;

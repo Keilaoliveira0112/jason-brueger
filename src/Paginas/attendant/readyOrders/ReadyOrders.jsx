@@ -2,10 +2,10 @@ import { React, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../../../Components/header/Header";
 import Order from "../../../Components/order/Order";
-import { getOrders } from "../../../API/orders/getOrders";
-import { patchOrders } from "../../../API/orders/patchOrders";
+import getOrders from "../../../API/orders/getOrders";
+import patchOrders from "../../../API/orders/patchOrders";
 import Modal from "../../../Components/modal/Modal";
-import { Main } from "./ReadyOrders.styled";
+import Main from "./ReadyOrders.styled";
 
 const ReadyOrders = () => {
   const navigation = useNavigate();
@@ -25,14 +25,13 @@ const ReadyOrders = () => {
           return new Date(a.dataEntry) - new Date(b.dataEntry);
         });
         setOrders(sortByHourAsc);
-      }
-      catch (error) {
+      } catch (error) {
         setmodalMessage(error.message);
         setTypeModal("warning");
         setOpenModal(true);
-      };
+      }
     };
-    fetchData()
+    fetchData();
   }, []);
 
   const handleClickNavigate = (e) => {
@@ -41,35 +40,34 @@ const ReadyOrders = () => {
     navigation(type);
   };
 
-  const sendModal = (e) => {
-    e.preventDefault();
-    setOpenModal(false);
-    handleReadyOrder();
-  };
-
   const handleReadyOrder = async (idOrder) => {
     try {
       if (!openModal) {
         setvalueArguments(idOrder);
-        setmodalMessage(`Deseja marcar o pedido como entregue?`);
+        setmodalMessage("Deseja marcar o pedido como entregue?");
         setTypeModal("confirmation");
         return setOpenModal(true);
-      };
+      }
       await patchOrders(valueArguments, "delivered");
       setmodalMessage("Pedido enviado com sucesso");
       setTypeModal("sucess");
       setOpenModal(true);
-      setTimeout(() => { setOpenModal(false) }, 3000);
+      setTimeout(() => { setOpenModal(false); }, 3000);
       const getIndex = orders.findIndex((order) => order.id === valueArguments);
       const newOrder = [...orders];
       newOrder.splice(getIndex, 1);
       setOrders(newOrder);
-    }
-    catch (error) {
+    } catch (error) {
       setmodalMessage(error.message);
       setTypeModal("warning");
       setOpenModal(true);
-    };
+    }
+  };
+
+  const sendModal = (e) => {
+    e.preventDefault();
+    setOpenModal(false);
+    handleReadyOrder();
   };
 
   return (

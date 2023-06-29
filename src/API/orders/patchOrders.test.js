@@ -1,4 +1,4 @@
-import { patchOrders } from "./patchOrders";
+import patchOrders from "./patchOrders";
 
 describe("API createOrder", () => {
   const products = [
@@ -7,15 +7,15 @@ describe("API createOrder", () => {
       name: "Hamburguer de cérebro humano",
       price: 15,
       type: "Hamburguers",
-      quantity: 2
+      quantity: 2,
     },
     {
       id: 6,
       name: "Batatinha frita 123",
       price: 10,
       type: "Acompanhamentos",
-      quantity: 3
-    }
+      quantity: 3,
+    },
   ];
 
   const orderData = {
@@ -26,7 +26,7 @@ describe("API createOrder", () => {
     products,
     orderTotal: 60,
     status: "pending",
-    dataEntry: new Date()
+    dataEntry: new Date(),
   };
 
   it("Should successfully update the status of the order from pending to ready and return with the updated data", async () => {
@@ -39,13 +39,13 @@ describe("API createOrder", () => {
       orderTotal: 60,
       status: "ready",
       dataEntry: new Date(),
-      dateProcessed: new Date()
+      dateProcessed: new Date(),
     };
 
     global.fetch = jest.fn().mockResolvedValue({
       ok: true,
       status: 200,
-      json: jest.fn().mockResolvedValue(orderUpdated)
+      json: jest.fn().mockResolvedValue(orderUpdated),
     });
 
     const result = await patchOrders(orderData.id);

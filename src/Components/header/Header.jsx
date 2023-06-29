@@ -1,8 +1,8 @@
+import { useNavigate } from "react-router-dom";
 import Logo from "../../assets/Logo.svg";
 import Logout from "../../assets/Logout.svg";
-import Button from "../../Components/button/Button";
+import Button from "../button/Button";
 import { ContainerHeader, ImgLogo, ImgLogout } from "./Header.styles";
-import { useNavigate } from "react-router-dom";
 import { removeItem } from "../../storage/local";
 
 const Header = (props) => {
@@ -10,8 +10,8 @@ const Header = (props) => {
   const handleClick = (e) => {
     e.preventDefault();
     navigation("/");
-    removeItem("token")
-  }
+    removeItem("token");
+  };
   return (
     <ContainerHeader>
       <ImgLogo src={Logo} alt="logo jason brueger" />

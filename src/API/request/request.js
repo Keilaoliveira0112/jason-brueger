@@ -1,14 +1,14 @@
-import { errorHandling } from "../errorHandling/errorHandling";
+import errorHandling from "../errorHandling/errorHandling";
 
-const API_URL = "https://burger-queen-api-mock-xi.vercel.app";
+const API_URL = "https://burger-queen-api-mock-lilac.vercel.app";
 
-export const request = async (endpoint, method, headers, body) => {
+const request = async (endpoint, method, headers, body) => {
   const options = {
-    method: method,
+    method,
     headers: {
       "Content-Type": "application/json",
-      ...headers
-    }
+      ...headers,
+    },
   };
   if (body) {
     options.body = JSON.stringify(body);
@@ -22,3 +22,5 @@ export const request = async (endpoint, method, headers, body) => {
   }
   errorHandling(result);
 };
+
+export default request;

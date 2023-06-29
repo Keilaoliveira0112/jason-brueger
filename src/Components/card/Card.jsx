@@ -1,9 +1,17 @@
 import btnDelete from "../../assets/btnDelete.svg";
 import btnEdit from "../../assets/btnEdit.svg";
-import { CardSection, Each, Topic, Value, GroupButtons, Buttons, ImgEdit, ImgDelete } from "./Card.styles";
+import {
+  CardSection,
+  Each,
+  Topic,
+  Value,
+  GroupButtons,
+  Buttons,
+  ImgEdit,
+  ImgDelete,
+} from "./Card.styles";
 
 const Card = (props) => {
-
   return (
     <CardSection>
       {props.isProductList ? (

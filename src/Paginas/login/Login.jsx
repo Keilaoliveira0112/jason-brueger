@@ -1,10 +1,16 @@
-import Logo from "../../assets/Logo.svg";
-import { Section, H1, LogoImg, CreateForm, ParagraphError } from "./Login.styled";
-import Button from "../../Components/button/Button";
-import Input from "../../Components/input/Input";
 import { useNavigate } from "react-router-dom";
 import { React, useState } from "react";
-import { userLogin } from "../../API/login/login";
+import Logo from "../../assets/Logo.svg";
+import {
+  Section,
+  H1,
+  LogoImg,
+  CreateForm,
+  ParagraphError,
+} from "./Login.styled";
+import Button from "../../Components/button/Button";
+import Input from "../../Components/input/Input";
+import userLogin from "../../API/login/login";
 import { setItem } from "../../storage/local";
 
 const Login = () => {
@@ -22,17 +28,16 @@ const Login = () => {
       setItem("role", signin.user.role);
       if (signin.user.role === "atendente") {
         navigation("/novo-pedido");
-      };
+      }
       if (signin.user.role === "chefe de cozinha") {
         navigation("/pedidos-pendentes");
-      };
+      }
       if (signin.user.role === "admin") {
         navigation("/colaboradores");
-      };
+      }
+    } catch (err) {
+      setError(err.message);
     }
-    catch (error) {
-      setError(error.message);
-    };
   };
 
   return (

@@ -1,4 +1,4 @@
-import { createOrder } from "./orders";
+import createOrder from "./orders";
 
 describe("API createOrder", () => {
   const userName = "NomeDoAtendente";
@@ -10,15 +10,15 @@ describe("API createOrder", () => {
       name: "Hamburguer de cérebro humano",
       price: 15,
       type: "Hamburguers",
-      quantity: 2
+      quantity: 2,
     },
     {
       id: 6,
       name: "Batatinha frita 123",
       price: 10,
       type: "Acompanhamentos",
-      quantity: 3
-    }
+      quantity: 3,
+    },
   ];
   const client = "NomeDoCliente";
   it("Should successfully create an order and return with order data", async () => {
@@ -29,13 +29,13 @@ describe("API createOrder", () => {
       products,
       orderTotal,
       status: "pending",
-      dataEntry: new Date()
+      dataEntry: new Date(),
     };
 
     global.fetch = jest.fn().mockResolvedValue({
       ok: true,
       status: 200,
-      json: jest.fn().mockResolvedValue(orderData)
+      json: jest.fn().mockResolvedValue(orderData),
     });
 
     const result = await createOrder(orderTotal, table, products, client);

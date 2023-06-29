@@ -12,7 +12,7 @@ export const Main = styled.main`
     flex-wrap: wrap;
     gap: 5rem;
   }
-`
+`;
 export const Section = styled.section`
   background-color: #D9D9D9;
   font-family: "Asap", sans-serif;
@@ -60,7 +60,7 @@ export const Section = styled.section`
       grid-template-columns: 20vw 0vw;
     }
   `}
-`
+`;
 export const Title = styled.h1`
   grid-area: title;
   font-family: "Rubik Wet Paint", cursive;
@@ -75,32 +75,32 @@ export const Title = styled.h1`
   @media only screen and (min-width: 1024px) {
     font-size: 2.2rem;
   }
-`
+`;
 export const InitialDate = styled.section`
   grid-area: initialDate;
   display: flex;
   justify-content: center;
   align-items: center;
-`
+`;
 export const ImgDate = styled.img`
   width: 3vw;
   @media only screen and (min-width: 1024px) {
     width: 1.2vw;
   }
-`
+`;
 export const ValueOrder = styled.p`
   font-size: 1.1rem;
   text-transform: capitalize;
   @media only screen and (min-width: 600px) {
     font-size: 1.6rem;
   }
-`
+`;
 export const FinalDate = styled.section`
   grid-area: finalDate;
   display: flex;
   justify-content: center;
   align-items: center;
-`
+`;
 export const Topic = styled.h4`
   font-family: "Rubik Wet Paint", cursive;
   font-weight: 100;
@@ -108,7 +108,7 @@ export const Topic = styled.h4`
   @media only screen and (min-width: 600px) {
     font-size: 1.5rem;
   }
-`
+`;
 export const PitNumber = styled.section`
   grid-area: pit;
   display: flex;
@@ -118,7 +118,7 @@ export const PitNumber = styled.section`
   @media only screen and (min-width: 1024px) {
     padding: 2rem;
   }
-`
+`;
 export const ClientName = styled.section`
   grid-area: clientName;
   display: flex;
@@ -128,7 +128,7 @@ export const ClientName = styled.section`
   @media only screen and (min-width: 1024px) {
     padding: 2rem;
   }
-`
+`;
 export const AttendantName = styled.section`
   grid-area: attendantName;
   display: flex;
@@ -138,7 +138,7 @@ export const AttendantName = styled.section`
   @media only screen and (min-width: 1024px) {
     padding: 2rem;
   }
-`
+`;
 export const Paragraph = styled.p`
   grid-area: paragraph;
   justify-self: center;
@@ -148,4 +148,4 @@ export const Paragraph = styled.p`
   @media only screen and (min-width: 600px) {
     font-size: 1.6rem;
   }
-`
+`;

@@ -1,6 +1,6 @@
-import Modal from "./Modal";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import Modal from "./Modal";
 
 describe("<Modal />", () => {
   it("Should render the Modal component and perform its actions correctly when typeModal is 'confirmation'", () => {
@@ -9,7 +9,7 @@ describe("<Modal />", () => {
       typeModal: "confirmation",
       message: "Tem certeza que deseja marcar esse pedido como concluído?",
       setModalOpen: jest.fn(),
-      send: jest.fn()
+      send: jest.fn(),
     };
 
     render(<Modal {...props} />);
@@ -39,7 +39,7 @@ describe("<Modal />", () => {
       typeModal: "warning",
       message: "Não é possível enviar pedido caso o resumo esteja vazio!",
       setModalOpen: jest.fn(),
-      send: jest.fn()
+      send: jest.fn(),
     };
 
     render(<Modal {...props} />);
@@ -61,7 +61,7 @@ describe("<Modal />", () => {
       typeModal: "sucess",
       message: "Pedido enviado com sucesso",
       setModalOpen: jest.fn(),
-      send: jest.fn()
+      send: jest.fn(),
     };
 
     render(<Modal {...props} />);

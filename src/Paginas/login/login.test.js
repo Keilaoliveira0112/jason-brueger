@@ -1,7 +1,12 @@
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import Login from "../login/Login";
-import { userLogin } from "../../API/login/login";
+import {
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from "@testing-library/react";
 import { useNavigate } from "react-router-dom";
+import Login from "./Login";
+import userLogin from "../../API/login/login";
 import { setItem } from "../../storage/local";
 
 jest.mock("../../API/login/login");
@@ -18,8 +23,8 @@ describe("Login Page", () => {
         email: "atendente@email.com",
         id: 4,
         name: "Jason",
-        role: "atendente"
-      }
+        role: "atendente",
+      },
     });
 
     render(<Login />);
@@ -44,7 +49,7 @@ describe("Login Page", () => {
   it("Should not redirect if login is in error", async () => {
     const newLogin = {
       email: "texto",
-      senha: "123456"
+      senha: "123456",
     };
 
     const error = new Error("Ocorreu um erro");

@@ -1,4 +1,4 @@
-import { userLogin } from "./login";
+import userLogin from "./login";
 import "@testing-library/jest-dom/extend-expect";
 
 describe("Users Login API", () => {
@@ -8,16 +8,16 @@ describe("Users Login API", () => {
     const password = "123456";
 
     const loginData = {
-      accessToken: authTokenMock
+      accessToken: authTokenMock,
     };
     global.fetch = jest.fn().mockResolvedValue({
       ok: true,
       status: 200,
-      json: jest.fn().mockResolvedValue(loginData)
+      json: jest.fn().mockResolvedValue(loginData),
     });
 
     const result = await userLogin(email, password);
-    expect(fetch).toHaveBeenCalledTimes(1)
+    expect(fetch).toHaveBeenCalledTimes(1);
     expect(result).toEqual(loginData);
   });
 
@@ -27,7 +27,7 @@ describe("Users Login API", () => {
     ["Incorrect password", "Senha incorreta"],
     ["Email and password are required", "Email e senha são obrigatórios"],
     ["jwt malformed", "Acesso restrito para apenas pessoas autorizadas"],
-    ["error", "error"]
+    ["error", "error"],
   ])("Should return an error when login is unsuccessful", async (error, message) => {
     expect.assertions(2);
 
@@ -37,14 +37,14 @@ describe("Users Login API", () => {
     global.fetch = jest.fn().mockResolvedValue({
       ok: false,
       status: 400,
-      json: jest.fn().mockResolvedValue(error)
+      json: jest.fn().mockResolvedValue(error),
     });
 
     try {
       await userLogin(email, password);
-    } catch (error) {
+    } catch (err) {
       expect(fetch).toHaveBeenCalledTimes(1);
-      expect(error.message).toEqual(message);
-    };
+      expect(err.message).toEqual(message);
+    }
   });
 });

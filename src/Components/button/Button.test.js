@@ -11,7 +11,7 @@ describe("<Button />", () => {
   it("Should check the type of the button", () => {
     render(<Button type="submit" />);
     const button = screen.getByRole("button");
-    expect(button).toHaveAttribute("type", "submit")
+    expect(button).toHaveAttribute("type", "submit");
   });
 
   it("Should render the button with the text 'Enviar'", () => {

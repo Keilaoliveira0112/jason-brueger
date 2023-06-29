@@ -15,7 +15,7 @@ export const Li = styled.li`
   @media only screen and (min-width: 1024px) {
     height: 4vh;
   }
-`
+`;
 export const DishName = styled.p`
   font-family: Asap, sans-serif;
   font-size: 1.2rem;
@@ -26,7 +26,7 @@ export const DishName = styled.p`
   @media only screen and (min-width: 1024px) {
     font-size: 1.8rem;
   }
-`
+`;
 export const Price = styled.p`
   font-family: Asap, sans-serif;
   font-size: 1.4rem;
@@ -37,7 +37,7 @@ export const Price = styled.p`
   @media only screen and (min-width: 1024px) {
     font-size: 1.8rem;
   }
-`
+`;
 export const ButtonAdd = styled.button`
   border-radius: 50%;
   width: 4vw;
@@ -55,4 +55,4 @@ export const ButtonAdd = styled.button`
     font-size: 1.6rem;
     font-weight: 600;
   }
-`
+`;

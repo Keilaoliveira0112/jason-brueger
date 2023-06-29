@@ -1,6 +1,6 @@
 import userEvent from "@testing-library/user-event";
-import OrderResume from "../orderResume/OrderResume";
 import { render, screen } from "@testing-library/react";
+import OrderResume from "./OrderResume";
 
 describe("<OrdeResume />", () => {
   it("Should render the order resume and trigger your actions correctly", () => {
@@ -12,19 +12,19 @@ describe("<OrdeResume />", () => {
           id: 1,
           name: "batata frita",
           price: 10,
-          quantity: 5
+          quantity: 5,
         },
         {
           id: 2,
           name: "agua",
           price: 2,
-          quantity: 2
-        }
+          quantity: 2,
+        },
       ],
       total: 54,
       onClickQuantity: jest.fn(),
       onClickDelete: jest.fn(),
-      onClickSend: jest.fn()
+      onClickSend: jest.fn(),
     };
     render(<OrderResume {...props} />);
 
@@ -45,7 +45,7 @@ describe("<OrdeResume />", () => {
 
     const btns = screen.getAllByRole("button");
     expect(btns).toHaveLength(7);
-    const btnReduzir = btns[0]
+    const btnReduzir = btns[0];
     userEvent.click(btnReduzir);
     expect(props.onClickQuantity).toHaveBeenCalledTimes(1);
     expect(props.onClickQuantity).toHaveBeenCalledWith(props.orderItem[0], "-");

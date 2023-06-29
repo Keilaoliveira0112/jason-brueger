@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Text = styled.input`
+const Text = styled.input`
   background-color: #FFFFFF;
   border: none;
   color: #000000;
@@ -15,4 +15,6 @@ export const Text = styled.input`
   @media only screen and (min-width: 1024px) {
     width: 30vw;
   }
-`
+`;
+
+export default Text;

@@ -1,4 +1,10 @@
-import { Background, Thead, Tbody, TableRow, Td } from "./Table.styles";
+import {
+  Background,
+  Thead,
+  Tbody,
+  TableRow,
+  Td,
+} from "./Table.styles";
 
 const Table = (props) => {
   return (

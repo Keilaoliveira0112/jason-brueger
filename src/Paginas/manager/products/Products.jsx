@@ -5,12 +5,12 @@ import Select from "../../../Components/select/Select";
 import FormAdd from "../../../Components/formAdd/FormAdd";
 import Card from "../../../Components/card/Card";
 import Modal from "../../../Components/modal/Modal";
-import ModalUpdate from "../../../Components/modalUpdate/ModalUpdate"
+import ModalUpdate from "../../../Components/modalUpdate/ModalUpdate";
 import { Main, Filter, FilterTitle } from "./Products.styled";
-import { getProducts } from "../../../API/products/getProducts";
-import { createProduct } from "../../../API/products/postProducts";
-import { deleteProducts } from "../../../API/products/deleteProducts";
-import { patchProducts } from "../../../API/products/patchProducts";
+import getProducts from "../../../API/products/getProducts";
+import createProduct from "../../../API/products/postProducts";
+import deleteProducts from "../../../API/products/deleteProducts";
+import patchProducts from "../../../API/products/patchProducts";
 
 const Products = () => {
   const navigation = useNavigate();
@@ -28,12 +28,11 @@ const Products = () => {
       try {
         const response = await getProducts();
         setProducts(response);
-      }
-      catch (error) {
+      } catch (error) {
         setModalMessage(error.message);
         setTypeModal("warning");
         setOpenModal(true);
-      };
+      }
     };
     fetchData();
   }, []);
@@ -65,14 +64,13 @@ const Products = () => {
         break;
       default:
         handleSubmitNewProduct();
-    };
+    }
   };
 
   const handleClickType = (e) => {
     e.preventDefault();
     const typeValue = e.target.textContent;
-    setEditingProduct((prevState) =>
-      ({ ...prevState, type: typeValue }));
+    setEditingProduct((prevState) => ({ ...prevState, type: typeValue }));
   };
 
   const handleSubmit = (e) => {
@@ -80,23 +78,22 @@ const Products = () => {
     e.preventDefault();
     if (!editingProduct.name) {
       errorMessage = "Informe um nome para o produto.";
-    };
+    }
     if (!editingProduct.price || editingProduct.price <= 0) {
       errorMessage = "Informe um preço acima de 0.";
-    };
+    }
     if (!editingProduct.type) {
       errorMessage = "Informe o tipo do produto.";
-    };
+    }
     if (errorMessage) {
       setModalMessage(errorMessage);
       setTypeModal("warning");
-      return setOpenModal(true);
-    }
-    else if (!openModal) {
+      setOpenModal(true);
+    } else if (!openModal) {
       setModalMessage("Confirma a criação do novo produto?");
       setTypeModal("confirmation");
-      return setOpenModal(true);
-    };
+      setOpenModal(true);
+    }
   };
 
   const handleSubmitNewProduct = async () => {
@@ -108,14 +105,13 @@ const Products = () => {
       setModalMessage("Produto criado com sucesso");
       setTypeModal("sucess");
       setOpenModal(true);
-      setTimeout(() => { setOpenModal(false) }, 3000);
+      setTimeout(() => { setOpenModal(false); }, 3000);
       setEditingProduct({});
-    }
-    catch (error) {
+    } catch (error) {
       setModalMessage(error.message);
       setTypeModal("warning");
       setOpenModal(true);
-    };
+    }
   };
 
   const handleClickEdit = (product) => {
@@ -140,45 +136,43 @@ const Products = () => {
       setModalMessage("Produto atualizado com sucesso");
       setTypeModal("sucess");
       setOpenModal(true);
-      setTimeout(() => { setOpenModal(false) }, 3000);
+      setTimeout(() => { setOpenModal(false); }, 3000);
       const getIndexElementFirst = products.findIndex((product) => product.id === editingProduct.id);
       const newProduct = [...products];
       newProduct.splice(getIndexElementFirst, 1);
       setProducts([...newProduct, editingProduct].sort((a, b) => a.id - b.id));
       setEditingProduct({});
-    }
-    catch (error) {
+    } catch (error) {
       setModalMessage(error.message);
       setTypeModal("warning");
       setOpenModal(true);
-    };
+    }
   };
 
   const handleClickDelete = async (product) => {
     try {
       if (!openModal) {
         setvalueArguments(product);
-        setModalMessage(`Tem certeza que deseja excluir esse produto?`);
+        setModalMessage("Tem certeza que deseja excluir esse produto?");
         setTypeModal("confirmation");
-        return setOpenModal(true);
+        setOpenModal(true);
       } else {
         await deleteProducts(product);
         setModalMessage("Produto deletado com sucesso");
         setTypeModal("sucess");
         setOpenModal(true);
-        setTimeout(() => { setOpenModal(false) }, 3000);
-        const getElementFirst = products.findIndex((product) => product.id === valueArguments.id);
+        setTimeout(() => { setOpenModal(false); }, 3000);
+        const getElementFirst = products.findIndex((prod) => prod.id === valueArguments.id);
         const newProduct = [...products];
         newProduct.splice(getElementFirst, 1);
         setProducts(newProduct);
         setvalueArguments([]);
-      };
-    }
-    catch (error) {
+      }
+    } catch (error) {
       setModalMessage(error.message);
       setTypeModal("warning");
       setOpenModal(true);
-    };
+    }
   };
 
   return (

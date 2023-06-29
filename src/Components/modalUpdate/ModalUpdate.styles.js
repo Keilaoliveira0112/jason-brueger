@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const ModalSection = styled.section`
+const ModalSection = styled.section`
   width: auto;
   height: auto;
   background-color: #5F9EA0;
@@ -10,4 +10,6 @@ export const ModalSection = styled.section`
   border-radius: 2rem;
   color: #000;
   display: grid;
-`
+`;
+
+export default ModalSection;

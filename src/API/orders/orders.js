@@ -1,7 +1,7 @@
-import { request } from "../request/request";
+import request from "../request/request";
 import { getItem } from "../../storage/local";
 
-export const createOrder = (orderTotal, table, products, client) => {
+const createOrder = (orderTotal, table, products, client) => {
   const token = getItem("token");
   const userName = getItem("username");
 
@@ -12,6 +12,8 @@ export const createOrder = (orderTotal, table, products, client) => {
     products,
     orderTotal,
     status: "pending",
-    dataEntry: new Date()
+    dataEntry: new Date(),
   });
 };
+
+export default createOrder;

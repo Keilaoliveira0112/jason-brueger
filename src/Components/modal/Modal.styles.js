@@ -11,7 +11,7 @@ export const Background = styled.section`
   display: flex;
   justify-content: center;
   align-items: center;
-`
+`;
 export const ModalSection = styled.section`
   width: 60vw;
   height: 20vh;
@@ -27,7 +27,7 @@ export const ModalSection = styled.section`
     width: 30vw;
     height: 30vh;
   }
-`
+`;
 export const BtnClose = styled.button`
   background-color: transparent;
   outline: none;
@@ -66,16 +66,14 @@ export const BtnClose = styled.button`
       height: 3.4vh;
     }
   }
-`
-
+`;
 export const Check = styled.img`
   width: 10vw;
   justify-self: center;
   @media only screen and (min-width: 1024px) {
     width: 5vw;
   }
-`
-
+`;
 export const Message = styled.p`
   font-family: "Asap", sans-serif;
   font-size: 1.3rem;
@@ -84,4 +82,4 @@ export const Message = styled.p`
   @media only screen and (min-width: 600px) {
     font-size: 2.2rem;
   }
-`
+`;
