@@ -84,9 +84,7 @@ const Order = (props) => {
         {props.page === "Pedidos Prontos" ? (<Button variant="senary" onClick={() => props.onClick(order.id)}>Entregue</Button>)
           : (
             <Paragraph>
-              Concluído em
-              {differenceInMinutes(new Date(order.dateProcessed), new Date(order.dataEntry))}
-              min(s)
+              Concluído em {differenceInMinutes(new Date(order.dateProcessed), new Date(order.dataEntry))} min(s)
             </Paragraph>
           )}
       </Section>

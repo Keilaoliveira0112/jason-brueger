@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import Rotas from "./Rotas";
-import GlobalStyle from "./styles/Global.style.js";
+import GlobalStyle from "./styles/Global.style";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

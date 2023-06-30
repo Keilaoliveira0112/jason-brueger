@@ -16,49 +16,61 @@ const Rotas = () => {
         <Route
           path="/novo-pedido"
           element={
-            <ProtectedRoute user="atendente">
-              <NewOrder />
-            </ProtectedRoute>
+            (
+              <ProtectedRoute user="atendente">
+                <NewOrder />
+              </ProtectedRoute>
+            )
           }
         />
         <Route
           path="/pedidos-prontos"
           element={
-            <ProtectedRoute user="atendente">
-              <ReadyOrders />
-            </ProtectedRoute>
+            (
+              <ProtectedRoute user="atendente">
+                <ReadyOrders />
+              </ProtectedRoute>
+            )
           }
         />
         <Route
           path="/pedidos-pendentes"
           element={
-            <ProtectedRoute user="chefe de cozinha">
-              <PendingOrdes />
-            </ProtectedRoute>
+            (
+              <ProtectedRoute user="chefe de cozinha">
+                <PendingOrdes />
+              </ProtectedRoute>
+            )
           }
         />
         <Route
           path="/pedidos-concluídos"
           element={
-            <ProtectedRoute user="chefe de cozinha">
-              <CompletedOrders />
-            </ProtectedRoute>
+            (
+              <ProtectedRoute user="chefe de cozinha">
+                <CompletedOrders />
+              </ProtectedRoute>
+            )
           }
         />
         <Route
           path="/colaboradores"
           element={
-            <ProtectedRoute user="admin">
-              <Collaborators />
-            </ProtectedRoute>
+            (
+              <ProtectedRoute user="admin">
+                <Collaborators />
+              </ProtectedRoute>
+            )
           }
         />
         <Route
           path="/produtos"
           element={
-            <ProtectedRoute user="admin">
-              <Products />
-            </ProtectedRoute>
+            (
+              <ProtectedRoute user="admin">
+                <Products />
+              </ProtectedRoute>
+            )
           }
         />
       </Routes>

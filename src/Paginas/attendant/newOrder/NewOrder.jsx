@@ -83,16 +83,17 @@ const NewOrder = () => {
         setvalueArguments(orderTotal);
         setmodalMessage("Confirma o envio do pedido para a cozinha?");
         setTypeModal("confirmation");
-        return setOpenModal(true);
+        setOpenModal(true);
+      } else {
+        await createOrder(valueArguments, selectValue, orderItem, clientName);
+        setmodalMessage("Pedido enviado com sucesso");
+        setTypeModal("sucess");
+        setOpenModal(true);
+        setTimeout(() => { setOpenModal(false); }, 3000);
+        setOrderItem([]);
+        setName("");
+        setSelectValue("");
       }
-      await createOrder(valueArguments, selectValue, orderItem, clientName);
-      setmodalMessage("Pedido enviado com sucesso");
-      setTypeModal("sucess");
-      setOpenModal(true);
-      setTimeout(() => { setOpenModal(false); }, 3000);
-      setOrderItem([]);
-      setName("");
-      setSelectValue("");
     } catch (error) {
       setmodalMessage(error.message);
       setTypeModal("warning");
@@ -142,15 +143,17 @@ const NewOrder = () => {
 
   const handleAddItems = (product) => {
     if (orderItem.length === 0) {
-      return setOrderItem((prevState) => [...prevState, product]);
+      setOrderItem((prevState) => [...prevState, product]);
+    } else {
+      const verification = orderItem.find((prod) => prod.id === product.id);
+      if (!verification) {
+        setOrderItem((prevState) => [...prevState, product]);
+      } else {
+        setmodalMessage("Produto já foi adicionado no resumo! Caso queira alterar a quantidade, usar os botões no resumo do pedido");
+        setTypeModal("warning");
+        setOpenModal(true);
+      }
     }
-    const verification = orderItem.find((prod) => prod.id === product.id);
-    if (!verification) {
-      return setOrderItem((prevState) => [...prevState, product]);
-    }
-    setmodalMessage("Produto já foi adicionado no resumo! Caso queira alterar a quantidade, usar os botões no resumo do pedido");
-    setTypeModal("warning");
-    setOpenModal(true);
   };
 
   const totalOrderAmount = () => {
@@ -204,54 +207,60 @@ const NewOrder = () => {
               <TitleMenu>Hamburguers</TitleMenu>
               <UlMenu>
                 {products.map((product) => {
-                  return product.type === "Hamburguers" &&
-                    <List
-                      key={product.id}
-                      name={product.name}
-                      price={`R$${product.price}`}
-                      onClick={() => handleAddItems(product)}
-                    />
+                  return product.type === "Hamburguers"
+                    && (
+                      <List
+                        key={product.id}
+                        name={product.name}
+                        price={`R$${product.price}`}
+                        onClick={() => handleAddItems(product)}
+                      />
+                    );
                 })}
               </UlMenu>
               <TitleMenu>Acompanhamentos</TitleMenu>
               <UlMenu>
                 {products.map((product) => {
-                  return product.type === "Acompanhamentos" &&
-                    <List
-                      key={product.id}
-                      name={product.name}
-                      price={`R$${product.price}`}
-                      onClick={() => setOrderItem((prevState) => [...prevState, product])}
-                    />
+                  return product.type === "Acompanhamentos"
+                    && (
+                      <List
+                        key={product.id}
+                        name={product.name}
+                        price={`R$${product.price}`}
+                        onClick={() => setOrderItem((prevState) => [...prevState, product])}
+                      />
+                    );
                 })}
               </UlMenu>
               <TitleMenu>Bebidas</TitleMenu>
               <UlMenu>
                 {products.map((product) => {
-                  return product.type === "Bebidas" &&
-                    <List
-                      key={product.id}
-                      name={product.name}
-                      price={`R$${product.price}`}
-                      onClick={() => setOrderItem((prevState) => [...prevState, product])}
-                    />
+                  return product.type === "Bebidas"
+                    && (
+                      <List
+                        key={product.id}
+                        name={product.name}
+                        price={`R$${product.price}`}
+                        onClick={() => setOrderItem((prevState) => [...prevState, product])}
+                      />
+                    );
                 })}
               </UlMenu>
             </>
           ) : (
-            <>
-              <UlMenu>
-                {products.map((product) => {
-                  return product.type === "Café da manhã" &&
+            <UlMenu>
+              {products.map((product) => {
+                return product.type === "Café da manhã"
+                  && (
                     <List
                       key={product.id}
                       name={product.name}
                       price={`R$${product.price}`}
                       onClick={() => handleAddItems(product)}
                     />
-                })}
-              </UlMenu>
-            </>
+                  );
+              })}
+            </UlMenu>
           )}
         </SectionMenu>
         <OrderResume

@@ -20,7 +20,7 @@ const request = async (endpoint, method, headers, body) => {
   if (response.ok) {
     return result;
   }
-  errorHandling(result);
+  return errorHandling(result);
 };
 
 export default request;

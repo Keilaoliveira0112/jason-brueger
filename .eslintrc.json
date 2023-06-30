@@ -28,7 +28,9 @@
     "arrow-body-style":"off",
     "react/destructuring-assignment":"off",
     "react/react-in-jsx-scope": "off",
+    "react/jsx-one-expression-per-line": "off",
     "react/jsx-filename-extension": [1, {"extensions": [".js", ".jsx"]}],
+    "react/jsx-props-no-spreading": "off",
     "react/function-component-definition": [
       2,
       {

@@ -48,25 +48,6 @@ const Products = () => {
     setEditingProduct({});
   };
 
-  const sendModal = (e) => {
-    e.preventDefault();
-    setOpenModal(false);
-    callCorrectFunction();
-  };
-
-  const callCorrectFunction = () => {
-    switch (modalMessage) {
-      case "Confirma a criação do novo produto?":
-        handleSubmitNewProduct();
-        break;
-      case "Tem certeza que deseja excluir esse produto?":
-        handleClickDelete(valueArguments);
-        break;
-      default:
-        handleSubmitNewProduct();
-    }
-  };
-
   const handleClickType = (e) => {
     e.preventDefault();
     const typeValue = e.target.textContent;
@@ -114,6 +95,51 @@ const Products = () => {
     }
   };
 
+  const handleClickDelete = async (product) => {
+    try {
+      if (!openModal) {
+        setvalueArguments(product);
+        setModalMessage("Tem certeza que deseja excluir esse produto?");
+        setTypeModal("confirmation");
+        setOpenModal(true);
+      } else {
+        await deleteProducts(product);
+        setModalMessage("Produto deletado com sucesso");
+        setTypeModal("sucess");
+        setOpenModal(true);
+        setTimeout(() => { setOpenModal(false); }, 3000);
+        const getElementFirst = products.findIndex((prod) => prod.id === valueArguments.id);
+        const newProduct = [...products];
+        newProduct.splice(getElementFirst, 1);
+        setProducts(newProduct);
+        setvalueArguments([]);
+      }
+    } catch (error) {
+      setModalMessage(error.message);
+      setTypeModal("warning");
+      setOpenModal(true);
+    }
+  };
+
+  const callCorrectFunction = () => {
+    switch (modalMessage) {
+      case "Confirma a criação do novo produto?":
+        handleSubmitNewProduct();
+        break;
+      case "Tem certeza que deseja excluir esse produto?":
+        handleClickDelete(valueArguments);
+        break;
+      default:
+        handleSubmitNewProduct();
+    }
+  };
+
+  const sendModal = (e) => {
+    e.preventDefault();
+    setOpenModal(false);
+    callCorrectFunction();
+  };
+
   const handleClickEdit = (product) => {
     setEditingProduct(product);
     setOpenModalUpdate(true);
@@ -149,32 +175,6 @@ const Products = () => {
     }
   };
 
-  const handleClickDelete = async (product) => {
-    try {
-      if (!openModal) {
-        setvalueArguments(product);
-        setModalMessage("Tem certeza que deseja excluir esse produto?");
-        setTypeModal("confirmation");
-        setOpenModal(true);
-      } else {
-        await deleteProducts(product);
-        setModalMessage("Produto deletado com sucesso");
-        setTypeModal("sucess");
-        setOpenModal(true);
-        setTimeout(() => { setOpenModal(false); }, 3000);
-        const getElementFirst = products.findIndex((prod) => prod.id === valueArguments.id);
-        const newProduct = [...products];
-        newProduct.splice(getElementFirst, 1);
-        setProducts(newProduct);
-        setvalueArguments([]);
-      }
-    } catch (error) {
-      setModalMessage(error.message);
-      setTypeModal("warning");
-      setOpenModal(true);
-    }
-  };
-
   return (
     <>
       <Header
@@ -196,7 +196,7 @@ const Products = () => {
         </Filter>
         {selectValue === "Adicionar produtos" ? (
           <FormAdd
-            isProductForm={true}
+            isProductForm
             onSubmit={handleSubmit}
             name={editingProduct.name}
             onChangeName={(e) => setEditingProduct((prevState) => ({ ...prevState, name: e.target.value }))}
@@ -207,7 +207,7 @@ const Products = () => {
           />
         ) : (
           <Card
-            isProductList={true}
+            isProductList
             values={products}
             onClickEdit={handleClickEdit}
             onClickDelete={handleClickDelete}
@@ -224,7 +224,7 @@ const Products = () => {
           isOpen={openModalUpdate}
           onSubmit={handleSubmitEditProduct}
           setModalOpen={handleModalClosure}
-          isProductForm={true}
+          isProductForm
           name={editingProduct.name}
           onChangeName={(e) => setEditingProduct((prevState) => ({ ...prevState, name: e.target.value }))}
           price={editingProduct.price}

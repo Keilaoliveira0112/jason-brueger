@@ -46,17 +46,18 @@ const PendingOrdes = () => {
         setvalueArguments(idOrder);
         setmodalMessage("Tem certeza que deseja marcar esse pedido como concluído?");
         setTypeModal("confirmation");
-        return setOpenModal(true);
+        setOpenModal(true);
+      } else {
+        await patchOrders(valueArguments, "ready");
+        setmodalMessage("Pedido enviado com sucesso");
+        setTypeModal("sucess");
+        setOpenModal(true);
+        setTimeout(() => { setOpenModal(false); }, 3000);
+        const getIndex = orders.findIndex((order) => order.id === valueArguments);
+        const newOrder = [...orders];
+        newOrder.splice(getIndex, 1);
+        setOrders(newOrder);
       }
-      await patchOrders(valueArguments, "ready");
-      setmodalMessage("Pedido enviado com sucesso");
-      setTypeModal("sucess");
-      setOpenModal(true);
-      setTimeout(() => { setOpenModal(false); }, 3000);
-      const getIndex = orders.findIndex((order) => order.id === valueArguments);
-      const newOrder = [...orders];
-      newOrder.splice(getIndex, 1);
-      setOrders(newOrder);
     } catch (error) {
       setmodalMessage(error.message);
       setTypeModal("warning");
