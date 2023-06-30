@@ -1,4 +1,4 @@
-import { getOrders } from "./getOrders";
+import getOrders from "./getOrders";
 
 describe("API getOrders", () => {
   const products = [
@@ -7,15 +7,15 @@ describe("API getOrders", () => {
       name: "Hamburguer de cérebro humano",
       price: 15,
       type: "Hamburguers",
-      quantity: 2
+      quantity: 2,
     },
     {
       id: 6,
       name: "Batatinha frita 123",
       price: 10,
       type: "Acompanhamentos",
-      quantity: 3
-    }
+      quantity: 3,
+    },
   ];
   it("Should perform a successful response and return an array of objects with the order data", async () => {
     const orderData = {
@@ -26,13 +26,13 @@ describe("API getOrders", () => {
       products,
       orderTotal: 60,
       status: "pending",
-      dataEntry: new Date()
+      dataEntry: new Date(),
     };
 
     global.fetch = jest.fn().mockResolvedValue({
       ok: true,
       status: 200,
-      json: jest.fn().mockResolvedValue(orderData)
+      json: jest.fn().mockResolvedValue(orderData),
     });
 
     const result = await getOrders();

@@ -4,12 +4,12 @@ export const Main = styled.main`
   display: grid;
   justify-items: center;
   gap: 4rem;
-`
+`;
 
 export const Filter = styled.section`
   display: flex;
   gap: 1rem;
-`
+`;
 
 export const FilterTitle = styled.h2`
   color: #FFFFFF;
@@ -19,4 +19,4 @@ export const FilterTitle = styled.h2`
   @media only screen and (min-width: 600px) {
     font-size: 2rem;
   }
-`
+`;

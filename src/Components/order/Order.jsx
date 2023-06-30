@@ -1,9 +1,25 @@
+import {
+  differenceInMinutes,
+  getHours,
+  getMinutes,
+} from "date-fns";
 import Star from "../../assets/Star.svg";
 import Cross from "../../assets/Cross.svg";
 import Button from "../button/Button";
 import Table from "../table/Table";
-import { Section, Title, InitialDate, FinalDate, ImgDate, ValueOrder, PitNumber, ClientName, Topic, AttendantName, Paragraph } from "./Order.styles";
-import { differenceInMinutes, getHours, getMinutes } from "date-fns";
+import {
+  Section,
+  Title,
+  InitialDate,
+  FinalDate,
+  ImgDate,
+  ValueOrder,
+  PitNumber,
+  ClientName,
+  Topic,
+  AttendantName,
+  Paragraph,
+} from "./Order.styles";
 
 const Order = (props) => {
   return props.page === "Pedidos Pendentes" ? (
@@ -24,7 +40,9 @@ const Order = (props) => {
         </ClientName>
         <AttendantName>
           <Topic>Atendente: </Topic>
-          <ValueOrder>{order.userName} </ValueOrder>
+          <ValueOrder>
+            {order.userName}
+          </ValueOrder>
         </AttendantName>
         <Table
           products={order.products}
@@ -55,7 +73,9 @@ const Order = (props) => {
         </ClientName>
         <AttendantName>
           <Topic>Atendente: </Topic>
-          <ValueOrder>{order.userName} </ValueOrder>
+          <ValueOrder>
+            {order.userName}
+          </ValueOrder>
         </AttendantName>
         <Table
           products={order.products}

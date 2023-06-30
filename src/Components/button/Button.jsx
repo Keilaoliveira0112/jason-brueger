@@ -1,8 +1,10 @@
-import { ButtonContainer } from "./Button.styles";
+import ButtonContainer from "./Button.styles";
 
 const Button = (props) => {
   return (
-    <ButtonContainer type={props.type} variant={props.variant} onClick={props.onClick}>{props.children}</ButtonContainer>
+    <ButtonContainer type={props.type} variant={props.variant} onClick={props.onClick}>
+      {props.children}
+    </ButtonContainer>
   );
 };
 

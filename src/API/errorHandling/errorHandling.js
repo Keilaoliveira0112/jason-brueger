@@ -1,4 +1,4 @@
-export const errorHandling = (response) => {
+const errorHandling = (response) => {
   switch (response) {
     case "Cannot find user":
       throw new Error("Usuário Inexistente");
@@ -12,5 +12,7 @@ export const errorHandling = (response) => {
       throw new Error("Acesso restrito para apenas pessoas autorizadas");
     default:
       throw new Error(response);
-  };
+  }
 };
+
+export default errorHandling;

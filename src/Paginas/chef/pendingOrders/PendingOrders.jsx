@@ -1,12 +1,11 @@
 import { React, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Header from "../../../Components/header/Header";
 import Order from "../../../Components/order/Order";
-import { getOrders } from "../../../API/orders/getOrders";
+import getOrders from "../../../API/orders/getOrders";
 import Modal from "../../../Components/modal/Modal";
-import { Main } from "./PendingOrders.styled";
-import { useNavigate } from "react-router-dom";
-import { patchOrders } from "../../../API/orders/patchOrders";
-
+import Main from "./PendingOrders.styled";
+import patchOrders from "../../../API/orders/patchOrders";
 
 const PendingOrdes = () => {
   const navigation = useNavigate();
@@ -26,14 +25,13 @@ const PendingOrdes = () => {
           return new Date(a.dataEntry) - new Date(b.dataEntry);
         });
         setOrders(sortByHourAsc);
-      }
-      catch (error) {
+      } catch (error) {
         setmodalMessage(error.message);
         setTypeModal("warning");
         setOpenModal(true);
-      };
+      }
     };
-    fetchData()
+    fetchData();
   }, []);
 
   const handleClickNavigate = (e) => {
@@ -42,35 +40,35 @@ const PendingOrdes = () => {
     navigation(page);
   };
 
-  const sendModal = (e) => {
-    e.preventDefault();
-    setOpenModal(false);
-    handleReadyOrder();
-  };
-
   const handleReadyOrder = async (idOrder) => {
     try {
       if (!openModal) {
         setvalueArguments(idOrder);
-        setmodalMessage(`Tem certeza que deseja marcar esse pedido como concluído?`);
+        setmodalMessage("Tem certeza que deseja marcar esse pedido como concluído?");
         setTypeModal("confirmation");
-        return setOpenModal(true);
+        setOpenModal(true);
+      } else {
+        await patchOrders(valueArguments, "ready");
+        setmodalMessage("Pedido enviado com sucesso");
+        setTypeModal("sucess");
+        setOpenModal(true);
+        setTimeout(() => { setOpenModal(false); }, 3000);
+        const getIndex = orders.findIndex((order) => order.id === valueArguments);
+        const newOrder = [...orders];
+        newOrder.splice(getIndex, 1);
+        setOrders(newOrder);
       }
-      await patchOrders(valueArguments, "ready");
-      setmodalMessage("Pedido enviado com sucesso");
-      setTypeModal("sucess");
-      setOpenModal(true);
-      setTimeout(() => { setOpenModal(false) }, 3000);
-      const getIndex = orders.findIndex((order) => order.id === valueArguments);
-      const newOrder = [...orders];
-      newOrder.splice(getIndex, 1);
-      setOrders(newOrder);
-    }
-    catch (error) {
+    } catch (error) {
       setmodalMessage(error.message);
       setTypeModal("warning");
       setOpenModal(true);
-    };
+    }
+  };
+
+  const sendModal = (e) => {
+    e.preventDefault();
+    setOpenModal(false);
+    handleReadyOrder();
   };
 
   return (

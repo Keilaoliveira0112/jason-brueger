@@ -1,6 +1,6 @@
 import FormAdd from "../formAdd/FormAdd";
 import { Background, BtnClose } from "../modal/Modal.styles";
-import { ModalSection } from "../modalUpdate/ModalUpdate.styles";
+import ModalSection from "./ModalUpdate.styles";
 
 const ModalUpdate = (props) => {
   if (props.isOpen) {
@@ -29,7 +29,7 @@ const ModalUpdate = (props) => {
         </ModalSection>
       </Background>
     );
-  };
+  }
   return null;
 };
 

@@ -1,6 +1,6 @@
-import List from "../list/List";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import List from "./List";
 
 describe("<List />", () => {
   it("Should render product list correctly", () => {

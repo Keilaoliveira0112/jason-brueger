@@ -9,15 +9,15 @@ describe("<Order />", () => {
       name: "Hamburguer de cérebro humano",
       price: 15,
       type: "Hamburguers",
-      quantity: 2
+      quantity: 2,
     },
     {
       id: 6,
       name: "Batatinha frita 123",
       price: 10,
       type: "Acompanhamentos",
-      quantity: 3
-    }
+      quantity: 3,
+    },
   ];
   it("Should render the Order component correctly when the page is 'Pedidos Pendentes'", () => {
     const props = {
@@ -31,10 +31,10 @@ describe("<Order />", () => {
           products,
           orderTotal: 60,
           status: "pending",
-          dataEntry: "2023-06-14T16:26:39.739Z"
-        }
+          dataEntry: "2023-06-14T16:26:39.739Z",
+        },
       ],
-      onClick: jest.fn()
+      onClick: jest.fn(),
     };
 
     render(<Order {...props} />);
@@ -78,8 +78,8 @@ describe("<Order />", () => {
           orderTotal: 60,
           status: "ready",
           dataEntry: "2023-06-14T16:26:39.739Z",
-          dateProcessed: "2023-06-14T16:40:39.739Z"
-        }
+          dateProcessed: "2023-06-14T16:40:39.739Z",
+        },
       ],
     };
 
@@ -105,10 +105,10 @@ describe("<Order />", () => {
           orderTotal: 60,
           status: "ready",
           dataEntry: "2023-06-14T19:26:39.739Z",
-          dateProcessed: "2023-06-14T19:40:39.739Z"
-        }
+          dateProcessed: "2023-06-14T19:40:39.739Z",
+        },
       ],
-      onClick: jest.fn()
+      onClick: jest.fn(),
     };
 
     render(<Order {...props} />);
