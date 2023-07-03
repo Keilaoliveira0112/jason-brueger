@@ -79,7 +79,8 @@ const Products = () => {
 
   const handleSubmitNewProduct = async () => {
     try {
-      const response = await createProduct(editingProduct.name, editingProduct.price, editingProduct.type);
+      const price = parseInt(editingProduct.price, 10);
+      const response = await createProduct(editingProduct.name, price, editingProduct.type);
       const newProducts = [...products];
       newProducts.push(response);
       setProducts(newProducts);
