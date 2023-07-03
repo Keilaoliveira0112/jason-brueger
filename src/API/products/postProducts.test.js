@@ -1,43 +1,26 @@
-import getOrders from "./getOrders";
+import createProduct from "./postProducts";
 
-describe("API getOrders", () => {
-  const products = [
-    {
-      id: 4,
-      name: "Hamburguer de cérebro humano",
-      price: 15,
-      type: "Hamburguers",
-      quantity: 2,
-    },
-    {
-      id: 6,
-      name: "Batatinha frita 123",
-      price: 10,
-      type: "Acompanhamentos",
-      quantity: 3,
-    },
-  ];
-  it("Should perform a successful response and return an array of objects with the order data", async () => {
-    const orderData = {
-      id: 9,
-      table: "001",
-      userName: "NomeDoAtendente",
-      client: "NomeDoCliente",
-      products,
-      orderTotal: 60,
-      status: "pending",
-      dataEntry: new Date(),
+describe("API postProducts", () => {
+  const name = "NomeDoProduto";
+  const price = 3;
+  const type = "Acompanhamentos";
+  it("Should successfully create the product", async () => {
+    const productData = {
+      id: 12,
+      name,
+      price,
+      quantity: 1,
+      type,
     };
-
     global.fetch = jest.fn().mockResolvedValue({
       ok: true,
-      status: 200,
-      json: jest.fn().mockResolvedValue(orderData),
+      status: 201,
+      json: jest.fn().mockResolvedValue(productData),
     });
 
-    const result = await getOrders();
+    const result = await createProduct(name, price, type);
     expect(fetch).toHaveBeenCalledTimes(1);
-    expect(result).toEqual(orderData);
+    expect(result).toEqual(productData);
   });
 
   it.each([
@@ -57,7 +40,7 @@ describe("API getOrders", () => {
     });
 
     try {
-      await getOrders();
+      await createProduct(name, price, type);
     } catch (err) {
       expect(fetch).toHaveBeenCalledTimes(1);
       expect(err.message).toEqual(message);

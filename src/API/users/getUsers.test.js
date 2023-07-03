@@ -1,43 +1,34 @@
-import getOrders from "./getOrders";
+import getUsers from "./getUsers";
 
-describe("API getOrders", () => {
-  const products = [
-    {
-      id: 4,
-      name: "Hamburguer de cérebro humano",
-      price: 15,
-      type: "Hamburguers",
-      quantity: 2,
-    },
-    {
-      id: 6,
-      name: "Batatinha frita 123",
-      price: 10,
-      type: "Acompanhamentos",
-      quantity: 3,
-    },
-  ];
-  it("Should perform a successful response and return an array of objects with the order data", async () => {
-    const orderData = {
-      id: 9,
-      table: "001",
-      userName: "NomeDoAtendente",
-      client: "NomeDoCliente",
-      products,
-      orderTotal: 60,
-      status: "pending",
-      dataEntry: new Date(),
-    };
+describe("API getUsers", () => {
+  it("Should perform a successful response and return an array of objects with user data", async () => {
+    const userData = [
+      {
+        email: "teste1@teste.com",
+        password: "$2a$10$gVkmcWdnwEBxXj2PWjuv9uDx7BfjiAobbabDAOrH2o8b1i3E7KwR.",
+        name: "Teste 1",
+        role: "admin",
+        id: 1,
+      },
+      {
+        email: "teste2@teste.com",
+        password: "$2a$10$JABwR1UAtJqr2DCJ41ypMOgOqlh8eRXmTBO6DXfKG3ybxhABY4rey",
+        name: "Teste 2",
+        role: "admin",
+        id: 2,
+      },
+    ];
 
     global.fetch = jest.fn().mockResolvedValue({
       ok: true,
       status: 200,
-      json: jest.fn().mockResolvedValue(orderData),
+      json: jest.fn().mockResolvedValue(userData),
     });
 
-    const result = await getOrders();
+    const result = await getUsers();
+
+    expect(result).toEqual(userData);
     expect(fetch).toHaveBeenCalledTimes(1);
-    expect(result).toEqual(orderData);
   });
 
   it.each([
@@ -57,7 +48,7 @@ describe("API getOrders", () => {
     });
 
     try {
-      await getOrders();
+      await getUsers();
     } catch (err) {
       expect(fetch).toHaveBeenCalledTimes(1);
       expect(err.message).toEqual(message);
