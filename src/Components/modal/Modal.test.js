@@ -72,4 +72,19 @@ describe("<Modal />", () => {
     const warningMessage = screen.getByText(props.message);
     expect(warningMessage).toBeInTheDocument();
   });
+
+  it("Should not render anything when isOpen equals 'false'", () => {
+    const props = {
+      isOpen: false,
+      typeModal: "",
+      message: "",
+      setModalOpen: jest.fn(),
+      send: jest.fn(),
+    };
+
+    render(<Modal {...props} />);
+
+    const imgWarning = screen.queryByRole("img", { name: "Marca de verificado com sucesso" });
+    expect(imgWarning).toBeNull();
+  });
 });
