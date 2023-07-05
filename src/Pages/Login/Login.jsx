@@ -8,8 +8,8 @@ import {
   CreateForm,
   ParagraphError,
 } from "./Login.styled";
-import Button from "../../Components/button/Button";
-import Input from "../../Components/input/Input";
+import Button from "../../Components/Button/Button";
+import Input from "../../Components/Input/Input";
 import userLogin from "../../API/login/login";
 import { setItem } from "../../storage/local";
 

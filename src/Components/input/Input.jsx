@@ -1,8 +1,8 @@
-import Text from "./Input.styles";
+import TextField from "./Input.styles";
 
 const Input = (props) => {
   return (
-    <Text
+    <TextField
       onChange={props.onChange}
       type={props.type || "text"}
       value={props.value}

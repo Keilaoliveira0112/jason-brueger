@@ -1,5 +1,5 @@
 import Container from "./ContainerButtons.styles";
-import Button from "../button/Button";
+import Button from "../Button/Button";
 
 const ContainerButtons = (props) => {
   return (

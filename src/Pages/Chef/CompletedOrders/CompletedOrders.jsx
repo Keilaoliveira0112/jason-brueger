@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { React, useState, useEffect } from "react";
-import Header from "../../../Components/header/Header";
-import Order from "../../../Components/order/Order";
+import Header from "../../../Components/Header/Header";
+import Order from "../../../Components/Order/Order";
 import Main from "./CompletedOrders.styled";
 import getOrders from "../../../API/orders/getOrders";
-import Modal from "../../../Components/modal/Modal";
+import Modal from "../../../Components/Modal/Modal";
 
 const CompletedOrders = () => {
   const navigation = useNavigate();

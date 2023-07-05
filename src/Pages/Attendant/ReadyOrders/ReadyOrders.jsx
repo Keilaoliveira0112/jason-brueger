@@ -1,10 +1,10 @@
 import { React, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Header from "../../../Components/header/Header";
-import Order from "../../../Components/order/Order";
+import Header from "../../../Components/Header/Header";
+import Order from "../../../Components/Order/Order";
 import getOrders from "../../../API/orders/getOrders";
 import patchOrders from "../../../API/orders/patchOrders";
-import Modal from "../../../Components/modal/Modal";
+import Modal from "../../../Components/Modal/Modal";
 import Main from "./ReadyOrders.styled";
 
 const ReadyOrders = () => {

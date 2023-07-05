@@ -1,11 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import { React, useState, useEffect } from "react";
-import Header from "../../../Components/header/Header";
-import ContainerButtons from "../../../Components/containerButtons/ContainerButtons";
-import List from "../../../Components/list/List";
-import Select from "../../../Components/select/Select";
-import Input from "../../../Components/input/Input";
-import OrderResume from "../../../Components/orderResume/OrderResume";
+import Header from "../../../Components/Header/Header";
+import ContainerButtons from "../../../Components/ContainerButtons/ContainerButtons";
+import List from "../../../Components/List/List";
+import Select from "../../../Components/Select/Select";
+import Input from "../../../Components/Input/Input";
+import OrderResume from "../../../Components/OrderResume/OrderResume";
+import Modal from "../../../Components/Modal/Modal";
 import {
   Main,
   SectionMenu,
@@ -14,7 +15,6 @@ import {
 } from "./NewOrder.styles";
 import getProducts from "../../../API/products/getProducts";
 import createOrder from "../../../API/orders/orders";
-import Modal from "../../../Components/modal/Modal";
 
 const NewOrder = () => {
   const navigation = useNavigate();

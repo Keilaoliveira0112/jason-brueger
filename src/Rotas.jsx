@@ -1,12 +1,12 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Login from "./Paginas/login/Login";
-import NewOrder from "./Paginas/attendant/newOrder/NewOrder";
-import ReadyOrders from "./Paginas/attendant/readyOrders/ReadyOrders";
-import PendingOrdes from "./Paginas/chef/pendingOrders/PendingOrders";
-import CompletedOrders from "./Paginas/chef/completedOrders/CompletedOrders";
-import Products from "./Paginas/manager/products/Products";
-import ProtectedRoute from "./Components/protectedRoute/ProtectedRoute";
-import Collaborators from "./Paginas/manager/collaborators/Collaborators";
+import Login from "./Pages/Login/Login";
+import NewOrder from "./Pages/Attendant/NewOrder/NewOrder";
+import ReadyOrders from "./Pages/Attendant/ReadyOrders/ReadyOrders";
+import PendingOrdes from "./Pages/Chef/PendingOrders/PendingOrders";
+import CompletedOrders from "./Pages/Chef/CompletedOrders/CompletedOrders";
+import Products from "./Pages/Manager/Products/Products";
+import Collaborators from "./Pages/Manager/Collaborators/Collaborators";
+import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
 
 const Rotas = () => {
   return (

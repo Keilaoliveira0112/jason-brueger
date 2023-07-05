@@ -1,11 +1,11 @@
 import { React, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Header from "../../../Components/header/Header";
-import Select from "../../../Components/select/Select";
-import FormAdd from "../../../Components/formAdd/FormAdd";
-import Card from "../../../Components/card/Card";
-import Modal from "../../../Components/modal/Modal";
-import ModalUpdate from "../../../Components/modalUpdate/ModalUpdate";
+import Header from "../../../Components/Header/Header";
+import Select from "../../../Components/Select/Select";
+import FormAdd from "../../../Components/FormAdd/FormAdd";
+import Card from "../../../Components/Card/Card";
+import Modal from "../../../Components/Modal/Modal";
+import ModalUpdate from "../../../Components/ModalUpdate/ModalUpdate";
 import { Main, Filter, FilterTitle } from "./Products.styled";
 import getProducts from "../../../API/products/getProducts";
 import createProduct from "../../../API/products/postProducts";

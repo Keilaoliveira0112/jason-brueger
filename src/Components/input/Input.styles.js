@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const Text = styled.input`
+const TextField = styled.input`
   background-color: #FFFFFF;
   border: none;
   color: #000000;
@@ -17,4 +17,4 @@ const Text = styled.input`
   }
 `;
 
-export default Text;
+export default TextField;

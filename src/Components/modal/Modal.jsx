@@ -5,7 +5,7 @@ import {
   Check,
   Message,
 } from "./Modal.styles";
-import ContainerButtons from "../containerButtons/ContainerButtons";
+import ContainerButtons from "../ContainerButtons/ContainerButtons";
 import Verified from "../../assets/Verified.gif";
 import Warning from "../../assets/Warning.gif";
 

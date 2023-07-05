@@ -18,7 +18,7 @@ import {
   TotalValue,
 } from "./OrderResume.styles";
 import btnDelete from "../../assets/btnDelete.svg";
-import Button from "../button/Button";
+import Button from "../Button/Button";
 
 const OrderResume = (props) => {
   return (

@@ -87,12 +87,12 @@ describe("<Card />", () => {
     const images = screen.getAllByRole("img");
     expect(images).toHaveLength(4);
 
-    const imgEdit = screen.getAllByRole("img", { name: "Botão de editar usuário" });
+    const imgEdit = screen.getAllByRole("img", { name: "Botão de editar" });
     expect(imgEdit).toHaveLength(2);
     const imgEditFirstUser = imgEdit[0];
     expect(imgEditFirstUser).toBeInTheDocument();
 
-    const imgDelete = screen.getAllByRole("img", { name: "Botão de excluir usuário" });
+    const imgDelete = screen.getAllByRole("img", { name: "Botão de excluir" });
     expect(imgDelete).toHaveLength(2);
     const imgDeleteSecondUser = imgDelete[1];
     expect(imgDeleteSecondUser).toBeInTheDocument();

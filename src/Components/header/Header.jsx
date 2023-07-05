@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import Logo from "../../assets/Logo.svg";
 import Logout from "../../assets/Logout.svg";
-import Button from "../button/Button";
+import Button from "../Button/Button";
 import { ContainerHeader, ImgLogo, ImgLogout } from "./Header.styles";
 import { removeItem } from "../../storage/local";
 
