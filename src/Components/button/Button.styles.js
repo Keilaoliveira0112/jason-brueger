@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-export const ButtonContainer = styled.button`
+const ButtonContainer = styled.button`
   font-weight: bold;
   font-family: "Asap";
   width: 25vw;
@@ -163,4 +163,6 @@ export const ButtonContainer = styled.button`
       height: 5vh;
     }
   `}
-`
+`;
+
+export default ButtonContainer;

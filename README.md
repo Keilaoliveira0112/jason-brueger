@@ -18,16 +18,22 @@
   <a href="https://nodejs.org/en">
     <img alt="icon-NodeJs" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" width="30" height="40"/>
   </a>
-  <a href="https://react.dev/">
+  <a href="https://react.dev">
     <img alt="icon-React" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" width="30" height="40"/>
   </a>
-  <a href="https://jestjs.io/pt-BR/">
+  <a href="https://jestjs.io/pt-BR">
     <img alt="icon-Jest" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jest/jest-plain.svg" width="30" height="40"/>
   </a>
-  <a href="https://code.visualstudio.com/">
+  <a href="https://testing-library.com">
+    <img alt="icon-testing-library" src="https://api.iconify.design/logos/testing-library.svg" width="30" height="40" />
+  </a>
+  <a href="https://insomnia.rest">
+    <img alt="icon-insomnia" src="https://api.iconify.design/logos/insomnia.svg" width="30" height="40" />
+  </a>
+  <a href="https://code.visualstudio.com">
     <img alt="icon-Vscode" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" width="30" height="40"/>
   </a>
-  <a href="https://www.figma.com/">
+  <a href="https://www.figma.com">
     <img alt="icon-Figma" height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" />
   </a>  
 </div>  
@@ -39,8 +45,7 @@
 * [2. Histórias de Usuários](#2-histórias-de-usuários) 
 * [3. Funcionalidades](#3-funcionalidades) 
 * [4. Considerações Técnicas](#4-considerações-técnicas) 
-* [5. Testes Unitários](#5-testes-unitários) 
-* [6. Desenvolvedoras](#6-desenvolvedoras)
+* [5. Desenvolvedoras](#5-desenvolvedoras)
 
 # 1. Resumo do Projeto
 
@@ -166,7 +171,7 @@ para manter atualizado o menu.
 
 ## Login:
 
-Para ter [acesso](https://jason-brueger.vercel.app/) será necessário realizar o login em um dos email e senha disponibilizados abaixo:
+Para ter [acesso](https://jason-brueger-project.vercel.app/) será necessário realizar o login em um dos email e senha disponibilizados abaixo:
 
 Cargo | Email | Senha 
 :--- | :--:  | :--- 
@@ -200,21 +205,20 @@ A interface oferece recursos com base nas permissões destinadas a cada usuário
 # 4. Considerações Técnicas
 
 Para o desenvolvimento deste projeto, utilizamos ferramentas e tecnologias adotadas para o desenvolvimento de aplicações web.
+
 O mesmo foi totalmente construído usando o framework `REACT`, que nos possibilita criar interfaces mais dinâmicas e interativas.
 
 Outra ferramenta utilizada foi `Insomnia` que nos auxilia para testar e simular as requisições da `API`. Com o Insomnia foi possível enviar requisições HTTP e visualizar as resposta recebidas, garantindo assim a comunicação entre interface e API.
+
+Nesse projeto, foi disponibilizado o [mock da api](https://app.swaggerhub.com/apis/ssinuco/BurgerQueenAPI/2.0.0) para podermos trabalhar em cima dos dados fornecidos. Vale ressaltar que cada vez que um usuário loga, haverá um limite de tempo para expiração do token de autenticação.
+
+Para garantir a qualidade e o bom funcionamento da aplicação, ferramentas como `Jest` e a biblioteca `Testing Library` foram utilizadas para realizar testes unitários para verificar o comportamento dos componente, das telas e da interação com o `mock da API`. Permitindo assim a verificação de possíveis erros ou falhas.
 
 Além dessas ferramentas citadas, também utilizamos a biblioteca `Styled-components` que nos permite escrever estilos CSS para a aplicação em arquivos `Javascript`.
 
 Essa combinação de tecnologias nos permitiu a criação de uma interface moderna, funcional, responsiva e eficiente para o ambiente proposto.
 
-# 5. Testes Unitários
- 
-Para garantir a qualidades e o bom funcionamento da aplicação, foram realizados testes unitários para verificar o comportamento de cada componente e das telas. Permitindo assim a verificação de possíveis erros ou falhas.
-
-Os testes unitários se aplica por toda a aplicação, desde a renderização adequada dos componentes, validação de dados e a interação correta com o `mock da API.
-
-# 6. Desenvolvedoras
+# 5. Desenvolvedoras
 
 [<img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/122534293?v=4" width=100><br>](https://github.com/AdrianaKatarina) | [<img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/122574525?v=4" width=100><br>](https://github.com/Keilaoliveira0112)
 :---: | :--: 

@@ -1,5 +1,11 @@
-import { Background, ModalSection, BtnClose, Check, Message } from "./Modal.styles";
-import ContainerButtons from "../containerButtons/ContainerButtons";
+import {
+  Background,
+  ModalSection,
+  BtnClose,
+  Check,
+  Message,
+} from "./Modal.styles";
+import ContainerButtons from "../ContainerButtons/ContainerButtons";
 import Verified from "../../assets/Verified.gif";
 import Warning from "../../assets/Warning.gif";
 
@@ -21,8 +27,8 @@ const Modal = (props) => {
               variantBtnTwo="senary"
               onClickBtnOne={props.setModalOpen}
               onClickBtnTwo={props.send}
-              childrenBtnTwo={"Sim"}
-              childrenBtnOne={"Cancelar"}
+              childrenBtnTwo="Sim"
+              childrenBtnOne="Cancelar"
             />
           </ModalSection>
         ) : (
@@ -35,7 +41,7 @@ const Modal = (props) => {
         )}
       </Background>
     );
-  };
+  }
   return null;
 };
 

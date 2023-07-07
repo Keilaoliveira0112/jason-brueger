@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Main = styled.main`
+const Main = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -12,4 +12,5 @@ export const Main = styled.main`
     flex-wrap: wrap;
     gap: 5rem;
   }
-`
+`;
+export default Main;

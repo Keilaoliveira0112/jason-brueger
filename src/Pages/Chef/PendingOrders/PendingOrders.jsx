@@ -1,13 +1,13 @@
 import { React, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Header from "../../../Components/header/Header";
-import Order from "../../../Components/order/Order";
-import { getOrders } from "../../../API/orders/getOrders";
-import { patchOrders } from "../../../API/orders/patchOrders";
-import Modal from "../../../Components/modal/Modal";
-import { Main } from "./ReadyOrders.styled";
+import Header from "../../../Components/Header/Header";
+import Order from "../../../Components/Order/Order";
+import getOrders from "../../../API/orders/getOrders";
+import Modal from "../../../Components/Modal/Modal";
+import Main from "./PendingOrders.styled";
+import patchOrders from "../../../API/orders/patchOrders";
 
-const ReadyOrders = () => {
+const PendingOrdes = () => {
   const navigation = useNavigate();
   const [orders, setOrders] = useState([]);
   const [openModal, setOpenModal] = useState(false);
@@ -19,26 +19,50 @@ const ReadyOrders = () => {
     const fetchData = async () => {
       try {
         const response = await getOrders();
-        const filterPending = response.filter((order) => order.status === "ready");
+        const filterPending = response.filter((order) => order.status === "pending");
         const newOrders = [...filterPending];
         const sortByHourAsc = newOrders.sort((a, b) => {
           return new Date(a.dataEntry) - new Date(b.dataEntry);
         });
         setOrders(sortByHourAsc);
-      }
-      catch (error) {
+      } catch (error) {
         setmodalMessage(error.message);
         setTypeModal("warning");
         setOpenModal(true);
-      };
+      }
     };
-    fetchData()
+    fetchData();
   }, []);
 
   const handleClickNavigate = (e) => {
     e.preventDefault();
-    const type = e.target.textContent === "Novo Pedido" ? "/novo-pedido" : "/pedidos-prontos";
-    navigation(type);
+    const page = e.target.textContent === "Pedidos Concluídos" ? "/pedidos-concluídos" : "/pedidos-pendentes";
+    navigation(page);
+  };
+
+  const handleReadyOrder = async (idOrder) => {
+    try {
+      if (!openModal) {
+        setvalueArguments(idOrder);
+        setmodalMessage("Tem certeza que deseja marcar esse pedido como concluído?");
+        setTypeModal("confirmation");
+        setOpenModal(true);
+      } else {
+        await patchOrders(valueArguments, "ready");
+        setmodalMessage("Pedido enviado com sucesso");
+        setTypeModal("sucess");
+        setOpenModal(true);
+        setTimeout(() => { setOpenModal(false); }, 3000);
+        const getIndex = orders.findIndex((order) => order.id === valueArguments);
+        const newOrder = [...orders];
+        newOrder.splice(getIndex, 1);
+        setOrders(newOrder);
+      }
+    } catch (error) {
+      setmodalMessage(error.message);
+      setTypeModal("warning");
+      setOpenModal(true);
+    }
   };
 
   const sendModal = (e) => {
@@ -47,43 +71,18 @@ const ReadyOrders = () => {
     handleReadyOrder();
   };
 
-  const handleReadyOrder = async (idOrder) => {
-    try {
-      if (!openModal) {
-        setvalueArguments(idOrder);
-        setmodalMessage(`Deseja marcar o pedido como entregue?`);
-        setTypeModal("confirmation");
-        return setOpenModal(true);
-      };
-      await patchOrders(valueArguments, "delivered");
-      setmodalMessage("Pedido enviado com sucesso");
-      setTypeModal("sucess");
-      setOpenModal(true);
-      setTimeout(() => { setOpenModal(false) }, 3000);
-      const getIndex = orders.findIndex((order) => order.id === valueArguments);
-      const newOrder = [...orders];
-      newOrder.splice(getIndex, 1);
-      setOrders(newOrder);
-    }
-    catch (error) {
-      setmodalMessage(error.message);
-      setTypeModal("warning");
-      setOpenModal(true);
-    };
-  };
-
   return (
     <>
       <Header
-        firstBtn="Novo Pedido"
-        variantFirstBtn="quinary"
-        secondBtn="Pedidos Prontos"
-        variantSecondBtn=""
+        firstBtn="Pedidos Pendentes"
+        variantFirstBtn=""
+        secondBtn="Pedidos Concluídos"
+        variantSecondBtn="quinary"
         onClick={handleClickNavigate}
       />
       <Main>
         <Order
-          page="Pedidos Prontos"
+          page="Pedidos Pendentes"
           orders={orders}
           onClick={handleReadyOrder}
         />
@@ -99,4 +98,4 @@ const ReadyOrders = () => {
   );
 };
 
-export default ReadyOrders;
+export default PendingOrdes;

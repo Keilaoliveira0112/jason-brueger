@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-export const SelectContainer = styled.select`
+const SelectContainer = styled.select`
   width: 18vw;
   height: 4vh;
   color: #711D17;
@@ -24,4 +24,6 @@ export const SelectContainer = styled.select`
       width: auto;
     }
   `}
-`
+`;
+
+export default SelectContainer;

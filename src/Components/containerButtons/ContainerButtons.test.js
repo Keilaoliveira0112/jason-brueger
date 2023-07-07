@@ -1,6 +1,6 @@
-import ContainerButtons from "./ContainerButtons";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import ContainerButtons from "./ContainerButtons";
 
 describe("<ContainerButtons />", () => {
   it("Should render and perform the functions of the buttons", () => {
@@ -8,8 +8,8 @@ describe("<ContainerButtons />", () => {
       onClickBtnOne: jest.fn(),
       onClickBtnTwo: jest.fn(),
       childrenBtnOne: "Café da manhã",
-      childrenBtnTwo: "Resto do dia"
-    }
+      childrenBtnTwo: "Resto do dia",
+    };
 
     render(<ContainerButtons {...props} />);
 

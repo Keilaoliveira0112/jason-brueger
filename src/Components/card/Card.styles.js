@@ -12,14 +12,14 @@ export const CardSection = styled.ul`
     flex-wrap: wrap;
     gap: 5rem;
   }
-`
-export const Each = styled.li`
+`;
+export const Container = styled.li`
   background-color: #D9D9D9;
   width: auto;
   height: auto;
   padding: 1rem;
   list-style-type: none;
-`
+`;
 export const Topic = styled.section`
   display: flex;
   gap: 0.3rem;
@@ -30,7 +30,7 @@ export const Topic = styled.section`
   @media only screen and (min-width: 1024px) {
     font-size: 2.2rem;
   }
-`
+`;
 export const Value = styled.p`
   font-family: "Asap", sans-serif;
   font-size: 1rem;
@@ -38,7 +38,7 @@ export const Value = styled.p`
   @media only screen and (min-width: 600px) {
     font-size: 1.6rem;
   }
-`
+`;
 export const GroupButtons = styled.section`
   display: flex;
   justify-content: center;
@@ -46,7 +46,7 @@ export const GroupButtons = styled.section`
   @media only screen and (min-width: 1024px) {
     margin-top: 1.5rem;
   }
-`
+`;
 export const Buttons = styled.button`
   border: none;
   background-color: transparent;
@@ -59,7 +59,7 @@ export const Buttons = styled.button`
   @media only screen and (min-width: 1024px) {
     font-size: 2.5rem;
   }
-`
+`;
 export const ImgEdit = styled.img`
   width: 5vw;
   height: 5vh;
@@ -67,7 +67,7 @@ export const ImgEdit = styled.img`
     width: 4vw;
     height: 4vh;
   }
-`
+`;
 export const ImgDelete = styled.img`
   width: 4.5vw;
   height: 5vh;
@@ -75,4 +75,4 @@ export const ImgDelete = styled.img`
     width: 3.5vw;
     height: 3vh;
   }
-`
+`;

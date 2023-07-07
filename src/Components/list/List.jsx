@@ -1,4 +1,9 @@
-import { Li, ButtonAdd, DishName, Price } from "./List.styles";
+import {
+  Li,
+  ButtonAdd,
+  DishName,
+  Price,
+} from "./List.styles";
 
 const List = (props) => {
   return (

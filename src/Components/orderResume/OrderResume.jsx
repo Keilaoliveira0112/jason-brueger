@@ -1,6 +1,24 @@
-import { Section, Title, Cova, ValueSelect, Clientame, ValueName, Ul, TemplateList, ItemName, ItemPrice, BtnReduce, ItemQuantity, BtnIncrease, BtnDelete, ImgDelete, TotalName, TotalValue } from "./OrderResume.styles";
+import {
+  Section,
+  Title,
+  Cova,
+  ValueSelect,
+  Clientame,
+  ValueName,
+  Ul,
+  TemplateList,
+  ItemName,
+  ItemPrice,
+  BtnReduce,
+  ItemQuantity,
+  BtnIncrease,
+  BtnDelete,
+  ImgDelete,
+  TotalName,
+  TotalValue,
+} from "./OrderResume.styles";
 import btnDelete from "../../assets/btnDelete.svg";
-import Button from "../button/Button";
+import Button from "../Button/Button";
 
 const OrderResume = (props) => {
   return (
@@ -9,7 +27,9 @@ const OrderResume = (props) => {
       <Cova>Cova: </Cova>
       <ValueSelect>{props.selectValue}</ValueSelect>
       <Clientame>Cliente: </Clientame>
-      <ValueName> {props.clientNameValue}</ValueName>
+      <ValueName>
+        {props.clientNameValue}
+      </ValueName>
       <Ul>
         {props.orderItem.map((item) => (
           <TemplateList key={item.id}>
@@ -25,7 +45,9 @@ const OrderResume = (props) => {
         ))}
       </Ul>
       <TotalName>Total: </TotalName>
-      <TotalValue>R$ {props.total}</TotalValue>
+      <TotalValue>
+        R$ {props.total}
+      </TotalValue>
       <Button variant="quaternary" onClick={() => props.onClickSend(props.total)}>Enviar</Button>
     </Section>
   );

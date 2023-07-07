@@ -11,14 +11,14 @@ export const Main = styled.main`
     justify-content: space-around;
     align-items: baseline;
   }
-`
+`;
 export const SectionMenu = styled.section`
   display: grid;
   gap: 2rem;
   @media only screen and (min-width: 1024px) {
     width: 32vw;
   }
-`
+`;
 export const TitleMenu = styled.h3`
   text-align: center;
   justify-self: center;
@@ -39,8 +39,8 @@ export const TitleMenu = styled.h3`
   @media only screen and (min-width: 1024px) {
     width: 18vw;
   }
-`
+`;
 export const UlMenu = styled.ul`
   display: grid;
   gap: 1rem;
-`
+`;

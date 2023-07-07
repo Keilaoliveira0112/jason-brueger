@@ -1,15 +1,20 @@
-import { React, useState, useEffect } from "react";
-import Header from "../../../Components/header/Header";
-import ContainerButtons from "../../../Components/containerButtons/ContainerButtons";
-import List from "../../../Components/list/List";
-import Select from "../../../Components/select/Select";
-import Input from "../../../Components/input/Input";
-import OrderResume from "../../../Components/orderResume/OrderResume";
-import { Main, SectionMenu, TitleMenu, UlMenu } from "./NewOrder.styles";
-import { getProducts } from "../../../API/products/getProducts";
-import { createOrder } from "../../../API/orders/orders";
 import { useNavigate } from "react-router-dom";
-import Modal from "../../../Components/modal/Modal";
+import { React, useState, useEffect } from "react";
+import Header from "../../../Components/Header/Header";
+import ContainerButtons from "../../../Components/ContainerButtons/ContainerButtons";
+import List from "../../../Components/List/List";
+import Select from "../../../Components/Select/Select";
+import Input from "../../../Components/Input/Input";
+import OrderResume from "../../../Components/OrderResume/OrderResume";
+import Modal from "../../../Components/Modal/Modal";
+import {
+  Main,
+  SectionMenu,
+  TitleMenu,
+  UlMenu,
+} from "./NewOrder.styles";
+import getProducts from "../../../API/products/getProducts";
+import createOrder from "../../../API/orders/orders";
 
 const NewOrder = () => {
   const navigation = useNavigate();
@@ -28,12 +33,11 @@ const NewOrder = () => {
       try {
         const response = await getProducts();
         setProducts(response);
-      }
-      catch (error) {
+      } catch (error) {
         setmodalMessage(error.message);
         setTypeModal("warning");
         setOpenModal(true);
-      };
+      }
     };
     fetchData();
   }, []);
@@ -52,8 +56,8 @@ const NewOrder = () => {
 
   const handleClickDelete = (item) => {
     if (!openModal) {
-      setvalueArguments(item)
-      setmodalMessage(`Tem certeza que deseja excluir esse item do resumo de pedidos?`);
+      setvalueArguments(item);
+      setmodalMessage("Tem certeza que deseja excluir esse item do resumo de pedidos?");
       setTypeModal("confirmation");
       setOpenModal(true);
     } else {
@@ -61,13 +65,40 @@ const NewOrder = () => {
       const newOrder = [...orderItem];
       newOrder.splice(getIndex, 1);
       setOrderItem(newOrder);
-    };
+    }
   };
 
-  const sendModal = (e) => {
-    e.preventDefault();
-    setOpenModal(false);
-    callCorrectFunction();
+  const handleSendOrder = async (orderTotal) => {
+    try {
+      if (orderItem.length <= 0) {
+        throw new Error("Não é possível enviar pedido caso o resumo esteja vazio!");
+      }
+      if (clientName === "") {
+        throw new Error("Não é possível enviar pedido caso não digite o nome do cliente!");
+      }
+      if (selectValue === "" || selectValue === "Cova") {
+        throw new Error("Não é possível enviar pedido caso não informe a mesa do cliente!");
+      }
+      if (!openModal) {
+        setvalueArguments(orderTotal);
+        setmodalMessage("Confirma o envio do pedido para a cozinha?");
+        setTypeModal("confirmation");
+        setOpenModal(true);
+      } else {
+        await createOrder(valueArguments, selectValue, orderItem, clientName);
+        setmodalMessage("Pedido enviado com sucesso");
+        setTypeModal("sucess");
+        setOpenModal(true);
+        setTimeout(() => { setOpenModal(false); }, 3000);
+        setOrderItem([]);
+        setName("");
+        setSelectValue("");
+      }
+    } catch (error) {
+      setmodalMessage(error.message);
+      setTypeModal("warning");
+      setOpenModal(true);
+    }
   };
 
   const callCorrectFunction = () => {
@@ -80,7 +111,13 @@ const NewOrder = () => {
         break;
       default:
         handleClickDelete();
-    };
+    }
+  };
+
+  const sendModal = (e) => {
+    e.preventDefault();
+    setOpenModal(false);
+    callCorrectFunction();
   };
 
   const handleClickQuantity = (item, children) => {
@@ -94,66 +131,35 @@ const NewOrder = () => {
         const valueChange = specificItem.quantity - 1;
         newOrder[getIndex].quantity = valueChange;
         setOrderItem(newOrder);
-      };
-    };
+      }
+    }
     if (children === "+") {
       const specificItem = newOrder[getIndex];
       const quantityChange = specificItem.quantity + 1;
       newOrder[getIndex].quantity = quantityChange;
       setOrderItem(newOrder);
-    };
+    }
   };
 
   const handleAddItems = (product) => {
     if (orderItem.length === 0) {
-      return setOrderItem((prevState) => [...prevState, product]);
-    };
-    const verification = orderItem.find(prod => prod.id === product.id);
-    if (!verification) {
-      return setOrderItem((prevState) => [...prevState, product]);
-    };
-    setmodalMessage(`Produto já foi adicionado no resumo! Caso queira alterar a quantidade, usar os botões no resumo do pedido`);
-    setTypeModal("warning");
-    setOpenModal(true);
+      setOrderItem((prevState) => [...prevState, product]);
+    } else {
+      const verification = orderItem.find((prod) => prod.id === product.id);
+      if (!verification) {
+        setOrderItem((prevState) => [...prevState, product]);
+      } else {
+        setmodalMessage("Produto já foi adicionado no resumo! Caso queira alterar a quantidade, usar os botões no resumo do pedido");
+        setTypeModal("warning");
+        setOpenModal(true);
+      }
+    }
   };
 
   const totalOrderAmount = () => {
     return orderItem.reduce((accum, valorAtual) => {
       return accum + (valorAtual.price * valorAtual.quantity);
     }, 0);
-  };
-
-  const handleSendOrder = async (orderTotal) => {
-    try {
-      if (orderItem.length <= 0) {
-        throw new Error(`Não é possível enviar pedido caso o resumo esteja vazio!`);
-      }
-      if (clientName === "") {
-        throw new Error(`Não é possível enviar pedido caso não digite o nome do cliente!`);
-      }
-      if (selectValue === "" || selectValue === "Cova") {
-        throw new Error(`Não é possível enviar pedido caso não informe a mesa do cliente!`);
-      }
-      if (!openModal) {
-        setvalueArguments(orderTotal);
-        setmodalMessage(`Confirma o envio do pedido para a cozinha?`);
-        setTypeModal("confirmation");
-        return setOpenModal(true);
-      }
-      await createOrder(valueArguments, selectValue, orderItem, clientName);
-      setmodalMessage("Pedido enviado com sucesso");
-      setTypeModal("sucess");
-      setOpenModal(true);
-      setTimeout(() => { setOpenModal(false) }, 3000);
-      setOrderItem([]);
-      setName("");
-      setSelectValue("");
-    }
-    catch (error) {
-      setmodalMessage(error.message);
-      setTypeModal("warning");
-      setOpenModal(true);
-    };
   };
 
   return (
@@ -201,54 +207,60 @@ const NewOrder = () => {
               <TitleMenu>Hamburguers</TitleMenu>
               <UlMenu>
                 {products.map((product) => {
-                  return product.type === "Hamburguers" &&
-                    <List
-                      key={product.id}
-                      name={product.name}
-                      price={`R$${product.price}`}
-                      onClick={() => handleAddItems(product)}
-                    />
+                  return product.type === "Hamburguers"
+                    && (
+                      <List
+                        key={product.id}
+                        name={product.name}
+                        price={`R$${product.price}`}
+                        onClick={() => handleAddItems(product)}
+                      />
+                    );
                 })}
               </UlMenu>
               <TitleMenu>Acompanhamentos</TitleMenu>
               <UlMenu>
                 {products.map((product) => {
-                  return product.type === "Acompanhamentos" &&
-                    <List
-                      key={product.id}
-                      name={product.name}
-                      price={`R$${product.price}`}
-                      onClick={() => setOrderItem((prevState) => [...prevState, product])}
-                    />
+                  return product.type === "Acompanhamentos"
+                    && (
+                      <List
+                        key={product.id}
+                        name={product.name}
+                        price={`R$${product.price}`}
+                        onClick={() => setOrderItem((prevState) => [...prevState, product])}
+                      />
+                    );
                 })}
               </UlMenu>
               <TitleMenu>Bebidas</TitleMenu>
               <UlMenu>
                 {products.map((product) => {
-                  return product.type === "Bebidas" &&
-                    <List
-                      key={product.id}
-                      name={product.name}
-                      price={`R$${product.price}`}
-                      onClick={() => setOrderItem((prevState) => [...prevState, product])}
-                    />
+                  return product.type === "Bebidas"
+                    && (
+                      <List
+                        key={product.id}
+                        name={product.name}
+                        price={`R$${product.price}`}
+                        onClick={() => setOrderItem((prevState) => [...prevState, product])}
+                      />
+                    );
                 })}
               </UlMenu>
             </>
           ) : (
-            <>
-              <UlMenu>
-                {products.map((product) => {
-                  return product.type === "Café da manhã" &&
+            <UlMenu>
+              {products.map((product) => {
+                return product.type === "Café da manhã"
+                  && (
                     <List
                       key={product.id}
                       name={product.name}
                       price={`R$${product.price}`}
                       onClick={() => handleAddItems(product)}
                     />
-                })}
-              </UlMenu>
-            </>
+                  );
+              })}
+            </UlMenu>
           )}
         </SectionMenu>
         <OrderResume

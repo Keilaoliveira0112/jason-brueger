@@ -1,5 +1,5 @@
-import Table from "./Table";
 import { render, screen } from "@testing-library/react";
+import Table from "./Table";
 
 describe("<Table />", () => {
   it("Should render an order list correctly", () => {
@@ -8,7 +8,7 @@ describe("<Table />", () => {
         id: "hjksjka",
         name: "Batata frita",
         quantity: 1,
-      }]
+      }],
     };
     render(<Table {...props} />);
 

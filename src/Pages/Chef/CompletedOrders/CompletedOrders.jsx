@@ -1,10 +1,10 @@
-import Header from "../../../Components/header/Header";
-import Order from "../../../Components/order/Order"
-import { Main } from "./CompletedOrders.styled";
 import { useNavigate } from "react-router-dom";
 import { React, useState, useEffect } from "react";
-import { getOrders } from "../../../API/orders/getOrders";
-import Modal from "../../../Components/modal/Modal";
+import Header from "../../../Components/Header/Header";
+import Order from "../../../Components/Order/Order";
+import Main from "./CompletedOrders.styled";
+import getOrders from "../../../API/orders/getOrders";
+import Modal from "../../../Components/Modal/Modal";
 
 const CompletedOrders = () => {
   const navigation = useNavigate();
@@ -18,16 +18,14 @@ const CompletedOrders = () => {
       try {
         const response = await getOrders();
         const filterDelivered = response.filter((order) => order.status === "ready");
-        console.log(filterDelivered);
         setOrders(filterDelivered);
-      }
-      catch (error) {
+      } catch (error) {
         setmodalMessage(error.message);
         setTypeModal("warning");
         setOpenModal(true);
-      };
+      }
     };
-    fetchData()
+    fetchData();
   }, []);
 
   const sendModal = (e) => {

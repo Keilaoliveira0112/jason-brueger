@@ -24,7 +24,7 @@ export const Section = styled.section`
     width: 30vw;
     grid-template-columns: 6vw;
   }
-`
+`;
 export const Title = styled.h1`
   grid-area: title;
   font-family: "Rubik Wet Paint", cursive;
@@ -37,7 +37,7 @@ export const Title = styled.h1`
   @media only screen and (min-width: 1024px) {
     font-size: 2.5rem;
   }
-`
+`;
 export const Cova = styled.h4`
   grid-area: cova;
   font-family: "Rubik Wet Paint", cursive;
@@ -47,7 +47,7 @@ export const Cova = styled.h4`
   @media only screen and (min-width: 600px) {
     font-size: 1.8rem;
   }
-`
+`;
 export const ValueSelect = styled.p`
   grid-area: value;
   font-size: 1.5rem;
@@ -56,7 +56,7 @@ export const ValueSelect = styled.p`
   @media only screen and (min-width: 600px) {
     font-size: 2rem;
   }
-`
+`;
 export const Clientame = styled.h4`
   grid-area: name;
   font-family: "Rubik Wet Paint", cursive;
@@ -66,7 +66,7 @@ export const Clientame = styled.h4`
   @media only screen and (min-width: 600px) {
     font-size: 1.8rem;
   }
-`
+`;
 export const ValueName = styled.p`
   grid-area: client;
   font-size: 1.5rem;
@@ -75,13 +75,13 @@ export const ValueName = styled.p`
   @media only screen and (min-width: 600px) {
     font-size: 2rem;
   }
-`
+`;
 export const Ul = styled.ul`
   grid-area: list;
   @media only screen and (min-width: 1024px) {
     padding: 2rem;
   }
-`
+`;
 export const TemplateList = styled.li`
   display: grid;
   font-family: "Asap", sans-serif;
@@ -91,14 +91,14 @@ export const TemplateList = styled.li`
   grid-template-rows: 5vh;
   margin-top: 2rem;
   align-items: center;
-`
+`;
 export const ItemName = styled.h4`
   grid-area: name;
   font-size: 1.5rem;
   @media only screen and (min-width: 600px) {
     font-size: 2rem;
   }
-`
+`;
 export const ItemPrice = styled.h6`
   grid-area: price;
   font-size: 1.2rem;
@@ -107,7 +107,7 @@ export const ItemPrice = styled.h6`
   @media only screen and (min-width: 600px) {
     font-size: 2rem;
   }
-`
+`;
 export const BtnReduce = styled.button`
   grid-area: reduce;
   border-radius: 50%;
@@ -128,7 +128,7 @@ export const BtnReduce = styled.button`
     font-weight: bold;
     justify-self: end;
   }
-`
+`;
 export const ItemQuantity = styled.p`
   grid-area: quantity;
   font-size: 1.5rem;
@@ -139,7 +139,7 @@ export const ItemQuantity = styled.p`
     font-size: 2.5rem;
     justify-self: center;
   }
-`
+`;
 export const BtnIncrease = styled.button`
   grid-area: increase;
   border-radius: 50%;
@@ -159,7 +159,7 @@ export const BtnIncrease = styled.button`
     height: 5vh;
     font-weight: bold;
   }
-`
+`;
 export const BtnDelete = styled.button`
   grid-area: delete;
   border: none;
@@ -173,7 +173,7 @@ export const BtnDelete = styled.button`
   @media only screen and (min-width: 1024px) {
     font-size: 2.5rem;
   }
-`
+`;
 export const ImgDelete = styled.img`
   width: 5vw;
   height: 5vh;
@@ -184,7 +184,7 @@ export const ImgDelete = styled.img`
   @media only screen and (min-width: 1024px) {
     margin-top: 0rem;
   }
-`
+`;
 export const TotalName = styled.h3`
   grid-area: totalName;
   padding: 2rem;
@@ -197,7 +197,7 @@ export const TotalName = styled.h3`
     padding: 4rem;
     font-size: 3rem;
   }
-`
+`;
 export const TotalValue = styled.h3`
   grid-area: totalValue;
   justify-self: end;
@@ -209,4 +209,4 @@ export const TotalValue = styled.h3`
     padding: 4rem;
     font-size: 3rem;
   }
-`
+`;

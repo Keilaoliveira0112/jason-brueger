@@ -7,5 +7,5 @@ export const getItem = (chave) => {
 };
 
 export const removeItem = (chave) => {
-  return localStorage.removeItem(chave)
+  return localStorage.removeItem(chave);
 };

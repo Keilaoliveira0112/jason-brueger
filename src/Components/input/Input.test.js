@@ -33,7 +33,6 @@ describe("<Input />", () => {
     userEvent.type(input, "texto@email.com");
     expect(input).toHaveValue("texto@email.com");
   });
-
 });
 it("Should check the attribute name of input", () => {
   render(<Input name="email" />);
@@ -43,7 +42,7 @@ it("Should check the attribute name of input", () => {
 });
 
 it("Should call onChange function on each key pressed", () => {
-  const fn = jest.fn()
+  const fn = jest.fn();
   render(<Input onChange={fn} />);
 
   const input = screen.getByRole("textbox");
