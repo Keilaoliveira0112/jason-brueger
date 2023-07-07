@@ -1,16 +1,17 @@
 import { React, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { Main, Filter, FilterTitle } from "./Products.styled";
 import Header from "../../../Components/Header/Header";
 import Select from "../../../Components/Select/Select";
 import FormAdd from "../../../Components/FormAdd/FormAdd";
 import Card from "../../../Components/Card/Card";
 import Modal from "../../../Components/Modal/Modal";
 import ModalUpdate from "../../../Components/ModalUpdate/ModalUpdate";
-import { Main, Filter, FilterTitle } from "./Products.styled";
-import getProducts from "../../../API/products/getProducts";
-import createProduct from "../../../API/products/postProducts";
-import deleteProducts from "../../../API/products/deleteProducts";
-import patchProducts from "../../../API/products/patchProducts";
+import getProducts from "../../../api/products/getProducts";
+import createProduct from "../../../api/products/postProducts";
+import deleteProducts from "../../../api/products/deleteProducts";
+import patchProducts from "../../../api/products/patchProducts";
+import path from "../../../router/path";
 
 const Products = () => {
   const navigation = useNavigate();
@@ -39,7 +40,7 @@ const Products = () => {
 
   const handleClickNavigate = (e) => {
     e.preventDefault();
-    const page = e.target.textContent === "Funcionários" ? "/colaboradores" : "/produtos";
+    const page = e.target.textContent === "Funcionários" ? path.collaborators : path.products;
     navigation(page);
   };
 

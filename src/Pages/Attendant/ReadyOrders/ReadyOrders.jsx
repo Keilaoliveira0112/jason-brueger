@@ -1,11 +1,12 @@
 import { React, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Main from "./ReadyOrders.styled";
 import Header from "../../../Components/Header/Header";
 import Order from "../../../Components/Order/Order";
-import getOrders from "../../../API/orders/getOrders";
-import patchOrders from "../../../API/orders/patchOrders";
 import Modal from "../../../Components/Modal/Modal";
-import Main from "./ReadyOrders.styled";
+import getOrders from "../../../api/orders/getOrders";
+import patchOrders from "../../../api/orders/patchOrders";
+import path from "../../../router/path";
 
 const ReadyOrders = () => {
   const navigation = useNavigate();
@@ -36,7 +37,7 @@ const ReadyOrders = () => {
 
   const handleClickNavigate = (e) => {
     e.preventDefault();
-    const type = e.target.textContent === "Novo Pedido" ? "/novo-pedido" : "/pedidos-prontos";
+    const type = e.target.textContent === "Novo Pedido" ? path.newOrder : path.readyOrders;
     navigation(type);
   };
 

@@ -2,10 +2,10 @@ import { render, screen } from "@testing-library/react";
 import { useNavigate } from "react-router-dom";
 import userEvent from "@testing-library/user-event";
 import Header from "./Header";
-import { removeItem } from "../../storage/local";
+import { removeItem } from "../../utils/localStorage";
 
 jest.mock("react-router-dom");
-jest.mock("../../storage/local");
+jest.mock("../../utils/localStorage");
 
 describe("<Header />", () => {
   it("Should render Header and perform your actions correctly", () => {

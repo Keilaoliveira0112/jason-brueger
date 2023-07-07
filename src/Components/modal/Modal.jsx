@@ -6,8 +6,8 @@ import {
   Message,
 } from "./Modal.styles";
 import ContainerButtons from "../ContainerButtons/ContainerButtons";
-import Verified from "../../assets/Verified.gif";
-import Warning from "../../assets/Warning.gif";
+import verified from "../../assets/verified.gif";
+import warning from "../../assets/warning.gif";
 
 const Modal = (props) => {
   if (props.isOpen) {
@@ -34,8 +34,8 @@ const Modal = (props) => {
         ) : (
           <ModalSection>
             <BtnClose onClick={props.setModalOpen} />
-            {props.typeModal === "warning" ? (<Check src={Warning} alt="Símbolo de alerta" />)
-              : (<Check src={Verified} alt="Marca de verificado com sucesso" />)}
+            {props.typeModal === "warning" ? (<Check src={warning} alt="Símbolo de alerta" />)
+              : (<Check src={verified} alt="Marca de verificado com sucesso" />)}
             <Message>{props.message}</Message>
           </ModalSection>
         )}

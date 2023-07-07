@@ -1,10 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { React, useState, useEffect } from "react";
+import Main from "./CompletedOrders.styled";
 import Header from "../../../Components/Header/Header";
 import Order from "../../../Components/Order/Order";
-import Main from "./CompletedOrders.styled";
-import getOrders from "../../../API/orders/getOrders";
 import Modal from "../../../Components/Modal/Modal";
+import getOrders from "../../../api/orders/getOrders";
+import path from "../../../router/path";
 
 const CompletedOrders = () => {
   const navigation = useNavigate();
@@ -35,7 +36,7 @@ const CompletedOrders = () => {
 
   const handleClickNavigate = (e) => {
     e.preventDefault();
-    const type = e.target.textContent === "Pedidos Pendentes" ? "/pedidos-pendentes" : "/pedidos-concluídos";
+    const type = e.target.textContent === "Pedidos Pendentes" ? path.pendingOrders : path.completedOrders;
     navigation(type);
   };
 

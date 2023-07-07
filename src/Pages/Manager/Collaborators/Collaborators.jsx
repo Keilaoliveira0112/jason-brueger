@@ -1,16 +1,17 @@
 import { React, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { Main, Filter, FilterTitle } from "./Collaborators.styled";
 import Header from "../../../Components/Header/Header";
 import Select from "../../../Components/Select/Select";
 import FormAdd from "../../../Components/FormAdd/FormAdd";
 import Card from "../../../Components/Card/Card";
 import Modal from "../../../Components/Modal/Modal";
 import ModalUpdate from "../../../Components/ModalUpdate/ModalUpdate";
-import { Main, Filter, FilterTitle } from "./Collaborators.styled";
-import getUsers from "../../../API/users/getUsers";
-import patchUser from "../../../API/users/patchUser";
-import deleteUser from "../../../API/users/deleteUsers";
-import createUsers from "../../../API/users/postUsers";
+import getUsers from "../../../api/users/getUsers";
+import patchUser from "../../../api/users/patchUser";
+import deleteUser from "../../../api/users/deleteUsers";
+import createUsers from "../../../api/users/postUsers";
+import path from "../../../router/path";
 
 const Collaborators = () => {
   const navigation = useNavigate();
@@ -39,7 +40,7 @@ const Collaborators = () => {
 
   const handleClickNavigate = (e) => {
     e.preventDefault();
-    const page = e.target.textContent === "Produtos" ? "/produtos" : "/colaboradores";
+    const page = e.target.textContent === "Produtos" ? path.products : path.collaborators;
     navigation(page);
   };
 

@@ -3,8 +3,8 @@ import {
   getHours,
   getMinutes,
 } from "date-fns";
-import Star from "../../assets/Star.svg";
-import Cross from "../../assets/Cross.svg";
+import star from "../../assets/star.svg";
+import cross from "../../assets/cross.svg";
 import Button from "../Button/Button";
 import Table from "../Table/Table";
 import {
@@ -26,15 +26,15 @@ const Order = (props) => {
     <Section key={order.id} variant={props.page === "Pedidos Pendentes" ? "OneColumn" : ""}>
       <Title>Resumo da Lápide</Title>
       <InitialDate>
-        <ImgDate src={Star} alt="Imagem de uma estrela que indica a hora que o pedido foi feito" />
+        <ImgDate src={star} alt="Imagem de uma estrela que indica a hora que o pedido foi feito" />
         <ValueOrder>{`${getHours(new Date(order.dataEntry))}h${getMinutes(new Date(order.dataEntry))}min`}</ValueOrder>
       </InitialDate>
-      {props.page !== "Pedidos Pendentes" ? (
+      {props.page !== "Pedidos Pendentes" && (
         <FinalDate>
-          <ImgDate src={Cross} alt="Imagem de uma cruz que indica a hora em que o pedido foi concluído" />
+          <ImgDate src={cross} alt="Imagem de uma cruz que indica a hora em que o pedido foi concluído" />
           <ValueOrder>{`${getHours(new Date(order.dateProcessed))}h${getMinutes(new Date(order.dateProcessed))}min`}</ValueOrder>
         </FinalDate>
-      ) : null}
+      )}
       <PitNumber>
         <Topic>Cova: </Topic>
         <ValueOrder>{order.table}</ValueOrder>

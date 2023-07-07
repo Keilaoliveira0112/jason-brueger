@@ -6,12 +6,12 @@ import {
 } from "@testing-library/react";
 import { useNavigate } from "react-router-dom";
 import Login from "./Login";
-import userLogin from "../../API/login/login";
-import { setItem } from "../../storage/local";
+import userLogin from "../../api/login/login";
+import { setItem } from "../../utils/localStorage";
 
 jest.mock("../../API/login/login");
 jest.mock("react-router-dom");
-jest.mock("../../storage/local");
+jest.mock("../../utils/localStorage");
 
 describe("Login Page", () => {
   it("Should redirect after successful login", async () => {
@@ -20,7 +20,7 @@ describe("Login Page", () => {
     userLogin.mockResolvedValueOnce({
       accessToken: "huhasud",
       user: {
-        email: "atendente@email.com",
+        email: "texto@email.com",
         id: 4,
         name: "Jason",
         role: "atendente",
@@ -30,11 +30,11 @@ describe("Login Page", () => {
     render(<Login />);
 
     const email = screen.getByPlaceholderText("Email");
-    const senha = screen.getByPlaceholderText("Senha");
+    const password = screen.getByPlaceholderText("Senha");
     const button = screen.getByRole("button");
 
     fireEvent.change(email, { target: { value: "texto@email.com" } });
-    fireEvent.change(senha, { target: { value: "password" } });
+    fireEvent.change(password, { target: { value: "password" } });
     fireEvent.click(button);
 
     await waitFor(() => {

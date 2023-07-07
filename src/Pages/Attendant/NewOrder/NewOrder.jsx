@@ -1,5 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { React, useState, useEffect } from "react";
+import {
+  Main,
+  SectionMenu,
+  TitleMenu,
+  UlMenu,
+} from "./NewOrder.styled";
 import Header from "../../../Components/Header/Header";
 import ContainerButtons from "../../../Components/ContainerButtons/ContainerButtons";
 import List from "../../../Components/List/List";
@@ -7,14 +13,9 @@ import Select from "../../../Components/Select/Select";
 import Input from "../../../Components/Input/Input";
 import OrderResume from "../../../Components/OrderResume/OrderResume";
 import Modal from "../../../Components/Modal/Modal";
-import {
-  Main,
-  SectionMenu,
-  TitleMenu,
-  UlMenu,
-} from "./NewOrder.styles";
-import getProducts from "../../../API/products/getProducts";
-import createOrder from "../../../API/orders/orders";
+import getProducts from "../../../api/products/getProducts";
+import createOrder from "../../../api/orders/orders";
+import path from "../../../router/path";
 
 const NewOrder = () => {
   const navigation = useNavigate();
@@ -44,7 +45,7 @@ const NewOrder = () => {
 
   const handleClickNavigate = (e) => {
     e.preventDefault();
-    const page = e.target.textContent === "Novo Pedido" ? "/novo-pedido" : "/pedidos-prontos";
+    const page = e.target.textContent === "Novo Pedido" ? path.newOrder : path.readyOrders;
     navigation(page);
   };
 

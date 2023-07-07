@@ -1,7 +1,7 @@
 import createUsers from "./postUsers";
-import { getItem } from "../../storage/local";
+import { getItem } from "../../utils/localStorage";
 
-jest.mock("../../storage/local");
+jest.mock("../../utils/localStorage");
 describe("API createUsers", () => {
   const mockUser = {
     name: "NomeDoUsuário",
