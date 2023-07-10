@@ -5,8 +5,9 @@ import Select from "./Select";
 describe("<Select />", () => {
   it("Should check value change when selecting a new table", () => {
     const props = {
-      defaultValue: "Cova",
+      defaultValue: "Teste",
       optionValues: ["001", "002", "003", "004"],
+      variant:"primary"
     };
     render(<Select {...props} />);
 
