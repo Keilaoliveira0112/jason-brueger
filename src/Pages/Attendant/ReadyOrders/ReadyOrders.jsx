@@ -1,6 +1,7 @@
 import { React, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../../../Components/Header/Header";
+import ContainerButtons from "../../../Components/ContainerButtons/ContainerButtons";
 import Order from "../../../Components/Order/Order";
 import getOrders from "../../../API/orders/getOrders";
 import patchOrders from "../../../API/orders/patchOrders";
@@ -14,13 +15,13 @@ const ReadyOrders = () => {
   const [typeModal, setTypeModal] = useState("");
   const [modalMessage, setmodalMessage] = useState("");
   const [valueArguments, setvalueArguments] = useState([]);
+  const [productType, setProductType] = useState("ReadyOrders");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await getOrders();
-        const filterPending = response.filter((order) => order.status === "ready");
-        const newOrders = [...filterPending];
+        const newOrders = [...response];
         const sortByHourAsc = newOrders.sort((a, b) => {
           return new Date(a.dataEntry) - new Date(b.dataEntry);
         });
@@ -36,7 +37,9 @@ const ReadyOrders = () => {
 
   const handleClickNavigate = (e) => {
     e.preventDefault();
-    const type = e.target.textContent === "Novo Pedido" ? "/novo-pedido" : "/pedidos-prontos";
+    const type = e.target.textContent === "Novo Pedido"
+      ? "/novo-pedido"
+      : "/pedidos-prontos";
     navigation(type);
   };
 
@@ -52,8 +55,12 @@ const ReadyOrders = () => {
         setmodalMessage("Pedido enviado com sucesso");
         setTypeModal("sucess");
         setOpenModal(true);
-        setTimeout(() => { setOpenModal(false); }, 3000);
-        const getIndex = orders.findIndex((order) => order.id === valueArguments);
+        setTimeout(() => {
+          setOpenModal(false);
+        }, 3000);
+        const getIndex = orders.findIndex(
+          (order) => order.id === valueArguments,
+        );
         const newOrder = [...orders];
         newOrder.splice(getIndex, 1);
         setOrders(newOrder);
@@ -64,11 +71,16 @@ const ReadyOrders = () => {
       setOpenModal(true);
     }
   };
-
   const sendModal = (e) => {
     e.preventDefault();
     setOpenModal(false);
     handleReadyOrder();
+  };
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    const type = e.target.textContent === "Prontos" ? "ReadyOrders" : "DeliveredOrders";
+    setProductType(type);
   };
 
   return (
@@ -81,9 +93,29 @@ const ReadyOrders = () => {
         onClick={handleClickNavigate}
       />
       <Main>
+        <ContainerButtons
+          variantBtnOne={
+            productType === "ReadyOrders" ? "secondary" : "tertiary"
+          }
+          variantBtnTwo={
+            productType === "ReadyOrders" ? "tertiary" : "secondary"
+          }
+          onClickBtnOne={handleClick}
+          onClickBtnTwo={handleClick}
+          childrenBtnTwo="Entregues"
+          childrenBtnOne="Prontos"
+        />
         <Order
-          page="Pedidos Prontos"
-          orders={orders}
+          page={
+            productType === "ReadyOrders"
+              ? "Pedidos Prontos"
+              : "Pedidos Concluídos"
+          }
+          orders={
+            productType === "ReadyOrders"
+              ? orders.filter((order) => order.status === "ready")
+              : orders.filter((order) => order.status === "delivered")
+          }
           onClick={handleReadyOrder}
         />
         <Modal
