@@ -14,15 +14,15 @@ jest.mock("react-router-dom");
 jest.mock("../../utils/localStorage");
 
 describe("Login Page", () => {
-  it("Should redirect after successful login", async () => {
+  it("Should redirect to '/novo-pedido' page after successful login", async () => {
     const navigate = jest.fn();
     useNavigate.mockReturnValue(navigate);
     userLogin.mockResolvedValueOnce({
-      accessToken: "huhasud",
+      accessToken: "mockToken",
       user: {
-        email: "texto@email.com",
+        email: "teste@atendente.com",
         id: 4,
-        name: "Jason",
+        name: "NomeCozinha",
         role: "atendente",
       },
     });
@@ -33,17 +33,77 @@ describe("Login Page", () => {
     const password = screen.getByPlaceholderText("Senha");
     const button = screen.getByRole("button");
 
-    fireEvent.change(email, { target: { value: "texto@email.com" } });
+    fireEvent.change(email, { target: { value: "teste@atendente.com" } });
     fireEvent.change(password, { target: { value: "password" } });
     fireEvent.click(button);
 
     await waitFor(() => {
       expect(navigate).toHaveBeenCalledWith("/novo-pedido");
     });
-    expect(userLogin).toHaveBeenCalledWith("texto@email.com", "password");
+    expect(userLogin).toHaveBeenCalledWith("teste@atendente.com", "password");
     expect(setItem).toHaveBeenCalledTimes(3);
-    expect(setItem).toHaveBeenCalledWith("token", "huhasud");
-    expect(setItem).toHaveBeenCalledWith("username", "Jason");
+    expect(setItem).toHaveBeenCalledWith("token", "mockToken");
+    expect(setItem).toHaveBeenCalledWith("username", "NomeCozinha");
+  });
+
+  it("Should redirect to '/pedidos-pendentes' page after successful login", async () => {
+    const navigate = jest.fn();
+    useNavigate.mockReturnValue(navigate);
+    userLogin.mockResolvedValueOnce({
+      accessToken: "mockToken",
+      user: {
+        email: "teste@cozinha.com",
+        id: 1,
+        name: "NomeCozinha",
+        role: "chefe de cozinha",
+      },
+    });
+
+    render(<Login />);
+
+    const email = screen.getByPlaceholderText("Email");
+    const password = screen.getByPlaceholderText("Senha");
+    const button = screen.getByRole("button");
+
+    fireEvent.change(email, { target: { value: "teste@cozinha.com" } });
+    fireEvent.change(password, { target: { value: "password" } });
+    fireEvent.click(button);
+
+    await waitFor(() => {
+      expect(navigate).toHaveBeenCalledWith("/pedidos-pendentes");
+    });
+    expect(userLogin).toHaveBeenCalledWith("teste@cozinha.com", "password");
+    expect(setItem).toHaveBeenCalledWith("username", "NomeCozinha");
+  });
+
+  it("Should redirect to '/colaboradores' page after successful login", async () => {
+    const navigate = jest.fn();
+    useNavigate.mockReturnValue(navigate);
+    userLogin.mockResolvedValueOnce({
+      accessToken: "mockToken",
+      user: {
+        email: "teste@admin.com",
+        id: 1,
+        name: "NomeAdmin",
+        role: "admin",
+      },
+    });
+
+    render(<Login />);
+
+    const email = screen.getByPlaceholderText("Email");
+    const password = screen.getByPlaceholderText("Senha");
+    const button = screen.getByRole("button");
+
+    fireEvent.change(email, { target: { value: "teste@admin.com" } });
+    fireEvent.change(password, { target: { value: "password" } });
+    fireEvent.click(button);
+
+    await waitFor(() => {
+      expect(navigate).toHaveBeenCalledWith("/colaboradores");
+    });
+    expect(userLogin).toHaveBeenCalledWith("teste@admin.com", "password");
+    expect(setItem).toHaveBeenCalledWith("username", "NomeAdmin");
   });
 
   it("Should not redirect if login is in error", async () => {

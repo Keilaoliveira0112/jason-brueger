@@ -30,7 +30,6 @@ const NewOrder = () => {
   const [timeOfDay, setTimeOfDay] = useState("Breakfast");
 
   const openSuccessModal = (message) => {
-    // setOpenModalUpdate(false);
     setmodalMessage(message);
     setTypeModal("sucess");
     setOpenModal(true);
@@ -38,14 +37,12 @@ const NewOrder = () => {
   };
 
   const openWarningModal = (message) => {
-    // setOpenModalUpdate(false);
     setmodalMessage(message);
     setTypeModal("warning");
     setOpenModal(true);
   };
 
   const openConfirmationModal = (message) => {
-    // setOpenModalUpdate(false);
     setmodalMessage(message);
     setTypeModal("confirmation");
     setOpenModal(true);
