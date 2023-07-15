@@ -9,7 +9,7 @@ import Login from "./Login";
 import userLogin from "../../api/login/login";
 import { setItem } from "../../utils/localStorage";
 
-jest.mock("../../API/login/login");
+jest.mock("../../api/login/login");
 jest.mock("react-router-dom");
 jest.mock("../../utils/localStorage");
 

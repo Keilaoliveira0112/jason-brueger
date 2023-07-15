@@ -149,19 +149,13 @@ const Products = () => {
     setOpenModalUpdate(true);
   };
 
-  const handleSubmitEditProduct = async (e) => {
-    e.preventDefault();
+  const sendEditedData = async () => {
     try {
-      if (!editingProduct.name) {
-        throw new Error("Informe um nome para o produto.");
-      }
-      if (!editingProduct.price || editingProduct.price <= 0) {
-        throw new Error("Informe um preço acima de 0.");
-      }
-      if (!editingProduct.type) {
-        throw new Error("Informe o tipo do produto.");
-      }
-      await patchProducts(editingProduct.id, { name: editingProduct.name, type: editingProduct.type, price: editingProduct.price });
+      await patchProducts(editingProduct.id, {
+        name: editingProduct.name,
+        type: editingProduct.type,
+        price: editingProduct.price,
+      });
       setOpenModalUpdate(false);
       setModalMessage("Produto atualizado com sucesso");
       setTypeModal("sucess");
@@ -179,6 +173,35 @@ const Products = () => {
     }
   };
 
+  const handleSubmitEditProduct = (e) => {
+    e.preventDefault();
+    const name = e.target.elements[0].value;
+    const price = parseInt(e.target.elements[1].value, 10);
+    setEditingProduct((prevState) => (
+      {
+        ...prevState,
+        name,
+        price,
+      }));
+    let errorMessage;
+    if (!name) {
+      errorMessage = "Informe um nome para o produto.";
+    }
+    if (!price || price <= 0) {
+      errorMessage = "Informe um preço acima de 0.";
+    }
+    if (!editingProduct.type) {
+      errorMessage = "Informe o tipo do produto.";
+    }
+    if (errorMessage) {
+      setModalMessage(errorMessage);
+      setTypeModal("warning");
+      setOpenModal(true);
+    } else {
+      sendEditedData();
+    }
+  };
+
   const optionsForm = {
     inputLabel: [
       {
@@ -186,6 +209,8 @@ const Products = () => {
         type: "text",
         name: "name",
         placeholder: "Nome do Produto",
+        value: editingProduct.name,
+        onChange: (e) => setEditingProduct((prevState) => ({ ...prevState, name: e.target.value })),
       },
       {
         label: "Preço:",
@@ -193,6 +218,8 @@ const Products = () => {
         type: "number",
         name: "price",
         placeholder: "Preço",
+        value: editingProduct.price,
+        onChange: (e) => setEditingProduct((prevState) => ({ ...prevState, price: e.target.value })),
       },
     ],
     labelButton: "Selecione o tipo:",
@@ -242,15 +269,11 @@ const Products = () => {
         />
         <ModalUpdate
           isOpen={openModalUpdate}
-          onSubmit={handleSubmitEditProduct}
           setModalOpen={handleModalClosure}
-          isProductForm
-          name={editingProduct.name}
-          onChangeName={(e) => setEditingProduct((prevState) => ({ ...prevState, name: e.target.value }))}
-          price={editingProduct.price}
-          onChangePrice={(e) => setEditingProduct((prevState) => ({ ...prevState, price: e.target.value }))}
-          onClick={handleClickType}
-          childrenBtn="Atualizar produto"
+          onSubmit={handleSubmitEditProduct}
+          onClickForm={handleClickType}
+          optionsForm={optionsForm}
+          childrenBtn="Atualizar cadastro"
         />
       </Main>
     </>
