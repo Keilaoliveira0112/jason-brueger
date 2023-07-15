@@ -85,8 +85,9 @@ const ButtonContainer = styled.button`
   `}
 
   ${({ variant }) => variant === "senary" && css`
-    width: 18vw;
-    height: 3.5vh;
+    width: auto;
+    height: auto;
+    padding: 0.5rem;
     font-size: 1.3rem;
     background-color: #0B2F05;
     color: #FFF;
@@ -95,11 +96,7 @@ const ButtonContainer = styled.button`
     justify-self: center;
     grid-area: paragraph;
     @media only screen and (min-width: 600px) {
-      width: 15vw;
       border-radius: 1rem;
-    }
-    @media only screen and (min-width: 1024px) {
-      width: 7vw;
     }
   `}
 

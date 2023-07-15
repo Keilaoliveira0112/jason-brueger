@@ -7,6 +7,9 @@ const Container = styled.div`
   ${({ variant }) => variant === "center" && css`
     justify-content: center;
   `}
+  ${({ variant }) => variant === "flex-start" && css`
+    align-self: flex-start;
+  `}
 `;
 
 export default Container;

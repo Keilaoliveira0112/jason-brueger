@@ -16,7 +16,7 @@ export const Main = styled.main`
 export const Section = styled.section`
   background-color: #D9D9D9;
   font-family: "Asap", sans-serif;
-  width: 60vw;
+  width: auto;
   height: auto;
   display: grid;
   grid-template-areas:
@@ -29,19 +29,17 @@ export const Section = styled.section`
     "paragraph paragraph";
   padding: 0.5rem;
   grid-template-columns: 30vw 30vw;
-  grid-template-rows: 8vh 4vh 3vh 3vh 3vh auto 4vh;
+  grid-template-rows: auto 4vh 3vh 3vh 3vh auto 4vh;
   border-radius: 8rem 8rem 0 0;
   @media only screen and (min-width: 600px) {
-    width: 40vw;
     grid-template-columns: 19vw 19vw;
     border-radius: 12rem 12rem 0 0;
-    grid-template-rows: 8vh 4vh 2vh 2vh 2vh auto 4vh;
+    grid-template-rows: auto 4vh 2vh 2vh 2vh auto 4vh;
   }
   @media only screen and (min-width: 1024px) {
-    grid-template-rows: 10vh 4vh 3.5vh 3.5vh 4vh auto 7vh;
+    grid-template-rows: auto 4vh 3.5vh 3.5vh 4vh auto 7vh;
     grid-template-columns: 10vw 10vw;
     border-radius: 10rem 10rem 0 0;
-    width: 20vw;
   }
   ${({ variant }) => variant === "OneColumn" && css`
     grid-template-areas:
@@ -69,7 +67,7 @@ export const Title = styled.h1`
   text-align: center;
   margin-top: 2rem;
   @media only screen and (min-width: 600px) {
-    font-size: 2.5rem;
+    font-size: 1.9rem;
     margin-top: 3rem;
   }
   @media only screen and (min-width: 1024px) {

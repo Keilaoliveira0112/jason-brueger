@@ -1,10 +1,10 @@
 import {
   Section,
   Title,
-  Cova,
-  ValueSelect,
-  Clientame,
-  ValueName,
+  Topic,
+  Value,
+  PitNumber,
+  ClientName,
   Ul,
   TemplateList,
   ItemName,
@@ -24,12 +24,14 @@ const OrderResume = (props) => {
   return (
     <Section>
       <Title>Resumo da Lápide</Title>
-      <Cova>Cova: </Cova>
-      <ValueSelect>{props.selectValue}</ValueSelect>
-      <Clientame>Cliente: </Clientame>
-      <ValueName>
-        {props.clientNameValue}
-      </ValueName>
+      <PitNumber>
+        <Topic>Cova: </Topic>
+        <Value>{props.selectValue}</Value>
+      </PitNumber>
+      <ClientName>
+        <Topic>Cliente: </Topic>
+        <Value>{props.clientNameValue}</Value>
+      </ClientName>
       <Ul>
         {props.orderItem.map((item) => (
           <TemplateList key={item.id}>

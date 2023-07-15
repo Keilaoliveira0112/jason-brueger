@@ -1,6 +1,6 @@
 import { React, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Main from "./ReadyOrders.styled";
+import { Main, SectionOrder } from "./ReadyOrders.styled";
 import Header from "../../../Components/Header/Header";
 import ContainerButtons from "../../../Components/ContainerButtons/ContainerButtons";
 import Order from "../../../Components/Order/Order";
@@ -16,7 +16,7 @@ const ReadyOrders = () => {
   const [typeModal, setTypeModal] = useState("");
   const [modalMessage, setmodalMessage] = useState("");
   const [valueArguments, setvalueArguments] = useState([]);
-  const [productType, setProductType] = useState("ReadyOrders");
+  const [statusOrder, setStatusOrder] = useState("ReadyOrders");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -76,10 +76,10 @@ const ReadyOrders = () => {
     handleReadyOrder();
   };
 
-  const handleClick = (e) => {
+  const handleClickStatusChange = (e) => {
     e.preventDefault();
     const type = e.target.textContent === "Prontos" ? "ReadyOrders" : "DeliveredOrders";
-    setProductType(type);
+    setStatusOrder(type);
   };
 
   return (
@@ -93,30 +93,29 @@ const ReadyOrders = () => {
       />
       <Main>
         <ContainerButtons
-          variantBtnOne={
-            productType === "ReadyOrders" ? "secondary" : "tertiary"
-          }
-          variantBtnTwo={
-            productType === "ReadyOrders" ? "tertiary" : "secondary"
-          }
-          onClickBtnOne={handleClick}
-          onClickBtnTwo={handleClick}
-          childrenBtnTwo="Entregues"
+          variantBtnOne={statusOrder === "ReadyOrders" ? "secondary" : "tertiary"}
+          variantBtnTwo={statusOrder === "DeliveredOrders" ? "secondary" : "tertiary"}
+          onClickBtnOne={handleClickStatusChange}
+          onClickBtnTwo={handleClickStatusChange}
           childrenBtnOne="Prontos"
+          childrenBtnTwo="Entregues"
+          variantContainer="flex-start"
         />
-        <Order
-          page={
-            productType === "ReadyOrders"
-              ? "Pedidos Prontos"
-              : "Pedidos Concluídos"
-          }
-          orders={
-            productType === "ReadyOrders"
-              ? orders.filter((order) => order.status === "ready")
-              : orders.filter((order) => order.status === "delivered")
-          }
-          onClick={handleReadyOrder}
-        />
+        <SectionOrder>
+          <Order
+            page={
+              statusOrder === "ReadyOrders"
+                ? "Pedidos Prontos"
+                : "Pedidos Concluídos"
+            }
+            orders={
+              statusOrder === "ReadyOrders"
+                ? orders.filter((order) => order.status === "ready")
+                : orders.filter((order) => order.status === "delivered")
+            }
+            onClick={handleReadyOrder}
+          />
+        </SectionOrder>
         <Modal
           isOpen={openModal}
           typeModal={typeModal}
