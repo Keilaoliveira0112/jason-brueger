@@ -24,6 +24,8 @@ const FormAdd = (
             type={value.type}
             name={value.name}
             placeholder={value.placeholder}
+            value={value.value}
+            onChange={value.onChange}
           />
         </GroupInput>
       ))}

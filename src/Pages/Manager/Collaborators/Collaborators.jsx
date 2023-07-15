@@ -156,14 +156,12 @@ const Collaborators = () => {
   };
 
   const handleClickEdit = (user) => {
-    console.log(user);
     SetEditingUser(user);
     setOpenModalUpdate(true);
   };
 
   const sendEditedData = async () => {
     try {
-      console.log(editingUser);
       await patchUser(editingUser.id, {
         name: editingUser.name,
         email: editingUser.email,
@@ -192,7 +190,6 @@ const Collaborators = () => {
     const name = e.target.elements[0].value;
     const email = e.target.elements[1].value;
     const password = e.target.elements[2].value;
-    console.log(name, email, password);
     SetEditingUser((prevState) => (
       {
         ...prevState,
@@ -209,6 +206,9 @@ const Collaborators = () => {
     }
     if (!password || password.length < 6) {
       errorMessage = "Senha deve ser maior ou igual que 6 caracteres.";
+    }
+    if (password.length > 20) {
+      errorMessage = "Senha deve ser menor que 20 caracteres.";
     }
     if (!editingUser.role) {
       errorMessage = "Informe a função do colaborador";
@@ -229,18 +229,24 @@ const Collaborators = () => {
         type: "text",
         name: "name",
         placeholder: "Nome",
+        value: editingUser.name,
+        onChange: (e) => SetEditingUser((prevState) => ({ ...prevState, name: e.target.value })),
       },
       {
         label: "Email:",
         type: "email",
         name: "email",
         placeholder: "Email",
+        value: editingUser.email,
+        onChange: (e) => SetEditingUser((prevState) => ({ ...prevState, email: e.target.value })),
       },
       {
         label: "Senha:",
         type: "password",
         name: "password",
         placeholder: "Senha",
+        value: editingUser.password,
+        onChange: (e) => SetEditingUser((prevState) => ({ ...prevState, password: e.target.value })),
       },
     ],
     labelButton: "Selecione o cargo:",

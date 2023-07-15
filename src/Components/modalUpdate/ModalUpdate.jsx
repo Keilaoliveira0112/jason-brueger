@@ -1,6 +1,9 @@
 import FormAdd from "../FormAdd/FormAdd";
-import { Background, BtnClose } from "../Modal/Modal.styles";
-import ModalSection from "./ModalUpdate.styles";
+import {
+  Background,
+  ModalSection,
+} from "./ModalUpdate.styles";
+import { BtnClose } from "../Modal/Modal.styles";
 
 const ModalUpdate = (props) => {
   if (props.isOpen) {

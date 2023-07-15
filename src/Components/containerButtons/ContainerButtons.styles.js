@@ -9,6 +9,7 @@ const Container = styled.div`
   `}
   ${({ variant }) => variant === "flex-start" && css`
     align-self: flex-start;
+    padding: 3rem 0rem 0rem 13rem;
   `}
 `;
 
