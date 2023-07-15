@@ -1,11 +1,13 @@
 import { React, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Header from "../../../Components/header/Header";
-import Order from "../../../Components/order/Order";
-import getOrders from "../../../API/orders/getOrders";
-import patchOrders from "../../../API/orders/patchOrders";
-import Modal from "../../../Components/modal/Modal";
-import Main from "./ReadyOrders.styled";
+import { Main, SectionOrder } from "./ReadyOrders.styled";
+import Header from "../../../Components/Header/Header";
+import ContainerButtons from "../../../Components/ContainerButtons/ContainerButtons";
+import Order from "../../../Components/Order/Order";
+import Modal from "../../../Components/Modal/Modal";
+import getOrders from "../../../api/orders/getOrders";
+import patchOrders from "../../../api/orders/patchOrders";
+import pageRoute from "../../../router/pageRoute";
 
 const ReadyOrders = () => {
   const navigation = useNavigate();
@@ -14,13 +16,13 @@ const ReadyOrders = () => {
   const [typeModal, setTypeModal] = useState("");
   const [modalMessage, setmodalMessage] = useState("");
   const [valueArguments, setvalueArguments] = useState([]);
+  const [statusOrder, setStatusOrder] = useState("ReadyOrders");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await getOrders();
-        const filterPending = response.filter((order) => order.status === "ready");
-        const newOrders = [...filterPending];
+        const newOrders = [...response];
         const sortByHourAsc = newOrders.sort((a, b) => {
           return new Date(a.dataEntry) - new Date(b.dataEntry);
         });
@@ -36,7 +38,7 @@ const ReadyOrders = () => {
 
   const handleClickNavigate = (e) => {
     e.preventDefault();
-    const type = e.target.textContent === "Novo Pedido" ? "/novo-pedido" : "/pedidos-prontos";
+    const type = e.target.textContent === "Novo Pedido" ? pageRoute.newOrder : pageRoute.readyOrders;
     navigation(type);
   };
 
@@ -52,8 +54,12 @@ const ReadyOrders = () => {
         setmodalMessage("Pedido enviado com sucesso");
         setTypeModal("sucess");
         setOpenModal(true);
-        setTimeout(() => { setOpenModal(false); }, 3000);
-        const getIndex = orders.findIndex((order) => order.id === valueArguments);
+        setTimeout(() => {
+          setOpenModal(false);
+        }, 3000);
+        const getIndex = orders.findIndex(
+          (order) => order.id === valueArguments,
+        );
         const newOrder = [...orders];
         newOrder.splice(getIndex, 1);
         setOrders(newOrder);
@@ -64,11 +70,16 @@ const ReadyOrders = () => {
       setOpenModal(true);
     }
   };
-
   const sendModal = (e) => {
     e.preventDefault();
     setOpenModal(false);
     handleReadyOrder();
+  };
+
+  const handleClickStatusChange = (e) => {
+    e.preventDefault();
+    const type = e.target.textContent === "Prontos" ? "ReadyOrders" : "DeliveredOrders";
+    setStatusOrder(type);
   };
 
   return (
@@ -81,11 +92,30 @@ const ReadyOrders = () => {
         onClick={handleClickNavigate}
       />
       <Main>
-        <Order
-          page="Pedidos Prontos"
-          orders={orders}
-          onClick={handleReadyOrder}
+        <ContainerButtons
+          variantBtnOne={statusOrder === "ReadyOrders" ? "secondary" : "tertiary"}
+          variantBtnTwo={statusOrder === "DeliveredOrders" ? "secondary" : "tertiary"}
+          onClickBtnOne={handleClickStatusChange}
+          onClickBtnTwo={handleClickStatusChange}
+          childrenBtnOne="Prontos"
+          childrenBtnTwo="Entregues"
+          variantContainer="flex-start"
         />
+        <SectionOrder>
+          <Order
+            page={
+              statusOrder === "ReadyOrders"
+                ? "Pedidos Prontos"
+                : "Pedidos Concluídos"
+            }
+            orders={
+              statusOrder === "ReadyOrders"
+                ? orders.filter((order) => order.status === "ready")
+                : orders.filter((order) => order.status === "delivered")
+            }
+            onClick={handleReadyOrder}
+          />
+        </SectionOrder>
         <Modal
           isOpen={openModal}
           typeModal={typeModal}

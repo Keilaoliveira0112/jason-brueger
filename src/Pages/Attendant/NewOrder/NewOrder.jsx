@@ -1,20 +1,21 @@
 import { useNavigate } from "react-router-dom";
 import { React, useState, useEffect } from "react";
-import Header from "../../../Components/header/Header";
-import ContainerButtons from "../../../Components/containerButtons/ContainerButtons";
-import List from "../../../Components/list/List";
-import Select from "../../../Components/select/Select";
-import Input from "../../../Components/input/Input";
-import OrderResume from "../../../Components/orderResume/OrderResume";
 import {
   Main,
   SectionMenu,
   TitleMenu,
   UlMenu,
-} from "./NewOrder.styles";
-import getProducts from "../../../API/products/getProducts";
-import createOrder from "../../../API/orders/orders";
-import Modal from "../../../Components/modal/Modal";
+} from "./NewOrder.styled";
+import Header from "../../../Components/Header/Header";
+import ContainerButtons from "../../../Components/ContainerButtons/ContainerButtons";
+import List from "../../../Components/List/List";
+import Select from "../../../Components/Select/Select";
+import Input from "../../../Components/Input/Input";
+import OrderResume from "../../../Components/OrderResume/OrderResume";
+import Modal from "../../../Components/Modal/Modal";
+import getProducts from "../../../api/products/getProducts";
+import createOrder from "../../../api/orders/orders";
+import pageRoute from "../../../router/pageRoute";
 
 const NewOrder = () => {
   const navigation = useNavigate();
@@ -26,7 +27,26 @@ const NewOrder = () => {
   const [typeModal, setTypeModal] = useState("");
   const [modalMessage, setmodalMessage] = useState("");
   const [valueArguments, setvalueArguments] = useState([]);
-  const [productType, setProductType] = useState("Breakfast");
+  const [timeOfDay, setTimeOfDay] = useState("Breakfast");
+
+  const openSuccessModal = (message) => {
+    setmodalMessage(message);
+    setTypeModal("sucess");
+    setOpenModal(true);
+    setTimeout(() => { setOpenModal(false); }, 3000);
+  };
+
+  const openWarningModal = (message) => {
+    setmodalMessage(message);
+    setTypeModal("warning");
+    setOpenModal(true);
+  };
+
+  const openConfirmationModal = (message) => {
+    setmodalMessage(message);
+    setTypeModal("confirmation");
+    setOpenModal(true);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,9 +54,7 @@ const NewOrder = () => {
         const response = await getProducts();
         setProducts(response);
       } catch (error) {
-        setmodalMessage(error.message);
-        setTypeModal("warning");
-        setOpenModal(true);
+        openWarningModal(error.message);
       }
     };
     fetchData();
@@ -44,22 +62,20 @@ const NewOrder = () => {
 
   const handleClickNavigate = (e) => {
     e.preventDefault();
-    const page = e.target.textContent === "Novo Pedido" ? "/novo-pedido" : "/pedidos-prontos";
+    const page = e.target.textContent === "Novo Pedido" ? pageRoute.newOrder : pageRoute.readyOrders;
     navigation(page);
   };
 
-  const handleClick = (e) => {
+  const handleClickProductType = (e) => {
     e.preventDefault();
-    const type = e.target.textContent === "Resto do dia" ? "RestOfTheDay" : "Breakfast";
-    setProductType(type);
+    const type = e.target.textContent === "Café da manhã" ? "Breakfast" : "RestOfTheDay";
+    setTimeOfDay(type);
   };
 
   const handleClickDelete = (item) => {
     if (!openModal) {
       setvalueArguments(item);
-      setmodalMessage("Tem certeza que deseja excluir esse item do resumo de pedidos?");
-      setTypeModal("confirmation");
-      setOpenModal(true);
+      openConfirmationModal("Tem certeza que deseja excluir esse item do resumo de pedidos?");
     } else {
       const getIndex = orderItem.findIndex((order) => order.id === valueArguments.id);
       const newOrder = [...orderItem];
@@ -81,23 +97,16 @@ const NewOrder = () => {
       }
       if (!openModal) {
         setvalueArguments(orderTotal);
-        setmodalMessage("Confirma o envio do pedido para a cozinha?");
-        setTypeModal("confirmation");
-        setOpenModal(true);
+        openConfirmationModal("Confirma o envio do pedido para a cozinha?");
       } else {
         await createOrder(valueArguments, selectValue, orderItem, clientName);
-        setmodalMessage("Pedido enviado com sucesso");
-        setTypeModal("sucess");
-        setOpenModal(true);
-        setTimeout(() => { setOpenModal(false); }, 3000);
+        openSuccessModal("Pedido enviado com sucesso");
         setOrderItem([]);
         setName("");
         setSelectValue("");
       }
     } catch (error) {
-      setmodalMessage(error.message);
-      setTypeModal("warning");
-      setOpenModal(true);
+      openWarningModal(error.message);
     }
   };
 
@@ -123,22 +132,18 @@ const NewOrder = () => {
   const handleClickQuantity = (item, children) => {
     const getIndex = orderItem.findIndex((order) => order.id === item.id);
     const newOrder = [...orderItem];
+    const specificItem = newOrder[getIndex];
     if (children === "-") {
       if (item.quantity <= 1) {
         handleClickDelete(item);
       } else {
-        const specificItem = newOrder[getIndex];
-        const valueChange = specificItem.quantity - 1;
-        newOrder[getIndex].quantity = valueChange;
-        setOrderItem(newOrder);
+        newOrder[getIndex].quantity = specificItem.quantity - 1;
       }
     }
     if (children === "+") {
-      const specificItem = newOrder[getIndex];
-      const quantityChange = specificItem.quantity + 1;
-      newOrder[getIndex].quantity = quantityChange;
-      setOrderItem(newOrder);
+      newOrder[getIndex].quantity = specificItem.quantity + 1;
     }
+    setOrderItem(newOrder);
   };
 
   const handleAddItems = (product) => {
@@ -149,9 +154,7 @@ const NewOrder = () => {
       if (!verification) {
         setOrderItem((prevState) => [...prevState, product]);
       } else {
-        setmodalMessage("Produto já foi adicionado no resumo! Caso queira alterar a quantidade, usar os botões no resumo do pedido");
-        setTypeModal("warning");
-        setOpenModal(true);
+        openWarningModal("Produto já foi adicionado no resumo! Caso queira alterar a quantidade, usar os botões no resumo do pedido");
       }
     }
   };
@@ -173,23 +176,14 @@ const NewOrder = () => {
       />
       <Main>
         <SectionMenu>
-          {productType === "RestOfTheDay" ? (
-            <ContainerButtons
-              variantBtnOne="tertiary"
-              variantBtnTwo="secondary"
-              onClickBtnOne={handleClick}
-              childrenBtnTwo="Resto do dia"
-              childrenBtnOne="Café da manhã"
-            />
-          ) : (
-            <ContainerButtons
-              variantBtnOne="secondary"
-              variantBtnTwo="tertiary"
-              onClickBtnTwo={handleClick}
-              childrenBtnTwo="Resto do dia"
-              childrenBtnOne="Café da manhã"
-            />
-          )}
+          <ContainerButtons
+            variantBtnOne={timeOfDay === "Breakfast" ? "secondary" : "tertiary"}
+            variantBtnTwo={timeOfDay === "RestOfTheDay" ? "secondary" : "tertiary"}
+            onClickBtnOne={handleClickProductType}
+            onClickBtnTwo={handleClickProductType}
+            childrenBtnOne="Café da manhã"
+            childrenBtnTwo="Resto do dia"
+          />
           <Input
             type="text"
             value={clientName}
@@ -202,7 +196,7 @@ const NewOrder = () => {
             defaultValue="Cova"
             optionValues={["001", "002", "003", "004"]}
           />
-          {productType === "RestOfTheDay" ? (
+          {timeOfDay === "RestOfTheDay" ? (
             <>
               <TitleMenu>Hamburguers</TitleMenu>
               <UlMenu>
@@ -227,7 +221,7 @@ const NewOrder = () => {
                         key={product.id}
                         name={product.name}
                         price={`R$${product.price}`}
-                        onClick={() => setOrderItem((prevState) => [...prevState, product])}
+                        onClick={() => handleAddItems(product)}
                       />
                     );
                 })}
@@ -241,7 +235,7 @@ const NewOrder = () => {
                         key={product.id}
                         name={product.name}
                         price={`R$${product.price}`}
-                        onClick={() => setOrderItem((prevState) => [...prevState, product])}
+                        onClick={() => handleAddItems(product)}
                       />
                     );
                 })}

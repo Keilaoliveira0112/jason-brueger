@@ -1,7 +1,7 @@
 import patchUser from "./patchUser";
-import { getItem } from "../../storage/local";
+import { getItem } from "../../utils/localStorage";
 
-jest.mock("../../storage/local");
+jest.mock("../../utils/localStorage");
 
 describe("API patchUser", () => {
   const mockUser = {

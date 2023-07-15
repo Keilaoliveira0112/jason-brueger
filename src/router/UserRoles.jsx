@@ -1,7 +1,7 @@
 import { Navigate } from "react-router-dom";
-import { getItem } from "../../storage/local";
+import { getItem } from "../utils/localStorage";
 
-const ProtectedRoute = ({ user, children }) => {
+const UserRoles = ({ user, children }) => {
   const token = getItem("token");
   const role = getItem("role");
 
@@ -11,4 +11,4 @@ const ProtectedRoute = ({ user, children }) => {
   return <Navigate to="/" replace />;
 };
 
-export default ProtectedRoute;
+export default UserRoles;

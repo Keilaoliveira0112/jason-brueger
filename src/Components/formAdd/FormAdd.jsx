@@ -1,72 +1,39 @@
-import Input from "../input/Input";
-import Button from "../button/Button";
-import { Form, Topic, GroupButtons } from "./FormAdd.styles";
+import Input from "../Input/Input";
+import Button from "../Button/Button";
+import {
+  Form,
+  GroupInput,
+  Topic,
+  GroupButtons,
+} from "./FormAdd.styles";
 
-const FormAdd = (props) => {
+const FormAdd = (
+  {
+    onSubmit,
+    onClick,
+    optionsForm,
+    childrenBtn,
+  },
+) => {
   return (
-    <Form onSubmit={props.onSubmit}>
-      {props.isProductForm ? (
-        <>
-          <Topic htmlFor="name">Nome do Produto: </Topic>
+    <Form onSubmit={onSubmit}>
+      {optionsForm.inputLabel.map((value) => (
+        <GroupInput key={value.placeholder}>
+          <Topic key={value.placeholder} htmlFor={value.name}>{value.label}</Topic>
           <Input
-            type="text"
-            value={props.name}
-            onChange={props.onChangeName}
-            name="name"
-            placeholder="Nome do Produto"
+            type={value.type}
+            name={value.name}
+            placeholder={value.placeholder}
           />
-          <Topic htmlFor="price">Preço: </Topic>
-          <Input
-            min="0"
-            type="number"
-            value={props.price}
-            name="price"
-            placeholder="Preço"
-            onChange={props.onChangePrice}
-          />
-          <Topic>Selecione o tipo: </Topic>
-          <GroupButtons>
-            <Button variant="octonary" onClick={props.onClick}>Café da Manhã</Button>
-            <Button variant="octonary" onClick={props.onClick}>Hamburguers</Button>
-            <Button variant="octonary" onClick={props.onClick}>Acompanhamentos</Button>
-            <Button variant="octonary" onClick={props.onClick}>Bebidas</Button>
-          </GroupButtons>
-        </>
-      ) : (
-        <>
-          <Topic htmlFor="name">Nome: </Topic>
-          <Input
-            type="text"
-            value={props.name}
-            onChange={props.onChangeName}
-            name="name"
-            placeholder="Nome"
-          />
-          <Topic htmlFor="name">Email: </Topic>
-          <Input
-            type="email"
-            value={props.email}
-            name="email"
-            placeholder="Email"
-            onChange={props.onChangeEmail}
-          />
-          <Topic htmlFor="name">Senha: </Topic>
-          <Input
-            type="password"
-            value={props.password}
-            name="password"
-            placeholder="Senha"
-            onChange={props.onChangePassword}
-          />
-          <Topic htmlFor="name">Selecione o cargo: </Topic>
-          <GroupButtons>
-            <Button variant="octonary" onClick={props.onClick}>Atendente</Button>
-            <Button variant="octonary" onClick={props.onClick}>Chefe de Cozinha</Button>
-            <Button variant="octonary" onClick={props.onClick}>Admin</Button>
-          </GroupButtons>
-        </>
-      )}
-      <Button variant="nonary" type="submit">{props.childrenBtn}</Button>
+        </GroupInput>
+      ))}
+      <Topic>{optionsForm.labelButton}</Topic>
+      <GroupButtons>
+        {optionsForm.buttons.map((children) => (
+          <Button key={children} variant="octonary" onClick={onClick}>{children}</Button>
+        ))}
+      </GroupButtons>
+      <Button variant="nonary" type="submit">{childrenBtn}</Button>
     </Form>
   );
 };

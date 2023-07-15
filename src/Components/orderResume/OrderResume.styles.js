@@ -8,8 +8,8 @@ export const Section = styled.section`
   display: grid;
   grid-template-areas:
     "title title"
-    "cova value"
-    "name client"
+    "pit pit"
+    "clientName clientName"
     "list list"
     "totalName totalValue"
     "btn btn";
@@ -32,48 +32,51 @@ export const Title = styled.h1`
   font-size: 1.5rem;
   text-align: center;
   @media only screen and (min-width: 600px) {
-    font-size: 2.5rem;
+    font-size: 2rem;
   }
   @media only screen and (min-width: 1024px) {
     font-size: 2.5rem;
   }
 `;
-export const Cova = styled.h4`
-  grid-area: cova;
+
+export const Topic = styled.h4`
   font-family: "Rubik Wet Paint", cursive;
   font-weight: 100;
-  font-size: 1.2rem;
-  margin-top: 1rem;
+  font-size: 1.4rem;
   @media only screen and (min-width: 600px) {
-    font-size: 1.8rem;
+    font-size: 1.9rem;
   }
 `;
-export const ValueSelect = styled.p`
-  grid-area: value;
+
+export const Value = styled.p`
   font-size: 1.5rem;
-  margin-top: 1rem;
   text-transform: capitalize;
   @media only screen and (min-width: 600px) {
     font-size: 2rem;
   }
 `;
-export const Clientame = styled.h4`
-  grid-area: name;
-  font-family: "Rubik Wet Paint", cursive;
-  font-weight: 100;
-  font-size: 1.2rem;
-  margin-top: 1rem;
-  @media only screen and (min-width: 600px) {
-    font-size: 1.8rem;
+
+export const PitNumber = styled.section`
+  grid-area: pit;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 1rem;
+  gap: 0.5rem;
+  @media only screen and (min-width: 1024px) {
+    padding: 2rem;
   }
 `;
-export const ValueName = styled.p`
-  grid-area: client;
-  font-size: 1.5rem;
-  margin-top: 1rem;
-  text-transform: capitalize;
-  @media only screen and (min-width: 600px) {
-    font-size: 2rem;
+
+export const ClientName = styled.section`
+  grid-area: clientName;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 1rem;
+  gap: 0.5rem;
+  @media only screen and (min-width: 1024px) {
+    padding: 2rem;
   }
 `;
 export const Ul = styled.ul`

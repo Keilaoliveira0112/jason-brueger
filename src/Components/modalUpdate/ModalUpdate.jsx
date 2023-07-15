@@ -1,5 +1,5 @@
-import FormAdd from "../formAdd/FormAdd";
-import { Background, BtnClose } from "../modal/Modal.styles";
+import FormAdd from "../FormAdd/FormAdd";
+import { Background, BtnClose } from "../Modal/Modal.styles";
 import ModalSection from "./ModalUpdate.styles";
 
 const ModalUpdate = (props) => {
@@ -13,17 +13,9 @@ const ModalUpdate = (props) => {
         <ModalSection>
           <BtnClose onClick={props.setModalOpen} />
           <FormAdd
-            isProductForm={props.isProductForm}
             onSubmit={props.onSubmit}
-            name={props.name}
-            onChangeName={props.onChangeName}
-            price={props.price}
-            onChangePrice={props.onChangePrice}
-            email={props.email}
-            onChangeEmail={props.onChangeEmail}
-            password={props.password}
-            onChangePassword={props.onChangePassword}
-            onClick={props.onClick}
+            onClick={props.onClickForm}
+            optionsForm={props.optionsForm}
             childrenBtn={props.childrenBtn}
           />
         </ModalSection>

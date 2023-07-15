@@ -1,5 +1,5 @@
 import request from "../request/request";
-import { getItem } from "../../storage/local";
+import { getItem } from "../../utils/localStorage";
 
 const patchOrders = async (idOrder, status) => {
   const token = getItem("token");

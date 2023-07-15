@@ -7,8 +7,14 @@ export const Form = styled.form`
   width: auto;
   border: 1rem #fffff;
   padding: 1rem;
-  border-radius: 1rem;
 `;
+
+export const GroupInput = styled.section`
+  display: grid;
+  place-items: center;
+  gap: 2rem;
+`;
+
 export const Topic = styled.label`
   font-family: "Asap", sans-serif;
   font-size: 1.5rem;

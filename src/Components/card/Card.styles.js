@@ -13,7 +13,7 @@ export const CardSection = styled.ul`
     gap: 5rem;
   }
 `;
-export const Each = styled.li`
+export const Container = styled.li`
   background-color: #D9D9D9;
   width: auto;
   height: auto;

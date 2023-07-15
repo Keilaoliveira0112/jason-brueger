@@ -1,16 +1,17 @@
 import { React, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Header from "../../../Components/header/Header";
-import Select from "../../../Components/select/Select";
-import FormAdd from "../../../Components/formAdd/FormAdd";
-import Card from "../../../Components/card/Card";
-import Modal from "../../../Components/modal/Modal";
-import ModalUpdate from "../../../Components/modalUpdate/ModalUpdate";
 import { Main, Filter, FilterTitle } from "./Products.styled";
-import getProducts from "../../../API/products/getProducts";
-import createProduct from "../../../API/products/postProducts";
-import deleteProducts from "../../../API/products/deleteProducts";
-import patchProducts from "../../../API/products/patchProducts";
+import Header from "../../../Components/Header/Header";
+import Select from "../../../Components/Select/Select";
+import FormAdd from "../../../Components/FormAdd/FormAdd";
+import Card from "../../../Components/Card/Card";
+import Modal from "../../../Components/Modal/Modal";
+import ModalUpdate from "../../../Components/ModalUpdate/ModalUpdate";
+import getProducts from "../../../api/products/getProducts";
+import createProduct from "../../../api/products/postProducts";
+import deleteProducts from "../../../api/products/deleteProducts";
+import patchProducts from "../../../api/products/patchProducts";
+import pageRoute from "../../../router/pageRoute";
 
 const Products = () => {
   const navigation = useNavigate();
@@ -39,7 +40,7 @@ const Products = () => {
 
   const handleClickNavigate = (e) => {
     e.preventDefault();
-    const page = e.target.textContent === "Funcionários" ? "/colaboradores" : "/produtos";
+    const page = e.target.textContent === "Funcionários" ? pageRoute.collaborators : pageRoute.products;
     navigation(page);
   };
 
@@ -54,13 +55,16 @@ const Products = () => {
     setEditingProduct((prevState) => ({ ...prevState, type: typeValue }));
   };
 
-  const handleSubmit = (e) => {
-    let errorMessage = "";
+  const handleClickSubmit = (e) => {
     e.preventDefault();
-    if (!editingProduct.name) {
+    const name = e.target.elements[0].value;
+    const price = parseInt(e.target.elements[1].value, 10);
+    setEditingProduct((prevState) => ({ ...prevState, name, price }));
+    let errorMessage;
+    if (!name) {
       errorMessage = "Informe um nome para o produto.";
     }
-    if (!editingProduct.price || editingProduct.price <= 0) {
+    if (!price || price <= 0) {
       errorMessage = "Informe um preço acima de 0.";
     }
     if (!editingProduct.type) {
@@ -79,8 +83,7 @@ const Products = () => {
 
   const handleSubmitNewProduct = async () => {
     try {
-      const price = parseInt(editingProduct.price, 10);
-      const response = await createProduct(editingProduct.name, price, editingProduct.type);
+      const response = await createProduct(editingProduct.name, editingProduct.price, editingProduct.type);
       const newProducts = [...products];
       newProducts.push(response);
       setProducts(newProducts);
@@ -176,6 +179,26 @@ const Products = () => {
     }
   };
 
+  const optionsForm = {
+    inputLabel: [
+      {
+        label: "Nome do Produto:",
+        type: "text",
+        name: "name",
+        placeholder: "Nome do Produto",
+      },
+      {
+        label: "Preço:",
+        min: 0,
+        type: "number",
+        name: "price",
+        placeholder: "Preço",
+      },
+    ],
+    labelButton: "Selecione o tipo:",
+    buttons: ["Café da Manhã", "Hamburguers", "Acompanhamentos", "Bebidas"],
+  };
+
   return (
     <>
       <Header
@@ -197,13 +220,9 @@ const Products = () => {
         </Filter>
         {selectValue === "Adicionar produtos" ? (
           <FormAdd
-            isProductForm
-            onSubmit={handleSubmit}
-            name={editingProduct.name}
-            onChangeName={(e) => setEditingProduct((prevState) => ({ ...prevState, name: e.target.value }))}
-            price={editingProduct.price}
-            onChangePrice={(e) => setEditingProduct((prevState) => ({ ...prevState, price: e.target.value }))}
+            onSubmit={handleClickSubmit}
             onClick={handleClickType}
+            optionsForm={optionsForm}
             childrenBtn="Criar Produto"
           />
         ) : (

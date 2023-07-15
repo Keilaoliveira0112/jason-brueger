@@ -1,16 +1,17 @@
 import { React, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Header from "../../../Components/header/Header";
-import Select from "../../../Components/select/Select";
-import FormAdd from "../../../Components/formAdd/FormAdd";
-import Card from "../../../Components/card/Card";
-import Modal from "../../../Components/modal/Modal";
-import ModalUpdate from "../../../Components/modalUpdate/ModalUpdate";
-import { Main, Filter, FilterTitle } from "./Collaborators.styles";
-import getUsers from "../../../API/users/getUsers";
-import patchUser from "../../../API/users/patchUser";
-import deleteUser from "../../../API/users/deleteUsers";
-import createUsers from "../../../API/users/postUsers";
+import { Main, Filter, FilterTitle } from "./Collaborators.styled";
+import Header from "../../../Components/Header/Header";
+import Select from "../../../Components/Select/Select";
+import FormAdd from "../../../Components/FormAdd/FormAdd";
+import Card from "../../../Components/Card/Card";
+import Modal from "../../../Components/Modal/Modal";
+import ModalUpdate from "../../../Components/ModalUpdate/ModalUpdate";
+import getUsers from "../../../api/users/getUsers";
+import patchUser from "../../../api/users/patchUser";
+import deleteUser from "../../../api/users/deleteUsers";
+import createUsers from "../../../api/users/postUsers";
+import pageRoute from "../../../router/pageRoute";
 
 const Collaborators = () => {
   const navigation = useNavigate();
@@ -19,7 +20,7 @@ const Collaborators = () => {
   const [valueArguments, setvalueArguments] = useState([]);
   const [openModal, setOpenModal] = useState(false);
   const [typeModal, setTypeModal] = useState("");
-  const [modalMessage, setmodalMessage] = useState("");
+  const [modalMessage, setModalMessage] = useState("");
   const [openModalUpdate, setOpenModalUpdate] = useState(false);
   const [editingUser, SetEditingUser] = useState({});
 
@@ -29,7 +30,7 @@ const Collaborators = () => {
         const response = await getUsers();
         setUsers(response);
       } catch (error) {
-        setmodalMessage(error.message);
+        setModalMessage(error.message);
         setTypeModal("warning");
         setOpenModal(true);
       }
@@ -39,7 +40,7 @@ const Collaborators = () => {
 
   const handleClickNavigate = (e) => {
     e.preventDefault();
-    const page = e.target.textContent === "Produtos" ? "/produtos" : "/colaboradores";
+    const page = e.target.textContent === "Produtos" ? pageRoute.products : pageRoute.collaborators;
     navigation(page);
   };
 
@@ -49,26 +50,36 @@ const Collaborators = () => {
   };
 
   const handleSubmit = (e) => {
+    const name = e.target.elements[0].value;
+    const email = e.target.elements[1].value;
+    const password = e.target.elements[2].value;
+    SetEditingUser((prevState) => (
+      {
+        ...prevState,
+        name,
+        email,
+        password,
+      }));
     let errorMessage;
     e.preventDefault();
-    if (!editingUser.name) {
+    if (!name) {
       errorMessage = "Informe um nome colaborador.";
     }
-    if (!editingUser.email) {
+    if (!email) {
       errorMessage = "Informe o email do colaborador.";
     }
-    if (!editingUser.password || editingUser.password.length < 6) {
+    if (!password || password.length < 6) {
       errorMessage = "Senha deve ser maior ou igual que 6 caracteres.";
     }
     if (!editingUser.role) {
       errorMessage = "Informe a função do colaborador";
     }
     if (errorMessage) {
-      setmodalMessage(errorMessage);
+      setModalMessage(errorMessage);
       setTypeModal("warning");
       setOpenModal(true);
     } else if (!openModal) {
-      setmodalMessage("Confirma o novo cadastro?");
+      setModalMessage("Confirma o novo cadastro?");
       setTypeModal("confirmation");
       setOpenModal(true);
     }
@@ -80,13 +91,13 @@ const Collaborators = () => {
       const newUsers = [...users];
       newUsers.push(response.user);
       setUsers(newUsers);
-      setmodalMessage("Cadastro criado com sucesso");
+      setModalMessage("Cadastro criado com sucesso");
       setTypeModal("sucess");
       setOpenModal(true);
       setTimeout(() => { setOpenModal(false); }, 3000);
       SetEditingUser({});
     } catch (error) {
-      setmodalMessage(error.message);
+      setModalMessage(error.message);
       setTypeModal("warning");
       setOpenModal(true);
     }
@@ -96,12 +107,12 @@ const Collaborators = () => {
     try {
       if (!openModal) {
         setvalueArguments(usersId);
-        setmodalMessage("Tem certeza que deseja excluir este cadastro?");
+        setModalMessage("Tem certeza que deseja excluir este cadastro?");
         setTypeModal("confirmation");
         setOpenModal(true);
       } else {
         await deleteUser(usersId);
-        setmodalMessage("Cadastro deletado com sucesso");
+        setModalMessage("Cadastro deletado com sucesso");
         setTypeModal("sucess");
         setOpenModal(true);
         setTimeout(() => { setOpenModal(false); }, 3000);
@@ -112,7 +123,7 @@ const Collaborators = () => {
         setvalueArguments([]);
       }
     } catch (error) {
-      setmodalMessage(error.message);
+      setModalMessage(error.message);
       setTypeModal("warning");
       setOpenModal(true);
     }
@@ -145,25 +156,14 @@ const Collaborators = () => {
   };
 
   const handleClickEdit = (user) => {
+    console.log(user);
     SetEditingUser(user);
     setOpenModalUpdate(true);
   };
 
-  const handleSubmitEditCollaborators = async (e) => {
-    e.preventDefault();
+  const sendEditedData = async () => {
     try {
-      if (!editingUser.name) {
-        throw new Error("Informe um nome colaborador.");
-      }
-      if (!editingUser.email) {
-        throw new Error("Informe o email do colaborador.");
-      }
-      if (!editingUser.password || editingUser.password.length < 6) {
-        throw new Error("Senha deve ser maior ou igual que 6 caracteres.");
-      }
-      if (!editingUser.role) {
-        throw new Error("Informe a função do colaborador");
-      }
+      console.log(editingUser);
       await patchUser(editingUser.id, {
         name: editingUser.name,
         email: editingUser.email,
@@ -171,7 +171,7 @@ const Collaborators = () => {
         role: editingUser.role,
       });
       setOpenModalUpdate(false);
-      setmodalMessage("Cadastro atualizado com sucesso");
+      setModalMessage("Cadastro atualizado com sucesso");
       setTypeModal("sucess");
       setOpenModal(true);
       setTimeout(() => { setOpenModal(false); }, 3000);
@@ -181,10 +181,70 @@ const Collaborators = () => {
       setUsers([...newUsers, editingUser].sort((a, b) => a.id - b.id));
       SetEditingUser({});
     } catch (error) {
-      setmodalMessage(error.message);
+      setModalMessage(error.message);
       setTypeModal("warning");
       setOpenModal(true);
     }
+  };
+
+  const handleSubmitEditCollaborators = (e) => {
+    e.preventDefault();
+    const name = e.target.elements[0].value;
+    const email = e.target.elements[1].value;
+    const password = e.target.elements[2].value;
+    console.log(name, email, password);
+    SetEditingUser((prevState) => (
+      {
+        ...prevState,
+        name,
+        email,
+        password,
+      }));
+    let errorMessage;
+    if (!name) {
+      errorMessage = "Informe um nome colaborador.";
+    }
+    if (!email) {
+      errorMessage = "Informe o email do colaborador.";
+    }
+    if (!password || password.length < 6) {
+      errorMessage = "Senha deve ser maior ou igual que 6 caracteres.";
+    }
+    if (!editingUser.role) {
+      errorMessage = "Informe a função do colaborador";
+    }
+    if (errorMessage) {
+      setModalMessage(errorMessage);
+      setTypeModal("warning");
+      setOpenModal(true);
+    } else {
+      sendEditedData();
+    }
+  };
+
+  const optionsForm = {
+    inputLabel: [
+      {
+        label: "Nome:",
+        type: "text",
+        name: "name",
+        placeholder: "Nome",
+      },
+      {
+        label: "Email:",
+        type: "email",
+        name: "email",
+        placeholder: "Email",
+      },
+      {
+        label: "Senha:",
+        type: "password",
+        name: "password",
+        placeholder: "Senha",
+      },
+    ],
+    labelButton: "Selecione o cargo:",
+    buttons: ["Atendente", "Chefe de Cozinha", "Admin"],
   };
 
   return (
@@ -208,15 +268,9 @@ const Collaborators = () => {
         </Filter>
         {selectValue === "Cadastrar novo funcionário" ? (
           <FormAdd
-            isProductForm={false}
             onSubmit={handleSubmit}
-            name={editingUser.name}
-            onChangeName={(e) => SetEditingUser((prevState) => ({ ...prevState, name: e.target.value }))}
-            email={editingUser.email}
-            onChangeEmail={(e) => SetEditingUser((prevState) => ({ ...prevState, email: e.target.value }))}
-            password={editingUser.password}
-            onChangePassword={(e) => SetEditingUser((prevState) => ({ ...prevState, password: e.target.value }))}
             onClick={handleClickRole}
+            optionsForm={optionsForm}
             childrenBtn="Criar Cadastro"
           />
         ) : (
@@ -236,16 +290,10 @@ const Collaborators = () => {
         />
         <ModalUpdate
           isOpen={openModalUpdate}
-          onSubmit={handleSubmitEditCollaborators}
           setModalOpen={handleModalClosure}
-          isProductForm={false}
-          name={editingUser.name}
-          onChangeName={(e) => SetEditingUser((prevState) => ({ ...prevState, name: e.target.value }))}
-          email={editingUser.email}
-          onChangeEmail={(e) => SetEditingUser((prevState) => ({ ...prevState, email: e.target.value }))}
-          password={editingUser.password}
-          onChangePassword={(e) => SetEditingUser((prevState) => ({ ...prevState, password: e.target.value }))}
-          onClick={handleClickRole}
+          onSubmit={handleSubmitEditCollaborators}
+          onClickForm={handleClickRole}
+          optionsForm={optionsForm}
           childrenBtn="Atualizar cadastro"
         />
       </Main>
