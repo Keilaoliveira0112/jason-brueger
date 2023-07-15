@@ -13,5 +13,12 @@ const Main = styled.main`
     gap: 5rem;
   }
 `;
+export const SectionMenu = styled.section`
+  display: grid;
+  gap: 2rem;
+  @media only screen and (min-width: 1024px) {
+    width: 32vw;
+  }
+`;
 
 export default Main;

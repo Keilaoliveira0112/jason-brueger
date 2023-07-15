@@ -46,10 +46,6 @@ describe("<ModalUpdate />", () => {
     const btnUpdate = btns[4];
     userEvent.click(btnUpdate);
     expect(props.onSubmit).toHaveBeenCalledTimes(1);
-
-    /* const bgModal = screen.getByTestId
-    userEvent.click(bgModal);
-    expect(props.setModalOpen).toHaveBeenCalledTimes(2); */
   });
 
   it("Should not render if isOpen is false", () => {
