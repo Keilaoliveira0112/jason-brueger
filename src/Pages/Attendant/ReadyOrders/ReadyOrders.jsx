@@ -6,7 +6,7 @@ import Order from "../../../Components/Order/Order";
 import Modal from "../../../Components/Modal/Modal";
 import getOrders from "../../../api/orders/getOrders";
 import patchOrders from "../../../api/orders/patchOrders";
-import path from "../../../router/path";
+import pageRoute from "../../../router/pageRoute";
 
 const ReadyOrders = () => {
   const navigation = useNavigate();
@@ -37,7 +37,7 @@ const ReadyOrders = () => {
 
   const handleClickNavigate = (e) => {
     e.preventDefault();
-    const type = e.target.textContent === "Novo Pedido" ? path.newOrder : path.readyOrders;
+    const type = e.target.textContent === "Novo Pedido" ? pageRoute.newOrder : pageRoute.readyOrders;
     navigation(type);
   };
 

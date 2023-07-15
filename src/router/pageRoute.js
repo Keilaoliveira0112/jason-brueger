@@ -1,4 +1,4 @@
-const path = {
+const pageRoute = {
   login: "/",
   newOrder: "/novo-pedido",
   readyOrders: "/pedidos-prontos",
@@ -8,4 +8,4 @@ const path = {
   products: "/produtos",
 };
 
-export default path;
+export default pageRoute;

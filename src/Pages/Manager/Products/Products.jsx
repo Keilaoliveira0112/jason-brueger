@@ -11,7 +11,7 @@ import getProducts from "../../../api/products/getProducts";
 import createProduct from "../../../api/products/postProducts";
 import deleteProducts from "../../../api/products/deleteProducts";
 import patchProducts from "../../../api/products/patchProducts";
-import path from "../../../router/path";
+import pageRoute from "../../../router/pageRoute";
 
 const Products = () => {
   const navigation = useNavigate();
@@ -40,7 +40,7 @@ const Products = () => {
 
   const handleClickNavigate = (e) => {
     e.preventDefault();
-    const page = e.target.textContent === "Funcionários" ? path.collaborators : path.products;
+    const page = e.target.textContent === "Funcionários" ? pageRoute.collaborators : pageRoute.products;
     navigation(page);
   };
 

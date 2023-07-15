@@ -11,7 +11,7 @@ import getUsers from "../../../api/users/getUsers";
 import patchUser from "../../../api/users/patchUser";
 import deleteUser from "../../../api/users/deleteUsers";
 import createUsers from "../../../api/users/postUsers";
-import path from "../../../router/path";
+import pageRoute from "../../../router/pageRoute";
 
 const Collaborators = () => {
   const navigation = useNavigate();
@@ -40,7 +40,7 @@ const Collaborators = () => {
 
   const handleClickNavigate = (e) => {
     e.preventDefault();
-    const page = e.target.textContent === "Produtos" ? path.products : path.collaborators;
+    const page = e.target.textContent === "Produtos" ? pageRoute.products : pageRoute.collaborators;
     navigation(page);
   };
 

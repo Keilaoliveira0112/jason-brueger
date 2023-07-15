@@ -15,7 +15,7 @@ import OrderResume from "../../../Components/OrderResume/OrderResume";
 import Modal from "../../../Components/Modal/Modal";
 import getProducts from "../../../api/products/getProducts";
 import createOrder from "../../../api/orders/orders";
-import path from "../../../router/path";
+import pageRoute from "../../../router/pageRoute";
 
 const NewOrder = () => {
   const navigation = useNavigate();
@@ -62,7 +62,7 @@ const NewOrder = () => {
 
   const handleClickNavigate = (e) => {
     e.preventDefault();
-    const page = e.target.textContent === "Novo Pedido" ? path.newOrder : path.readyOrders;
+    const page = e.target.textContent === "Novo Pedido" ? pageRoute.newOrder : pageRoute.readyOrders;
     navigation(page);
   };
 

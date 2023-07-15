@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import path from "./path";
+import pageRoute from "./pageRoute";
 import UserRoles from "./UserRoles";
 import Login from "../Pages/Login/Login";
 import NewOrder from "../Pages/Attendant/NewOrder/NewOrder";
@@ -13,9 +13,9 @@ const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={path.login} element={<Login />} />
+        <Route path={pageRoute.login} element={<Login />} />
         <Route
-          path={path.newOrder}
+          path={pageRoute.newOrder}
           element={
             (
               <UserRoles user="atendente">
@@ -25,7 +25,7 @@ const Router = () => {
           }
         />
         <Route
-          path={path.readyOrders}
+          path={pageRoute.readyOrders}
           element={
             (
               <UserRoles user="atendente">
@@ -35,7 +35,7 @@ const Router = () => {
           }
         />
         <Route
-          path={path.pendingOrders}
+          path={pageRoute.pendingOrders}
           element={
             (
               <UserRoles user="chefe de cozinha">
@@ -45,7 +45,7 @@ const Router = () => {
           }
         />
         <Route
-          path={path.completedOrders}
+          path={pageRoute.completedOrders}
           element={
             (
               <UserRoles user="chefe de cozinha">
@@ -55,7 +55,7 @@ const Router = () => {
           }
         />
         <Route
-          path={path.collaborators}
+          path={pageRoute.collaborators}
           element={
             (
               <UserRoles user="admin">
@@ -65,7 +65,7 @@ const Router = () => {
           }
         />
         <Route
-          path={path.products}
+          path={pageRoute.products}
           element={
             (
               <UserRoles user="admin">

@@ -11,7 +11,7 @@ import {
 import Button from "../../Components/Button/Button";
 import Input from "../../Components/Input/Input";
 import userLogin from "../../api/login/login";
-import path from "../../router/path";
+import pageRoute from "../../router/pageRoute";
 import { setItem } from "../../utils/localStorage";
 
 const Login = () => {
@@ -29,13 +29,13 @@ const Login = () => {
       setItem("username", signin.user.name);
       setItem("role", signin.user.role);
       if (signin.user.role === "atendente") {
-        navigation(path.newOrder);
+        navigation(pageRoute.newOrder);
       }
       if (signin.user.role === "chefe de cozinha") {
-        navigation(path.pendingOrders);
+        navigation(pageRoute.pendingOrders);
       }
       if (signin.user.role === "admin") {
-        navigation(path.collaborators);
+        navigation(pageRoute.collaborators);
       }
     } catch (err) {
       setError(err.message);

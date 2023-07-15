@@ -4,13 +4,13 @@ import logout from "../../assets/logout.svg";
 import Button from "../Button/Button";
 import { ContainerHeader, ImgLogo, ImgLogout } from "./Header.styles";
 import { removeItem } from "../../utils/localStorage";
-import path from "../../router/path";
+import pageRoute from "../../router/pageRoute";
 
 const Header = (props) => {
   const navigation = useNavigate();
   const handleClick = (e) => {
     e.preventDefault();
-    navigation(path.login);
+    navigation(pageRoute.login);
     removeItem("token");
   };
   return (

@@ -6,7 +6,7 @@ import Order from "../../../Components/Order/Order";
 import Modal from "../../../Components/Modal/Modal";
 import getOrders from "../../../api/orders/getOrders";
 import patchOrders from "../../../api/orders/patchOrders";
-import path from "../../../router/path";
+import pageRoute from "../../../router/pageRoute";
 
 const PendingOrdes = () => {
   const navigation = useNavigate();
@@ -37,7 +37,7 @@ const PendingOrdes = () => {
 
   const handleClickNavigate = (e) => {
     e.preventDefault();
-    const page = e.target.textContent === "Pedidos Concluídos" ? path.completedOrders : path.pendingOrders;
+    const page = e.target.textContent === "Pedidos Concluídos" ? pageRoute.completedOrders : pageRoute.pendingOrders;
     navigation(page);
   };
 
