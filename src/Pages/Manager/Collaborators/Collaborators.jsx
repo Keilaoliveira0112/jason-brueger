@@ -85,7 +85,7 @@ const Collaborators = () => {
     }
   };
 
-  const handleSubmitNewCollaborators = async () => {
+  const sendDataNewCollaborators = async () => {
     try {
       const response = await createUsers(editingUser.name, editingUser.email, editingUser.password, editingUser.role);
       const newUsers = [...users];
@@ -132,13 +132,13 @@ const Collaborators = () => {
   const callCorrectFunction = () => {
     switch (modalMessage) {
       case "Confirma o novo cadastro?":
-        handleSubmitNewCollaborators();
+        sendDataNewCollaborators();
         break;
       case "Tem certeza que deseja excluir este cadastro?":
         handleClickDelete(valueArguments);
         break;
       default:
-        handleSubmitNewCollaborators();
+        sendDataNewCollaborators();
     }
   };
 
